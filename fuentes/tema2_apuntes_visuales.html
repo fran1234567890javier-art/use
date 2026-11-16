@@ -1,0 +1,815 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8">
+<title>Tema 2 · Apuntes visuales</title><style>@page { size: A4; margin: 0; }
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body { font-family: "Noto Sans", sans-serif; color: #2b3240; font-size: 10.6pt; line-height: 1.45;
+       -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+.page { width: 210mm; height: 297mm; position: relative; overflow: hidden; background: #fdfbf7;
+        padding: 16mm 15mm 14mm; page-break-after: always; display: flex; flex-direction: column; }
+.page:last-child { page-break-after: auto; }
+.band { position: absolute; top: 0; left: 0; right: 0; height: 7mm; background: var(--c); }
+header { background: #f3efe8; border-radius: 10px; padding: 4mm 6mm 3.5mm; margin-bottom: 5mm; }
+.kicker { font-size: 8.5pt; font-weight: 700; letter-spacing: .08em; color: var(--c); }
+h1 { font-size: 17pt; line-height: 1.2; margin: 1mm 0 1.5mm; color: #2b3240; }
+h1::after { content: ""; display: block; width: 32mm; height: 1.2mm; background: var(--c); border-radius: 1mm; margin-top: 2mm; }
+.orig { font-size: 8pt; color: #8a8478; text-transform: uppercase; letter-spacing: .06em; }
+.main { flex: 0 0 auto; display: flex; flex-direction: column; gap: 4mm; min-height: 0; }
+.main.split { flex-direction: row; gap: 7mm; align-items: flex-start; }
+.main.split .text { flex: 1 1 56%; }
+.main.split .fig { flex: 0 0 41%; }
+.main.split.left { flex-direction: row; }
+.fig { margin: 0; background: #f3efe8; border-radius: 12px; padding: 4mm; }
+.fig svg { width: 100%; height: auto; display: block; }
+.fig.wide { padding: 4mm 6mm; }
+.fig.below { align-self: center; width: 50%; padding: 3mm 4mm; }
+figcaption { font-size: 8pt; color: #7a7468; text-align: center; margin-top: 2mm; font-style: italic; }
+p { margin: 0 0 2.6mm; }
+.lead { font-weight: 700; color: var(--c); margin-top: 3mm; }
+.small { font-size: 8.8pt; color: #5d6577; }
+.q { background: #fff; border-left: 1.4mm solid var(--c); padding: 2.5mm 4mm; border-radius: 0 8px 8px 0; }
+blockquote { margin: 0 0 4mm; padding: 3mm 4.5mm; background: #fff; border-left: 1.4mm solid var(--c); border-radius: 0 10px 10px 0; font-size: 11pt; }
+blockquote cite { display: block; font-style: normal; font-weight: 700; color: var(--c); font-size: 8.8pt; letter-spacing: .06em; text-transform: uppercase; margin-bottom: 1.2mm; }
+ul.dots { margin: 0 0 2.6mm; padding-left: 0; list-style: none; }
+ul.dots li { position: relative; padding-left: 5mm; margin-bottom: 1.8mm; }
+ul.dots li::before { content: ""; position: absolute; left: 0; top: 2.1mm; width: 2.2mm; height: 2.2mm; border-radius: 50%; background: var(--c); }
+ol.steps { margin: 0 0 3mm; padding: 0; list-style: none; counter-reset: s; }
+ol.steps li { counter-increment: s; position: relative; padding-left: 9mm; margin-bottom: 2.4mm; min-height: 6.5mm; }
+ol.steps li::before { content: counter(s); position: absolute; left: 0; top: 0; width: 6.5mm; height: 6.5mm; border-radius: 50%;
+  background: var(--c); color: #fff; font-weight: 700; font-size: 9pt; display: flex; align-items: center; justify-content: center; }
+ol.cols2 { columns: 2; column-gap: 8mm; margin: 0 0 3mm; padding-left: 6mm; }
+ol.cols2 li { margin-bottom: 1.6mm; break-inside: avoid; }
+ol.cols2 li::marker { color: var(--c); font-weight: 700; }
+ul.grid2 { list-style: none; padding: 0; margin: 0 0 3mm; display: grid; grid-template-columns: 1fr 1fr; gap: 2mm 4mm; }
+ul.grid2 li { background: #fff; border: 1px solid #e3ddd2; border-left: 1.2mm solid var(--c); border-radius: 6px; padding: 2mm 3mm; font-size: 9.8pt; }
+dl.defs { margin: 0 0 3mm; }
+dl.defs dt { font-weight: 700; color: var(--c); }
+dl.defs dd { margin: 0 0 2mm 0; }
+dl.defs.big dt { font-size: 11.5pt; }
+dl.defs.big dd { margin-bottom: 3.5mm; }
+h3 { font-size: 10.6pt; margin: 0 0 1.4mm; color: var(--c); }
+h3.sub { margin-top: 1mm; }
+.cards2 { display: grid; grid-template-columns: 1fr 1fr; gap: 4mm; margin-bottom: 3.5mm; }
+.cards3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 4mm; }
+.cards2 > div, .cards3 > div { background: #fff; border: 1px solid #e3ddd2; border-top: 1.4mm solid var(--c); border-radius: 8px; padding: 3mm 3.5mm; }
+.cards2.tight > div { font-size: 9.8pt; }
+.ex { margin: 2mm 0 0; font-size: 9.2pt; color: #5d6577; font-style: italic; }
+table.t { width: 100%; border-collapse: separate; border-spacing: 0; margin: 0 0 3.5mm; font-size: 9.6pt; background: #fff; border-radius: 8px; overflow: hidden; border: 1px solid #e3ddd2; }
+table.t th { background: var(--c); color: #fff; text-align: left; padding: 2mm 2.5mm; font-weight: 700; }
+table.t td { padding: 1.8mm 2.5mm; border-top: 1px solid #ece6db; vertical-align: top; }
+table.t tr:nth-child(odd) td { background: #faf7f2; }
+.tag { color: #fff; padding: .4mm 2mm; border-radius: 4px; font-weight: 700; font-size: 9pt; }
+.remember { margin-top: 4mm; border-top: 0.5mm solid var(--c); padding-top: 3mm; }
+.remember h2 { font-size: 9pt; letter-spacing: .08em; text-transform: uppercase; color: var(--c); margin: 0 0 2mm; }
+.remember ul { margin: 0; padding-left: 5mm; }
+.remember li { margin-bottom: 1.2mm; font-weight: 600; }
+.remember li::marker { color: var(--c); }
+.hint { margin-top: auto; background: #f4ede6; border-radius: 10px; padding: 3mm 5mm; font-size: 9pt; color: #5d5a55; }
+.hint b { display: block; color: var(--c); font-size: 8.5pt; letter-spacing: .08em; text-transform: uppercase; margin-bottom: .6mm; }
+.num { position: absolute; right: 15mm; bottom: 6mm; font-weight: 700; color: var(--c); font-size: 10pt; }
+</style></head><body>
+
+<section class="page" style="--c:#b65c72">
+  <div class="band"></div>
+  <header><div class="kicker">TEMA 2 · 1. INFORMACIÓN</div><h1>Un concepto complejo y controvertido</h1>
+  <div class="orig">Ideas clave · diapositiva original 4</div></header>
+  <div class="main split"><div class="text">
+<blockquote><cite>Claude Shannon (1953/1993)</cite>Ningún concepto único de información explica satisfactoriamente todas sus posibles aplicaciones.</blockquote>
+<blockquote><cite>Capurro y Hjørland (2003)</cite>Casi todas las disciplinas usan el concepto de información en su propio contexto. Hay muchos conceptos de información, insertos en marcos teóricos más o menos explícitos.</blockquote>
+<p>Por eso, en este tema no buscamos <em>la</em> definición de información, sino entender las principales y saber cuál conviene a las Ciencias de la Información y la Documentación (CID).</p>
+</div><figure class="fig"><svg viewBox="0 0 320 260" xmlns="http://www.w3.org/2000/svg" font-family="Noto Sans, sans-serif"><defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#4a5262"/></marker></defs><circle cx="160" cy="130" r="62" fill="#fff" stroke="#b65c72" stroke-width="4"/><text x="160" y="130.0" font-size="17" fill="#b65c72" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="160" dy="0">i → ?</tspan></text><rect x="20" y="20" width="100" height="50" rx="10" fill="#7f6ea3"/><text x="70.0" y="45.0" font-size="12" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="70.0" dy="0">Física</tspan></text><rect x="200" y="20" width="100" height="50" rx="10" fill="#647f52"/><text x="250.0" y="45.0" font-size="12" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="250.0" dy="0">Biología</tspan></text><rect x="20" y="190" width="100" height="50" rx="10" fill="#4f8487"/><text x="70.0" y="215.0" font-size="12" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="70.0" dy="0">Sociedad</tspan></text><rect x="200" y="190" width="100" height="50" rx="10" fill="#a97f3f"/><text x="250.0" y="215.0" font-size="12" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="250.0" dy="0">Documentación</tspan></text></svg></figure></div>
+  <div class="remember"><h2>Para entenderlo y recordarlo</h2><ul><li>La información no tiene una definición única: cada disciplina la entiende a su manera.</li><li>Hasta el creador de la teoría de la información, Shannon, advirtió de ello.</li></ul></div>
+  <div class="hint"><b>Pista visual</b> El signo <b>i → ?</b> rodeado de cuatro disciplinas: una misma palabra, cuatro respuestas distintas.</div>
+  <div class="num">01</div>
+</section>
+<section class="page" style="--c:#4f8487">
+  <div class="band"></div>
+  <header><div class="kicker">TEMA 2 · 1. INFORMACIÓN</div><h1>Cuatro niveles en cualquier comunicación</h1>
+  <div class="orig">Ideas clave · diapositiva original 5</div></header>
+  <div class="main split"><div class="text">
+<p>El diccionario recoge dos sentidos actuales de <b>información</b>: la transmisión de conocimiento y la acción de dar forma o carácter a algo.</p>
+<p>Cualquier comunicación de información puede entenderse a la vez en <b>cuatro niveles</b>:</p>
+<ol class="steps">
+<li><b>La transmisión física</b>: el soporte y la señal.</li>
+<li><b>El lenguaje o la codificación</b> utilizada.</li>
+<li><b>El significado</b> del mensaje.</li>
+<li><b>La importancia</b> del mensaje para un receptor en un contexto concreto.</li>
+</ol>
+<p>Como recuerda Shannon, no debemos esperar una idea única y simple de información que funcione en todas las circunstancias.</p>
+</div><figure class="fig"><svg viewBox="0 0 320 280" xmlns="http://www.w3.org/2000/svg" font-family="Noto Sans, sans-serif"><defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#4a5262"/></marker></defs><rect x="10" y="10" width="300" height="52" rx="8" fill="#b65c72"/><text x="160" y="28.0" font-size="14" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="160" dy="0">4 · Relevancia</tspan></text><text x="160" y="47.0" font-size="11" fill="#fff" font-weight="normal" text-anchor="middle" dominant-baseline="middle"><tspan x="160" dy="0">qué importa a quien lo recibe</tspan></text><rect x="10" y="72" width="300" height="52" rx="8" fill="#a97f3f"/><text x="160" y="90.0" font-size="14" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="160" dy="0">3 · Significado</tspan></text><text x="160" y="109.0" font-size="11" fill="#fff" font-weight="normal" text-anchor="middle" dominant-baseline="middle"><tspan x="160" dy="0">qué dice el mensaje</tspan></text><rect x="10" y="134" width="300" height="52" rx="8" fill="#647f52"/><text x="160" y="152.0" font-size="14" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="160" dy="0">2 · Lenguaje o código</tspan></text><text x="160" y="171.0" font-size="11" fill="#fff" font-weight="normal" text-anchor="middle" dominant-baseline="middle"><tspan x="160" dy="0">alfabeto, bits, idioma</tspan></text><rect x="10" y="196" width="300" height="52" rx="8" fill="#4f8487"/><text x="160" y="214.0" font-size="14" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="160" dy="0">1 · Transmisión física</tspan></text><text x="160" y="233.0" font-size="11" fill="#fff" font-weight="normal" text-anchor="middle" dominant-baseline="middle"><tspan x="160" dy="0">señales, cables, ondas</tspan></text><text x="160" y="268.0" font-size="11" fill="#666" font-weight="normal" text-anchor="middle" dominant-baseline="middle" font-style="italic"><tspan x="160" dy="0">Los cuatro niveles actúan a la vez</tspan></text></svg></figure></div>
+  <div class="remember"><h2>Para entenderlo y recordarlo</h2><ul><li>Física → código → significado → relevancia: los cuatro niveles conviven en cada mensaje.</li><li>Las teorías difieren según el nivel en el que se fijan.</li></ul></div>
+  <div class="hint"><b>Pista visual</b> Una torre de cuatro pisos: abajo la señal física, arriba lo que el mensaje importa a quien lo recibe.</div>
+  <div class="num">02</div>
+</section>
+<section class="page" style="--c:#a97f3f">
+  <div class="band"></div>
+  <header><div class="kicker">TEMA 2 · 1. INFORMACIÓN</div><h1>Shannon: la primera definición formal</h1>
+  <div class="orig">Ideas clave · diapositiva original 6</div></header>
+  <div class="main split"><div class="text">
+<ul class="dots">
+<li>Hasta mediados del siglo XX, la información se entendía como la comunicación de hechos o conocimientos significativos, sin ninguna definición formal.</li>
+<li>Claude Shannon (1916-2001) dio la <b>primera definición cuantitativa</b> en «Una teoría matemática de la comunicación» (1948), ampliada como libro con Warren Weaver (Shannon y Weaver, 1949).</li>
+<li>En su teoría, un mensaje tiene más información cuanto <b>menos probable</b> es la combinación de símbolos. La información se equipara con la sorpresa, la imprevisibilidad y la aleatoriedad.</li>
+<li>Shannon buscaba transmitir mensajes de forma eficiente por telégrafo y teléfono, así que <b>no se ocupaba del significado</b> de los mensajes.</li>
+</ul>
+</div><figure class="fig"><svg viewBox="0 0 320 262" xmlns="http://www.w3.org/2000/svg" font-family="Noto Sans, sans-serif"><defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#4a5262"/></marker></defs><text x="160" y="16.0" font-size="13" fill="#2b3240" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="160" dy="0">¿Cuánta información trae el mensaje?</tspan></text><rect x="10" y="40" width="140" height="70" rx="10" fill="#e9e4da"/><text x="80.0" y="67.5" font-size="12" fill="#2b3240" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="80.0" dy="0">«Mañana sale</tspan><tspan x="80.0" dy="15.0">el sol»</tspan></text><rect x="170" y="40" width="140" height="70" rx="10" fill="#a97f3f"/><text x="240.0" y="67.5" font-size="12" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="240.0" dy="0">«Mañana nieva</tspan><tspan x="240.0" dy="15.0">en Sevilla»</tspan></text><text x="80" y="128.0" font-size="11" fill="#555" font-weight="normal" text-anchor="middle" dominant-baseline="middle"><tspan x="80" dy="0">muy probable</tspan></text><text x="240" y="128.0" font-size="11" fill="#555" font-weight="normal" text-anchor="middle" dominant-baseline="middle"><tspan x="240" dy="0">muy improbable</tspan></text><rect x="20" y="145" width="120" height="16" rx="8" fill="#e9e4da"/><rect x="20" y="145" width="18" height="16" rx="8" fill="#a97f3f"/><rect x="180" y="145" width="120" height="16" rx="8" fill="#e9e4da"/><rect x="180" y="145" width="112" height="16" rx="8" fill="#a97f3f"/><text x="80" y="178.0" font-size="10" fill="#555" font-weight="normal" text-anchor="middle" dominant-baseline="middle"><tspan x="80" dy="0">poca sorpresa = poca información</tspan></text><text x="240" y="178.0" font-size="10" fill="#555" font-weight="normal" text-anchor="middle" dominant-baseline="middle"><tspan x="240" dy="0">mucha sorpresa = mucha información</tspan></text><text x="160" y="215.0" font-size="11" fill="#2b3240" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="160" dy="0">Shannon mide probabilidad, no significado:</tspan></text><text x="160" y="233.0" font-size="11" fill="#2b3240" font-weight="normal" text-anchor="middle" dominant-baseline="middle"><tspan x="160" dy="0">una cadena aleatoria de letras «informa» mucho</tspan></text><text x="160" y="250.0" font-size="11" fill="#2b3240" font-weight="normal" text-anchor="middle" dominant-baseline="middle"><tspan x="160" dy="0">aunque no quiera decir nada.</tspan></text></svg></figure></div>
+  <div class="remember"><h2>Para entenderlo y recordarlo</h2><ul><li>Información según Shannon = sorpresa: lo improbable informa más.</li><li>Su teoría mide la eficiencia de la transmisión e ignora el significado.</li></ul></div>
+  <div class="hint"><b>Pista visual</b> Dos mensajes con su barra de «sorpresa»: el que casi nunca ocurre llena la barra.</div>
+  <div class="num">03</div>
+</section>
+<section class="page" style="--c:#7f6ea3">
+  <div class="band"></div>
+  <header><div class="kicker">TEMA 2 · 1. INFORMACIÓN</div><h1>La teoría matemática de Shannon</h1>
+  <div class="orig">Ideas clave · diapositiva original 7</div></header>
+  <div class="main"><figure class="fig wide"><svg viewBox="0 0 640 230" xmlns="http://www.w3.org/2000/svg" font-family="Noto Sans, sans-serif"><defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#4a5262"/></marker></defs><rect x="5" y="40" width="110" height="60" rx="10" fill="#7f6ea3"/><text x="60.0" y="61.875" font-size="13" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="60.0" dy="0">Fuente de</tspan><tspan x="60.0" dy="16.25">información</tspan></text><rect x="135" y="40" width="110" height="60" rx="10" fill="#7f6ea3"/><text x="190.0" y="70.0" font-size="13" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="190.0" dy="0">Transmisor</tspan></text><rect x="265" y="40" width="110" height="60" rx="10" fill="#fff" stroke="#7f6ea3" stroke-width="2"/><text x="320.0" y="70.0" font-size="13" fill="#7f6ea3" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="320.0" dy="0">Canal</tspan></text><rect x="395" y="40" width="110" height="60" rx="10" fill="#7f6ea3"/><text x="450.0" y="70.0" font-size="13" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="450.0" dy="0">Receptor</tspan></text><rect x="525" y="40" width="110" height="60" rx="10" fill="#7f6ea3"/><text x="580.0" y="70.0" font-size="13" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="580.0" dy="0">Destino</tspan></text><line x1="117" y1="70" x2="133" y2="70" stroke="#4a5262" stroke-width="2.2" marker-end="url(#ar)"/><text x="125.0" y="25.0" font-size="10" fill="#555" font-weight="normal" text-anchor="middle" dominant-baseline="middle" font-style="italic"><tspan x="125.0" dy="0">mensaje</tspan></text><line x1="247" y1="70" x2="263" y2="70" stroke="#4a5262" stroke-width="2.2" marker-end="url(#ar)"/><text x="255.0" y="120.0" font-size="10" fill="#555" font-weight="normal" text-anchor="middle" dominant-baseline="middle" font-style="italic"><tspan x="255.0" dy="0">señal</tspan></text><line x1="377" y1="70" x2="393" y2="70" stroke="#4a5262" stroke-width="2.2" marker-end="url(#ar)"/><text x="385.0" y="113.75" font-size="10" fill="#555" font-weight="normal" text-anchor="middle" dominant-baseline="middle" font-style="italic"><tspan x="385.0" dy="0">señal</tspan><tspan x="385.0" dy="12.5">recibida</tspan></text><line x1="507" y1="70" x2="523" y2="70" stroke="#4a5262" stroke-width="2.2" marker-end="url(#ar)"/><text x="515.0" y="25.0" font-size="10" fill="#555" font-weight="normal" text-anchor="middle" dominant-baseline="middle" font-style="italic"><tspan x="515.0" dy="0">mensaje</tspan></text><rect x="255" y="150" width="130" height="44" rx="10" fill="#b0654a"/><text x="320.0" y="172.0" font-size="12" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="320.0" dy="0">Fuente de ruido</tspan></text><line x1="320" y1="150" x2="320" y2="104" stroke="#b0654a" stroke-width="2.2" marker-end="url(#ar)"/><text x="320" y="215.0" font-size="12" fill="#555" font-weight="normal" text-anchor="middle" dominant-baseline="middle" font-style="italic"><tspan x="320" dy="0">Shannon y Weaver (1949): modelo lineal de la comunicación</tspan></text></svg></figure><div class="text">
+<div class="cards3">
+<div><h3>Formalismo estadístico</h3>Relaciona el contenido de información de un mensaje con la probabilidad de sus símbolos, sin atender al significado.</div>
+<div><h3>Información = sorpresa</h3>Las combinaciones de símbolos poco probables tienen más contenido informativo: imprevisibilidad y aleatoriedad.</div>
+<div><h3>Base de toda teoría</h3>Se acepta universalmente. Sus extensiones para tratar el significado no han tenido un éxito completo.</div>
+</div>
+</div></div>
+  <div class="remember"><h2>Para entenderlo y recordarlo</h2><ul><li>Cinco elementos: fuente, transmisor, canal, receptor y destino. El ruido interfiere en el canal.</li><li>Es la base aceptada de cualquier teoría general de la información.</li></ul></div>
+  <div class="hint"><b>Pista visual</b> Una cadena de cinco cajas con una flecha de ruido que entra por el medio, en el canal.</div>
+  <div class="num">04</div>
+</section>
+<section class="page" style="--c:#647f52">
+  <div class="band"></div>
+  <header><div class="kicker">TEMA 2 · 1. INFORMACIÓN</div><h1>Información en el mundo físico</h1>
+  <div class="orig">Ideas clave · diapositiva original 8</div></header>
+  <div class="main split"><div class="text">
+<ul class="dots">
+<li>En las últimas décadas, la física ha incorporado la información como una <b>cantidad explícita</b>, igual que la energía o la materia.</li>
+<li>Describir con detalle un sistema desordenado exige muchas más palabras que describir uno ordenado y simple. Esas palabras de más corresponden a la <b>entropía</b> (o información) adicional del sistema. La relación entre información y entropía es sutil.</li>
+<li>En informática y telecomunicaciones, la información se procesa con dispositivos físicos. Por eso parece natural tratarla como una cantidad física: la información <b>siempre está en algún sistema físico</b>.</li>
+</ul>
+</div><figure class="fig"><svg viewBox="0 0 320 255" xmlns="http://www.w3.org/2000/svg" font-family="Noto Sans, sans-serif"><defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#4a5262"/></marker></defs><text x="80" y="14.0" font-size="13" fill="#2b3240" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="80" dy="0">Ordenado</tspan></text><text x="240" y="14.0" font-size="13" fill="#2b3240" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="240" dy="0">Desordenado</tspan></text><rect x="5" y="28" width="150" height="150" rx="10" fill="#fff" stroke="#ddd"/><rect x="165" y="28" width="150" height="150" rx="10" fill="#fff" stroke="#ddd"/><circle cx="25" cy="48" r="8" fill="#647f52"/><circle cx="25" cy="75" r="8" fill="#647f52"/><circle cx="25" cy="102" r="8" fill="#647f52"/><circle cx="25" cy="129" r="8" fill="#647f52"/><circle cx="25" cy="156" r="8" fill="#647f52"/><circle cx="52" cy="48" r="8" fill="#647f52"/><circle cx="52" cy="75" r="8" fill="#647f52"/><circle cx="52" cy="102" r="8" fill="#647f52"/><circle cx="52" cy="129" r="8" fill="#647f52"/><circle cx="52" cy="156" r="8" fill="#647f52"/><circle cx="79" cy="48" r="8" fill="#647f52"/><circle cx="79" cy="75" r="8" fill="#647f52"/><circle cx="79" cy="102" r="8" fill="#647f52"/><circle cx="79" cy="129" r="8" fill="#647f52"/><circle cx="79" cy="156" r="8" fill="#647f52"/><circle cx="106" cy="48" r="8" fill="#647f52"/><circle cx="106" cy="75" r="8" fill="#647f52"/><circle cx="106" cy="102" r="8" fill="#647f52"/><circle cx="106" cy="129" r="8" fill="#647f52"/><circle cx="106" cy="156" r="8" fill="#647f52"/><circle cx="133" cy="48" r="8" fill="#647f52"/><circle cx="133" cy="75" r="8" fill="#647f52"/><circle cx="133" cy="102" r="8" fill="#647f52"/><circle cx="133" cy="129" r="8" fill="#647f52"/><circle cx="133" cy="156" r="8" fill="#647f52"/><circle cx="221" cy="163" r="8" fill="#a97f3f"/><circle cx="230" cy="125" r="8" fill="#647f52"/><circle cx="189" cy="147" r="8" fill="#647f52"/><circle cx="226" cy="116" r="8" fill="#647f52"/><circle cx="296" cy="106" r="8" fill="#a97f3f"/><circle cx="184" cy="53" r="8" fill="#b0654a"/><circle cx="233" cy="50" r="8" fill="#a97f3f"/><circle cx="191" cy="112" r="8" fill="#b0654a"/><circle cx="187" cy="147" r="8" fill="#647f52"/><circle cx="208" cy="122" r="8" fill="#647f52"/><circle cx="253" cy="116" r="8" fill="#b0654a"/><circle cx="186" cy="70" r="8" fill="#647f52"/><circle cx="251" cy="151" r="8" fill="#a97f3f"/><circle cx="217" cy="95" r="8" fill="#a97f3f"/><circle cx="249" cy="57" r="8" fill="#4f8487"/><circle cx="251" cy="146" r="8" fill="#a97f3f"/><circle cx="193" cy="116" r="8" fill="#a97f3f"/><circle cx="227" cy="54" r="8" fill="#647f52"/><circle cx="252" cy="49" r="8" fill="#a97f3f"/><circle cx="243" cy="129" r="8" fill="#b0654a"/><circle cx="279" cy="82" r="8" fill="#b0654a"/><circle cx="254" cy="160" r="8" fill="#b0654a"/><circle cx="226" cy="80" r="8" fill="#a97f3f"/><circle cx="281" cy="65" r="8" fill="#a97f3f"/><circle cx="190" cy="115" r="8" fill="#4f8487"/><text x="80" y="193.125" font-size="11" fill="#555" font-weight="normal" text-anchor="middle" dominant-baseline="middle"><tspan x="80" dy="0">«25 círculos verdes</tspan><tspan x="80" dy="13.75">en cuadrícula 5×5»</tspan></text><text x="240" y="193.125" font-size="11" fill="#555" font-weight="normal" text-anchor="middle" dominant-baseline="middle"><tspan x="240" dy="0">hay que describir</tspan><tspan x="240" dy="13.75">cada círculo uno a uno</tspan></text><text x="160" y="240.0" font-size="12" fill="#647f52" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="160" dy="0">más desorden (entropía) → descripción más larga</tspan></text></svg></figure></div>
+  <div class="remember"><h2>Para entenderlo y recordarlo</h2><ul><li>La física trata la información como una magnitud, al nivel de la materia y la energía.</li><li>Clave: su relación con la entropía. Un sistema desordenado necesita una descripción más larga: contiene más información.</li></ul></div>
+  <div class="hint"><b>Pista visual</b> Dos cajas de círculos: la ordenada se describe en una frase; la desordenada, punto por punto.</div>
+  <div class="num">05</div>
+</section>
+<section class="page" style="--c:#b0654a">
+  <div class="band"></div>
+  <header><div class="kicker">TEMA 2 · 1. INFORMACIÓN</div><h1>Información en el mundo biológico</h1>
+  <div class="orig">Ideas clave · diapositiva original 9</div></header>
+  <div class="main split"><div class="text">
+<ul class="dots">
+<li>Erwin Schrödinger, pionero de la mecánica cuántica, propuso en <i>¿Qué es la vida?</i> (1944) que los organismos vivos se alimentan de <b>entropía negativa</b>.</li>
+<li>Léon Brillouin popularizó en 1956 la etiqueta <b>negentropía</b> para la idea de la información como lo opuesto a la entropía.</li>
+</ul>
+<p class="lead">Instancias concretas de información en biología:</p>
+<ul class="dots">
+<li>La codificación de la información genética en el <b>ADN</b>, quizá la más evidente.</li>
+<li>La comunicación entre células, plantas y animales.</li>
+<li>El uso de <b>memoria externa</b> por especies no humanas (rastros, marcas, construcciones).</li>
+</ul>
+<p>Desde entonces, la información es un concepto central en biología, y la capacidad de procesarla y transmitirla se considera parte de la definición de vida.</p>
+</div><figure class="fig"><svg viewBox="0 0 320 262" xmlns="http://www.w3.org/2000/svg" font-family="Noto Sans, sans-serif"><defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#4a5262"/></marker></defs><line x1="90.0" y1="10" x2="90.0" y2="10" stroke="#b0654a" stroke-width="4"/><line x1="117.8" y1="26" x2="62.2" y2="26" stroke="#4f8487" stroke-width="4"/><line x1="133.7" y1="42" x2="46.3" y2="42" stroke="#a97f3f" stroke-width="4"/><line x1="130.9" y1="58" x2="49.1" y2="58" stroke="#647f52" stroke-width="4"/><line x1="110.6" y1="74" x2="69.4" y2="74" stroke="#b0654a" stroke-width="4"/><line x1="81.4" y1="90" x2="98.6" y2="90" stroke="#4f8487" stroke-width="4"/><line x1="55.9" y1="106" x2="124.1" y2="106" stroke="#a97f3f" stroke-width="4"/><line x1="45.0" y1="122" x2="135.0" y2="122" stroke="#647f52" stroke-width="4"/><line x1="53.4" y1="138" x2="126.6" y2="138" stroke="#b0654a" stroke-width="4"/><line x1="77.4" y1="154" x2="102.6" y2="154" stroke="#4f8487" stroke-width="4"/><line x1="106.8" y1="170" x2="73.2" y2="170" stroke="#a97f3f" stroke-width="4"/><line x1="129.0" y1="186" x2="51.0" y2="186" stroke="#647f52" stroke-width="4"/><line x1="134.5" y1="202" x2="45.5" y2="202" stroke="#b0654a" stroke-width="4"/><line x1="120.9" y1="218" x2="59.1" y2="218" stroke="#4f8487" stroke-width="4"/><line x1="94.1" y1="234" x2="85.9" y2="234" stroke="#a97f3f" stroke-width="4"/><line x1="65.5" y1="250" x2="114.5" y2="250" stroke="#647f52" stroke-width="4"/><polyline points="90.0,10 97.5,14 104.7,18 111.6,22 117.8,26 123.3,30 127.9,34 131.4,38 133.7,42 134.9,46 134.8,50 133.5,54 130.9,58 127.2,62 122.5,66 116.9,70 110.6,74 103.7,78 96.4,82 88.9,86 81.4,90 74.2,94 67.4,98 61.3,102 55.9,106 51.5,110 48.2,114 46.0,118 45.0,122 45.3,126 46.8,130 49.6,134 53.4,138 58.3,142 64.0,146 70.4,150 77.4,154 84.8,158 92.3,162 99.7,166 106.8,170 113.5,174 119.6,178 124.8,182 129.0,186 132.2,190 134.2,194 135.0,198 134.5,202 132.8,206 129.9,210 125.9,214 120.9,218 115.1,222 108.5,226 101.5,230 94.1,234 86.6,238 79.2,242 72.1,246 65.5,250" fill="none" stroke="#b0654a" stroke-width="5"/><polyline points="90.0,10 82.5,14 75.3,18 68.4,22 62.2,26 56.7,30 52.1,34 48.6,38 46.3,42 45.1,46 45.2,50 46.5,54 49.1,58 52.8,62 57.5,66 63.1,70 69.4,74 76.3,78 83.6,82 91.1,86 98.6,90 105.8,94 112.6,98 118.7,102 124.1,106 128.5,110 131.8,114 134.0,118 135.0,122 134.7,126 133.2,130 130.4,134 126.6,138 121.7,142 116.0,146 109.6,150 102.6,154 95.2,158 87.7,162 80.3,166 73.2,170 66.5,174 60.4,178 55.2,182 51.0,186 47.8,190 45.8,194 45.0,198 45.5,202 47.2,206 50.1,210 54.1,214 59.1,218 64.9,222 71.5,226 78.5,230 85.9,234 93.4,238 100.8,242 107.9,246 114.5,250" fill="none" stroke="#7a3e2c" stroke-width="5"/><rect x="185" y="20" width="130" height="50" rx="8" fill="#b0654a"/><text x="250" y="38.0" font-size="12" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="250" dy="0">ADN</tspan></text><text x="250" y="56.0" font-size="10" fill="#fff" font-weight="normal" text-anchor="middle" dominant-baseline="middle"><tspan x="250" dy="0">código genético</tspan></text><rect x="185" y="82" width="130" height="50" rx="8" fill="#4f8487"/><text x="250" y="100.0" font-size="12" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="250" dy="0">Células</tspan></text><text x="250" y="118.0" font-size="10" fill="#fff" font-weight="normal" text-anchor="middle" dominant-baseline="middle"><tspan x="250" dy="0">señales químicas</tspan></text><rect x="185" y="144" width="130" height="50" rx="8" fill="#a97f3f"/><text x="250" y="162.0" font-size="12" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="250" dy="0">Animales</tspan></text><text x="250" y="180.0" font-size="10" fill="#fff" font-weight="normal" text-anchor="middle" dominant-baseline="middle"><tspan x="250" dy="0">comunicación</tspan></text><rect x="185" y="206" width="130" height="50" rx="8" fill="#647f52"/><text x="250" y="224.0" font-size="12" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="250" dy="0">Memoria externa</tspan></text><text x="250" y="242.0" font-size="10" fill="#fff" font-weight="normal" text-anchor="middle" dominant-baseline="middle"><tspan x="250" dy="0">marcas, nidos, rastros</tspan></text></svg></figure></div>
+  <div class="remember"><h2>Para entenderlo y recordarlo</h2><ul><li>Vida = capacidad de procesar y transmitir información.</li><li>Schrödinger (1944) → Brillouin (1956): la información como negentropía.</li></ul></div>
+  <div class="hint"><b>Pista visual</b> La doble hélice del ADN junto a otras tres formas de información biológica.</div>
+  <div class="num">06</div>
+</section>
+<section class="page" style="--c:#b65c72">
+  <div class="band"></div>
+  <header><div class="kicker">TEMA 2 · 1. INFORMACIÓN</div><h1>Información en el mundo social</h1>
+  <div class="orig">Ideas clave · diapositiva original 10</div></header>
+  <div class="main split"><div class="text">
+<p>En el ámbito social, la información se asocia al <b>significado</b> y a la comunicación de hechos y conocimientos. Según su veracidad y la intención de quien la difunde, distinguimos:</p>
+<dl class="defs">
+<dt>Información veraz</dt><dd>verdadera y correcta.</dd>
+<dt>Información errónea</dt><dd>incorrecta, pero difundida sin mala intención.</dd>
+<dt>Desinformación</dt><dd>deliberadamente incorrecta.</dd>
+<dt>Malinformación</dt><dd>verdadera, pero comunicada con malas intenciones.</dd>
+</dl>
+<p>Todas forman parte del <b>contenido semántico</b>: la información registrada de la que se ocupa la ciencia de la información.</p>
+<p class="q">¿Es la información «la misma cosa» en física, biología y sociedad? Sigue siendo una pregunta abierta (Bawden y Robinson, 2020).</p>
+</div><figure class="fig"><svg viewBox="0 0 345 268" xmlns="http://www.w3.org/2000/svg" font-family="Noto Sans, sans-serif"><defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#4a5262"/></marker></defs><text x="200" y="14.0" font-size="13" fill="#2b3240" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="200" dy="0">¿Hay intención de dañar?</tspan></text><text x="140" y="36.0" font-size="12" fill="#555" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="140" dy="0">No</tspan></text><text x="270" y="36.0" font-size="12" fill="#555" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="270" dy="0">Sí</tspan></text><text x="18" y="140" font-size="13" font-weight="bold" fill="#2b3240" text-anchor="middle" transform="rotate(-90 18 140)">¿Es verdad?</text><text x="52" y="95.0" font-size="12" fill="#555" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="52" dy="0">Sí</tspan></text><text x="52" y="195.0" font-size="12" fill="#555" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="52" dy="0">No</tspan></text><rect x="75" y="50" width="128" height="90" rx="10" fill="#647f52"/><text x="139.0" y="86.875" font-size="13" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="139.0" dy="0">Información</tspan><tspan x="139.0" dy="16.25">veraz</tspan></text><rect x="207" y="50" width="128" height="90" rx="10" fill="#7f6ea3"/><text x="271.0" y="95.0" font-size="13" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="271.0" dy="0">Malinformación</tspan></text><rect x="75" y="145" width="128" height="90" rx="10" fill="#a97f3f"/><text x="139.0" y="181.875" font-size="13" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="139.0" dy="0">Información</tspan><tspan x="139.0" dy="16.25">errónea</tspan></text><rect x="207" y="145" width="128" height="90" rx="10" fill="#b65c72"/><text x="271.0" y="190.0" font-size="13" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="271.0" dy="0">Desinformación</tspan></text><text x="200" y="256.0" font-size="10" fill="#666" font-weight="normal" text-anchor="middle" dominant-baseline="middle" font-style="italic"><tspan x="200" dy="0">Wardle y Derakhshan (2017), Consejo de Europa</tspan></text></svg></figure></div>
+  <div class="remember"><h2>Para entenderlo y recordarlo</h2><ul><li>Cuatro tipos que salen de cruzar dos variables: veracidad e intención de dañar.</li><li>Si la información es lo mismo en todos los dominios sigue sin respuesta.</li></ul></div>
+  <div class="hint"><b>Pista visual</b> Una matriz 2 × 2: verdad en un eje, intención de dañar en el otro.</div>
+  <div class="num">07</div>
+</section>
+<section class="page" style="--c:#4f8487">
+  <div class="band"></div>
+  <header><div class="kicker">TEMA 2 · 1. INFORMACIÓN</div><h1>Cómo distinguir los cuatro tipos</h1>
+  <div class="orig">Ideas clave · diapositiva original 11</div></header>
+  <div class="main split"><div class="text">
+<p>Seguimos el marco de Wardle y Derakhshan (2017) para el Consejo de Europa, completado con la información veraz como referencia. Basta con dos preguntas: <b>¿es verdad?</b> y <b>¿quien lo difunde quiere hacer daño?</b></p>
+<table class="t">
+<tr><th>Tipo</th><th>¿Es verdad?</th><th>¿Intención de dañar?</th></tr>
+<tr><td><span class="tag" style="background:#647f52">Información veraz</span></td><td>Sí</td><td>No</td></tr>
+<tr><td><span class="tag" style="background:#a97f3f">Información errónea</span></td><td>No</td><td>No</td></tr>
+<tr><td><span class="tag" style="background:#b65c72">Desinformación</span></td><td>No</td><td>Sí</td></tr>
+<tr><td><span class="tag" style="background:#7f6ea3">Malinformación</span></td><td>Sí</td><td>Sí</td></tr>
+</table>
+<p class="small">Para practicar con casos reales: <b>maldita.es/tag/desinformacion</b> y <b>newtral.es</b>.</p>
+</div><figure class="fig"><svg viewBox="0 0 360 225" xmlns="http://www.w3.org/2000/svg" font-family="Noto Sans, sans-serif"><defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#4a5262"/></marker></defs><rect x="110" y="5" width="140" height="40" rx="10" fill="#2b3240"/><text x="180.0" y="25.0" font-size="13" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="180.0" dy="0">¿Es verdad?</tspan></text><line x1="150" y1="45" x2="80" y2="85" stroke="#4a5262" stroke-width="2.2" marker-end="url(#ar)"/><line x1="210" y1="45" x2="280" y2="85" stroke="#4a5262" stroke-width="2.2" marker-end="url(#ar)"/><text x="100" y="62.0" font-size="11" fill="#555" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="100" dy="0">Sí</tspan></text><text x="262" y="62.0" font-size="11" fill="#555" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="262" dy="0">No</tspan></text><rect x="10" y="88" width="140" height="40" rx="10" fill="#5d6577"/><text x="80.0" y="108.0" font-size="12" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="80.0" dy="0">¿Quiere dañar?</tspan></text><rect x="210" y="88" width="140" height="40" rx="10" fill="#5d6577"/><text x="280.0" y="108.0" font-size="12" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="280.0" dy="0">¿Quiere dañar?</tspan></text><line x1="50" y1="128" x2="40" y2="165" stroke="#4a5262" stroke-width="2.2" marker-end="url(#ar)"/><line x1="110" y1="128" x2="120" y2="165" stroke="#4a5262" stroke-width="2.2" marker-end="url(#ar)"/><line x1="250" y1="128" x2="240" y2="165" stroke="#4a5262" stroke-width="2.2" marker-end="url(#ar)"/><line x1="310" y1="128" x2="320" y2="165" stroke="#4a5262" stroke-width="2.2" marker-end="url(#ar)"/><text x="35" y="146.0" font-size="10" fill="#555" font-weight="normal" text-anchor="middle" dominant-baseline="middle"><tspan x="35" dy="0">No</tspan></text><text x="127" y="146.0" font-size="10" fill="#555" font-weight="normal" text-anchor="middle" dominant-baseline="middle"><tspan x="127" dy="0">Sí</tspan></text><text x="235" y="146.0" font-size="10" fill="#555" font-weight="normal" text-anchor="middle" dominant-baseline="middle"><tspan x="235" dy="0">No</tspan></text><text x="327" y="146.0" font-size="10" fill="#555" font-weight="normal" text-anchor="middle" dominant-baseline="middle"><tspan x="327" dy="0">Sí</tspan></text><rect x="0" y="168" width="85" height="50" rx="10" fill="#647f52"/><text x="42.5" y="193.0" font-size="12" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="42.5" dy="0">Veraz</tspan></text><rect x="90" y="168" width="85" height="50" rx="10" fill="#7f6ea3"/><text x="132.5" y="186.125" font-size="11" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="132.5" dy="0">Malinfor-</tspan><tspan x="132.5" dy="13.75">mación</tspan></text><rect x="185" y="168" width="85" height="50" rx="10" fill="#a97f3f"/><text x="227.5" y="193.0" font-size="12" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="227.5" dy="0">Errónea</tspan></text><rect x="275" y="168" width="85" height="50" rx="10" fill="#b65c72"/><text x="317.5" y="186.125" font-size="11" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="317.5" dy="0">Desinfor-</tspan><tspan x="317.5" dy="13.75">mación</tspan></text></svg></figure></div>
+  <div class="remember"><h2>Para entenderlo y recordarlo</h2><ul><li>Dos preguntas bastan: ¿es verdad? y ¿quiere dañar?</li><li>La malinformación es la más difícil de detectar porque lo que dice es cierto.</li></ul></div>
+  <div class="hint"><b>Pista visual</b> Un árbol de decisión: dos preguntas, cuatro hojas de colores.</div>
+  <div class="num">08</div>
+</section>
+<section class="page" style="--c:#a97f3f">
+  <div class="band"></div>
+  <header><div class="kicker">TEMA 2 · 1. INFORMACIÓN</div><h1>Relevancia: la noción clave</h1>
+  <div class="orig">Ideas clave · diapositiva original 12</div></header>
+  <div class="main split"><div class="text">
+<ul class="dots">
+<li>Proporcionar <b>información relevante</b> es la tarea central de todo servicio de información, y la cantidad de información relevante que ofrece es una métrica importante de su éxito.</li>
+<li>Saracevic (2007) sostiene que la relevancia es una de las nociones clave, si no la principal, de la ciencia de la información y, en especial, de la recuperación de información.</li>
+<li>La relevancia no basta por sí sola. Si un documento es relevante, otros diez muy parecidos, igual de relevantes, aportan cada vez menos interés y utilidad.</li>
+<li>Un documento puede tratar justo del tema buscado y, aun así, servir de poco si es antiguo, está en un idioma que el usuario no lee o está dirigido a especialistas cuando el usuario es lego.</li>
+</ul>
+<p>Por eso se han propuesto conceptos cercanos: <b>utilidad, uso, pertinencia temática</b> y <b>pertinencia</b>.</p>
+</div><figure class="fig"><svg viewBox="0 0 320 270" xmlns="http://www.w3.org/2000/svg" font-family="Noto Sans, sans-serif"><defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#4a5262"/></marker></defs><path d="M10,40 h34.56 l13.440000000000001,13.440000000000001 v50.56 h-48 z" fill="#cfc6b6"/><path d="M44.56,40 v13.440000000000001 h13.440000000000001 z" fill="#fff" opacity=".45"/><rect x="18.64" y="68.8" width="30.72" height="3.84" rx="2" fill="#fff" opacity=".85"/><rect x="18.64" y="78.39999999999999" width="30.72" height="3.84" rx="2" fill="#fff" opacity=".85"/><rect x="18.64" y="88.0" width="30.72" height="3.84" rx="2" fill="#fff" opacity=".85"/><path d="M70,40 h34.56 l13.440000000000001,13.440000000000001 v50.56 h-48 z" fill="#a97f3f"/><path d="M104.56,40 v13.440000000000001 h13.440000000000001 z" fill="#fff" opacity=".45"/><rect x="78.64" y="68.8" width="30.72" height="3.84" rx="2" fill="#fff" opacity=".85"/><rect x="78.64" y="78.39999999999999" width="30.72" height="3.84" rx="2" fill="#fff" opacity=".85"/><rect x="78.64" y="88.0" width="30.72" height="3.84" rx="2" fill="#fff" opacity=".85"/><path d="M130,40 h34.56 l13.440000000000001,13.440000000000001 v50.56 h-48 z" fill="#cfc6b6"/><path d="M164.56,40 v13.440000000000001 h13.440000000000001 z" fill="#fff" opacity=".45"/><rect x="138.64" y="68.8" width="30.72" height="3.84" rx="2" fill="#fff" opacity=".85"/><rect x="138.64" y="78.39999999999999" width="30.72" height="3.84" rx="2" fill="#fff" opacity=".85"/><rect x="138.64" y="88.0" width="30.72" height="3.84" rx="2" fill="#fff" opacity=".85"/><path d="M190,40 h34.56 l13.440000000000001,13.440000000000001 v50.56 h-48 z" fill="#cfc6b6"/><path d="M224.56,40 v13.440000000000001 h13.440000000000001 z" fill="#fff" opacity=".45"/><rect x="198.64" y="68.8" width="30.72" height="3.84" rx="2" fill="#fff" opacity=".85"/><rect x="198.64" y="78.39999999999999" width="30.72" height="3.84" rx="2" fill="#fff" opacity=".85"/><rect x="198.64" y="88.0" width="30.72" height="3.84" rx="2" fill="#fff" opacity=".85"/><path d="M250,40 h34.56 l13.440000000000001,13.440000000000001 v50.56 h-48 z" fill="#cfc6b6"/><path d="M284.56,40 v13.440000000000001 h13.440000000000001 z" fill="#fff" opacity=".45"/><rect x="258.64" y="68.8" width="30.72" height="3.84" rx="2" fill="#fff" opacity=".85"/><rect x="258.64" y="78.39999999999999" width="30.72" height="3.84" rx="2" fill="#fff" opacity=".85"/><rect x="258.64" y="88.0" width="30.72" height="3.84" rx="2" fill="#fff" opacity=".85"/><circle cx="98" cy="72" r="44" fill="none" stroke="#2b3240" stroke-width="6"/><line x1="130" y1="104" x2="165" y2="140" stroke="#2b3240" stroke-width="10" stroke-linecap="round"/><rect x="10" y="160" width="95" height="22" rx="5" fill="#a97f3f"/><text x="57.5" y="171.0" font-size="10" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="57.5" dy="0">Tema</tspan></text><text x="115" y="171.0" font-size="11" fill="#2b3240" font-weight="normal" text-anchor="start" dominant-baseline="middle"><tspan x="115" dy="0">¿trata de lo que busco?</tspan></text><rect x="10" y="186" width="95" height="22" rx="5" fill="#a97f3f"/><text x="57.5" y="197.0" font-size="10" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="57.5" dy="0">Novedad</tspan></text><text x="115" y="197.0" font-size="11" fill="#2b3240" font-weight="normal" text-anchor="start" dominant-baseline="middle"><tspan x="115" dy="0">¿aporta algo que no tenga ya?</tspan></text><rect x="10" y="212" width="95" height="22" rx="5" fill="#a97f3f"/><text x="57.5" y="223.0" font-size="10" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="57.5" dy="0">Idioma y nivel</tspan></text><text x="115" y="223.0" font-size="11" fill="#2b3240" font-weight="normal" text-anchor="start" dominant-baseline="middle"><tspan x="115" dy="0">¿puedo leerlo y entenderlo?</tspan></text><rect x="10" y="238" width="95" height="22" rx="5" fill="#a97f3f"/><text x="57.5" y="249.0" font-size="10" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="57.5" dy="0">Actualidad</tspan></text><text x="115" y="249.0" font-size="11" fill="#2b3240" font-weight="normal" text-anchor="start" dominant-baseline="middle"><tspan x="115" dy="0">¿está vigente?</tspan></text></svg></figure></div>
+  <div class="remember"><h2>Para entenderlo y recordarlo</h2><ul><li>Relevante ≠ útil: el tema no lo es todo.</li><li>La novedad, el idioma, el nivel y la actualidad deciden si un documento sirve.</li></ul></div>
+  <div class="hint"><b>Pista visual</b> Una lupa que destaca un documento entre varios iguales, con cuatro filtros debajo.</div>
+  <div class="num">09</div>
+</section>
+<section class="page" style="--c:#7f6ea3">
+  <div class="band"></div>
+  <header><div class="kicker">TEMA 2 · 1. INFORMACIÓN</div><h1>Información encarnada</h1>
+  <div class="orig">Ideas clave · diapositiva original 13</div></header>
+  <div class="main split"><div class="text">
+<p>Los cuerpos humanos pueden ser <b>fuentes y depósitos</b> de información, y eso condiciona cómo entendemos el comportamiento y las prácticas informacionales. En lo social, informar implica significado y comunicación entre personas.</p>
+<p>La información encarnada amplía la noción de información <b>más allá del documento</b>: reconoce que el cuerpo percibe, recuerda y comunica.</p>
+<ul class="dots">
+<li>Tiene sólidas bases filosóficas y un desarrollo consolidado en Ciencias de la Información (Bates, Lloyd, Cox).</li>
+<li>Sirve para visibilizar saberes subestimados y proteger derechos culturales, lingüísticos y de accesibilidad.</li>
+</ul>
+<p>La <b>epistemología feminista</b> ha sido clave para legitimar el conocimiento encarnado. Donna Haraway, en «Situated Knowledges» (<i>Feminist Studies</i>, 14(3), 1988), criticó la pretensión de un conocimiento «desde ninguna parte» y defendió que todo saber es situado y corporal.</p>
+</div><figure class="fig"><svg viewBox="0 0 320 270" xmlns="http://www.w3.org/2000/svg" font-family="Noto Sans, sans-serif"><defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#4a5262"/></marker></defs><circle cx="160" cy="62.2" r="37.4" fill="#7f6ea3"/><path d="M92.0,205.0 Q92.0,120 160,120 Q228.0,120 228.0,205.0 Z" fill="#7f6ea3"/><rect x="5" y="20" width="100" height="44" rx="10" fill="#fff" stroke="#7f6ea3" stroke-width="2"/><text x="55.0" y="42.0" font-size="11" fill="#7f6ea3" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="55.0" dy="0">Percibe</tspan></text><rect x="215" y="20" width="100" height="44" rx="10" fill="#fff" stroke="#7f6ea3" stroke-width="2"/><text x="265.0" y="42.0" font-size="11" fill="#7f6ea3" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="265.0" dy="0">Recuerda</tspan></text><rect x="5" y="210" width="100" height="44" rx="10" fill="#fff" stroke="#7f6ea3" stroke-width="2"/><text x="55.0" y="232.0" font-size="11" fill="#7f6ea3" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="55.0" dy="0">Comunica</tspan></text><rect x="215" y="210" width="100" height="44" rx="10" fill="#fff" stroke="#7f6ea3" stroke-width="2"/><text x="265.0" y="232.0" font-size="11" fill="#7f6ea3" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="265.0" dy="0">Saber situado</tspan></text></svg></figure></div>
+  <div class="remember"><h2>Para entenderlo y recordarlo</h2><ul><li>El cuerpo también es fuente y depósito de información, no solo el documento.</li><li>Haraway (1988): todo conocimiento es situado y corporal.</li></ul></div>
+  <div class="hint"><b>Pista visual</b> Una silueta rodeada de lo que hace el cuerpo con la información: percibir, recordar, comunicar.</div>
+  <div class="num">10</div>
+</section>
+<section class="page" style="--c:#647f52">
+  <div class="band"></div>
+  <header><div class="kicker">TEMA 2 · 1. INFORMACIÓN</div><h1>El cuerpo, fuente y depósito</h1>
+  <div class="orig">Ideas clave · diapositiva original 14</div></header>
+  <div class="main split"><div class="text">
+<div class="cards2">
+<div><h3>El cuerpo como fuente</h3>Percibimos con los sentidos y guardamos en el cuerpo saberes que no están en ningún documento.<p class="ex">Ejemplo: un bombero «lee» el humo; una cirujana sabe cuánta presión aplicar.</p></div>
+<div><h3>La dimensión social</h3>Informar es compartir significado entre personas: los gestos, las miradas y las distancias también comunican.<p class="ex">Ejemplo: en un laboratorio se aprende observando e imitando a quien tiene experiencia.</p></div>
+</div>
+<p>No todos los cuerpos perciben igual: la <b>diversidad corporal y sensorial</b> también forma parte de las prácticas informacionales (Bates, 2006; Lloyd, 2010; Cox, 2018).</p>
+</div><figure class="fig"><svg viewBox="0 0 320 270" xmlns="http://www.w3.org/2000/svg" font-family="Noto Sans, sans-serif"><defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#4a5262"/></marker></defs><circle cx="160" cy="62.2" r="37.4" fill="#647f52"/><path d="M92.0,205.0 Q92.0,120 160,120 Q228.0,120 228.0,205.0 Z" fill="#647f52"/><rect x="5" y="20" width="100" height="44" rx="10" fill="#fff" stroke="#647f52" stroke-width="2"/><text x="55.0" y="35.125" font-size="11" fill="#647f52" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="55.0" dy="0">Sentidos:</tspan><tspan x="55.0" dy="13.75">perciben</tspan></text><rect x="215" y="20" width="100" height="44" rx="10" fill="#fff" stroke="#647f52" stroke-width="2"/><text x="265.0" y="35.125" font-size="11" fill="#647f52" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="265.0" dy="0">Manos:</tspan><tspan x="265.0" dy="13.75">saber hacer</tspan></text><rect x="5" y="210" width="100" height="44" rx="10" fill="#fff" stroke="#647f52" stroke-width="2"/><text x="55.0" y="225.125" font-size="11" fill="#647f52" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="55.0" dy="0">Gestos y</tspan><tspan x="55.0" dy="13.75">postura</tspan></text><rect x="215" y="210" width="100" height="44" rx="10" fill="#fff" stroke="#647f52" stroke-width="2"/><text x="265.0" y="225.125" font-size="11" fill="#647f52" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="265.0" dy="0">Comunicación</tspan><tspan x="265.0" dy="13.75">con otros</tspan></text></svg></figure></div>
+  <div class="remember"><h2>Para entenderlo y recordarlo</h2><ul><li>Sentidos y manos: el cuerpo como fuente. Gestos y relación con otros: la dimensión social.</li><li>La diversidad de cuerpos implica diversidad de prácticas informacionales.</li></ul></div>
+  <div class="hint"><b>Pista visual</b> La silueta con cuatro etiquetas: dos para lo que el cuerpo sabe y dos para lo que comparte.</div>
+  <div class="num">11</div>
+</section>
+<section class="page" style="--c:#b0654a">
+  <div class="band"></div>
+  <header><div class="kicker">TEMA 2 · 1. INFORMACIÓN</div><h1>Implicaciones de la información encarnada</h1>
+  <div class="orig">Ideas clave · diapositiva original 15</div></header>
+  <div class="main full">
+<p>Cuatro implicaciones para el comportamiento y las prácticas informacionales:</p>
+<div class="cards2 tight">
+<div><h3>1 · Conocimiento tácito y procedimental</h3>Mucho de lo que sabemos no se verbaliza ni se registra con facilidad. Polanyi (1966): «sabemos más de lo que podemos decir». El saber del artesano (Sennett, 2008), la destreza de una cirujana o la ejecución automatizada de un músico se activan y transmiten sobre todo con la práctica física.</div>
+<div><h3>2 · La experiencia sensorial como búsqueda</h3>El cuerpo no es un receptor pasivo. Vista, oído, tacto, olfato y propiocepción buscan y verifican información. Muchas decisiones profesionales se basan en cómo «se siente», «se ve» o «huele» una situación. Lloyd (2007): los bomberos desarrollan un «sentido del fuego». Los sentidos se educan cultural y profesionalmente.</div>
+<div><h3>3 · Transmisión cultural y socialización</h3>Gestos, posturas, expresiones faciales y uso del espacio son depósitos de información culturalmente heredada. Mauss (1936) mostró que cada sociedad moldea sus «técnicas del cuerpo». La interpretación de las señales corporales varía mucho entre culturas.</div>
+<div><h3>4 · Aprendizaje situado</h3>Aprender no ocurre solo en la mente individual: se produce participando en <b>comunidades de práctica</b> (Lave y Wenger, 1991), donde la presencia física es central. En talleres, laboratorios u ocio especializado, la información circula entre cuerpos (Cox et al., 2017).</div>
+</div>
+</div>
+  <div class="remember"><h2>Para entenderlo y recordarlo</h2><ul><li>Tácito (Polanyi) · sensorial (Lloyd) · cultural (Mauss) · situado (Lave y Wenger).</li><li>Las cuatro muestran que hay información que solo se transmite con el cuerpo y la práctica.</li></ul></div>
+  <div class="hint"><b>Pista visual</b> Cuatro tarjetas, un autor por tarjeta: Polanyi, Lloyd, Mauss, Lave y Wenger.</div>
+  <div class="num">12</div>
+</section>
+<section class="page" style="--c:#b65c72">
+  <div class="band"></div>
+  <header><div class="kicker">TEMA 2 · 1. INFORMACIÓN</div><h1>Tres usos de «información»</h1>
+  <div class="orig">Ideas clave · diapositiva original 16</div></header>
+  <div class="main split"><div class="text">
+<dl class="defs big">
+<dt>Información como cosa</dt><dd>Asociada a un documento o a una entidad física o digital. Es objetiva y está «contenida» en los documentos; en la práctica equivale a ellos.</dd>
+<dt>Información como proceso</dt><dd>Lo que cambia el estado de conocimiento de una persona cuando se informa. Subyace a las teorías del comportamiento informacional.</dd>
+<dt>Información como conocimiento</dt><dd>Se equipara con el conocimiento que transmite. Expresa su estrecha relación sin precisar cuál es.</dd>
+</dl>
+<p>Buckland (1991) defiende la <b>información como cosa</b>: la ciencia de la información trata sobre todo con información en forma de documentos.</p>
+</div><figure class="fig"><svg viewBox="0 0 320 272" xmlns="http://www.w3.org/2000/svg" font-family="Noto Sans, sans-serif"><defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#4a5262"/></marker></defs><rect x="10" y="10" width="300" height="70" rx="10" fill="#b65c72"/><text x="110" y="45.0" font-size="16" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="110" dy="0">Cosa</tspan></text><text x="240" y="38.125" font-size="11" fill="#fff" font-weight="normal" text-anchor="middle" dominant-baseline="middle"><tspan x="240" dy="0">documento,</tspan><tspan x="240" dy="13.75">objeto, dato</tspan></text><rect x="10" y="92" width="300" height="70" rx="10" fill="#4f8487"/><text x="110" y="127.0" font-size="16" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="110" dy="0">Proceso</tspan></text><text x="240" y="120.125" font-size="11" fill="#fff" font-weight="normal" text-anchor="middle" dominant-baseline="middle"><tspan x="240" dy="0">acto de</tspan><tspan x="240" dy="13.75">informarse</tspan></text><rect x="10" y="174" width="300" height="70" rx="10" fill="#a97f3f"/><text x="110" y="209.0" font-size="16" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="110" dy="0">Conocimiento</tspan></text><text x="240" y="202.125" font-size="11" fill="#fff" font-weight="normal" text-anchor="middle" dominant-baseline="middle"><tspan x="240" dy="0">lo que se</tspan><tspan x="240" dy="13.75">comunica</tspan></text><path d="M26,22 h21.6 l8.4,8.4 v33.6 h-30 z" fill="#ffffff"/><path d="M47.6,22 v8.4 h8.4 z" fill="#b65c72" opacity=".45"/><rect x="31.4" y="40.900000000000006" width="19.2" height="2.52" rx="2" fill="#b65c72" opacity=".85"/><rect x="31.4" y="47.2" width="19.2" height="2.52" rx="2" fill="#b65c72" opacity=".85"/><path d="M30,127 a20,20 0 1,1 8,15" fill="none" stroke="#fff" stroke-width="4"/><circle cx="42" cy="209" r="16" fill="#fff"/><circle cx="42" cy="209" r="6" fill="#a97f3f"/><text x="160" y="262.0" font-size="10" fill="#666" font-weight="normal" text-anchor="middle" dominant-baseline="middle" font-style="italic"><tspan x="160" dy="0">Buckland (1991), «Information as thing»</tspan></text></svg></figure></div>
+  <div class="remember"><h2>Para entenderlo y recordarlo</h2><ul><li>Cosa (el documento), proceso (informarse) y conocimiento (lo que se sabe).</li><li>Para Buckland, la ciencia de la información trabaja sobre todo con la información como cosa.</li></ul></div>
+  <div class="hint"><b>Pista visual</b> Tres franjas: un documento, una flecha que gira y una diana.</div>
+  <div class="num">13</div>
+</section>
+<section class="page" style="--c:#4f8487">
+  <div class="band"></div>
+  <header><div class="kicker">TEMA 2 · 1. INFORMACIÓN</div><h1>De los datos a la sabiduría: DIKUW</h1>
+  <div class="orig">Ideas clave · diapositiva original 17</div></header>
+  <div class="main split"><div class="text">
+<p>La jerarquía <b>DIKUW</b> (<i>Data, Information, Knowledge, Understanding, Wisdom</i>) ordena cinco niveles, de abajo arriba:</p>
+<dl class="defs">
+<dt>Datos</dt><dd>hechos y observaciones sin procesar, sin contexto ni significado propio.</dd>
+<dt>Información</dt><dd>datos procesados a los que se da significado y contexto; sirven para responder preguntas y decidir.</dd>
+<dt>Conocimiento</dt><dd>comprensión y aplicación de la información, adquiridas con la experiencia y el aprendizaje.</dd>
+<dt>Comprensión</dt><dd>integrar y sintetizar conocimiento, identificando patrones y relaciones.</dd>
+<dt>Sabiduría</dt><dd>aplicar el conocimiento de forma ética y reflexiva, atendiendo a valores y contexto.</dd>
+</dl>
+<p class="small">La formulación clásica se atribuye a Ackoff (1989). Rowley (2007) revisó cómo la definen los manuales.</p>
+</div><figure class="fig"><svg viewBox="0 0 300 250" xmlns="http://www.w3.org/2000/svg" font-family="Noto Sans, sans-serif"><defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#4a5262"/></marker></defs><polygon points="143,10 147,10 169,52 121,52" fill="#7a3e2c"/><text x="145" y="35.0" font-size="9" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="145" dy="0">Sabiduría</tspan></text><polygon points="121,56 169,56 193,98 97,98" fill="#b0654a"/><text x="145" y="81.0" font-size="12" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="145" dy="0">Comprensión</tspan></text><polygon points="97,102 193,102 217,144 73,144" fill="#a97f3f"/><text x="145" y="127.0" font-size="12" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="145" dy="0">Conocimiento</tspan></text><polygon points="73,148 217,148 241,190 49,190" fill="#a08c6a"/><text x="145" y="173.0" font-size="12" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="145" dy="0">Información</tspan></text><polygon points="49,194 241,194 265,236 25,236" fill="#2b3a55"/><text x="145" y="219.0" font-size="12" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="145" dy="0">Datos</tspan></text><line x1="286" y1="234" x2="286" y2="14" stroke="#888" stroke-width="2.2" marker-end="url(#ar)"/><text x="296" y="125.0" font-size="10" fill="#777" text-anchor="middle" transform="rotate(-90 296 125.0)">más significado y contexto</text></svg></figure></div>
+  <div class="remember"><h2>Para entenderlo y recordarlo</h2><ul><li>Cada nivel añade significado y contexto al anterior.</li><li>Ackoff (1989) la formuló; Rowley (2007) revisó sus definiciones.</li></ul></div>
+  <div class="hint"><b>Pista visual</b> Una pirámide de cinco pisos: cuanto más arriba, menos cantidad y más sentido.</div>
+  <div class="num">14</div>
+</section>
+<section class="page" style="--c:#a97f3f">
+  <div class="band"></div>
+  <header><div class="kicker">TEMA 2 · 1. INFORMACIÓN</div><h1>DIKUW con un ejemplo</h1>
+  <div class="orig">Ideas clave · diapositiva original 18</div></header>
+  <div class="main full">
+<p class="small">Los datos son hipotéticos y solo ilustran el modelo.</p>
+<table class="t dikuw">
+<tr><th>Nivel</th><th>Qué hace</th><th>En el ejemplo</th></tr>
+<tr><td><b>Datos</b></td><td>Cifras aisladas, sin contexto.</td><td>«38» y «22» no significan nada por sí solas.</td></tr>
+<tr><td><b>Información</b></td><td>Contextualiza: qué se mide, dónde, cuándo y para quién.</td><td>Abandono en 1.º de Ingeniería Informática (2025-26): 38 % mujeres, 22 % hombres.</td></tr>
+<tr><td><b>Conocimiento</b></td><td>Relaciona con la experiencia y la literatura previas.</td><td>La diferencia de 16 puntos supera el umbral de alerta del sistema de calidad.</td></tr>
+<tr><td><b>Comprensión</b></td><td>Explica el porqué: busca causas y las relaciona.</td><td>La brecha se asocia a la falta de referentes y al sentimiento de no pertenencia en entornos masculinizados.</td></tr>
+<tr><td><b>Sabiduría</b></td><td>Juzga qué conviene hacer y por qué.</td><td>Implantar mentoría y acogida con perspectiva de género, con seguimiento del indicador en el sistema de garantía de calidad.</td></tr>
+</table>
+</div>
+  <div class="remember"><h2>Para entenderlo y recordarlo</h2><ul><li>Datos: cifras. Información: cifras con contexto. Conocimiento: comparación con una referencia.</li><li>Comprensión: causas. Sabiduría: decisión justificada y evaluable.</li></ul></div>
+  <div class="hint"><b>Pista visual</b> Sigue el «38 / 22» de abajo arriba: en cada nivel la cifra gana una capa de sentido.</div>
+  <div class="num">15</div>
+</section>
+<section class="page" style="--c:#7f6ea3">
+  <div class="band"></div>
+  <header><div class="kicker">TEMA 2 · 1. INFORMACIÓN</div><h1>DIKUW: el camino hacia la comprensión</h1>
+  <div class="orig">Ideas clave · diapositiva original 19</div></header>
+  <div class="main"><figure class="fig wide"><svg viewBox="0 0 430 258" xmlns="http://www.w3.org/2000/svg" font-family="Noto Sans, sans-serif"><defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#4a5262"/></marker></defs><line x1="70" y1="230" x2="420" y2="230" stroke="#2b3240" stroke-width="2" marker-end="url(#ar)"/><line x1="70" y1="230" x2="70" y2="10" stroke="#2b3240" stroke-width="2" marker-end="url(#ar)"/><text x="35" y="194.375" font-size="9" fill="#444" font-weight="normal" text-anchor="middle" dominant-baseline="middle"><tspan x="35" dy="0">Reunir</tspan><tspan x="35" dy="11.25">las partes</tspan></text><text x="35" y="144.375" font-size="9" fill="#444" font-weight="normal" text-anchor="middle" dominant-baseline="middle"><tspan x="35" dy="0">Conectar</tspan><tspan x="35" dy="11.25">las partes</tspan></text><text x="35" y="94.375" font-size="9" fill="#444" font-weight="normal" text-anchor="middle" dominant-baseline="middle"><tspan x="35" dy="0">Formar</tspan><tspan x="35" dy="11.25">un todo</tspan></text><text x="35" y="44.375" font-size="9" fill="#444" font-weight="normal" text-anchor="middle" dominant-baseline="middle"><tspan x="35" dy="0">Unir</tspan><tspan x="35" dy="11.25">el todo</tspan></text><text x="100" y="246.0" font-size="10" fill="#444" font-weight="normal" text-anchor="middle" dominant-baseline="middle"><tspan x="100" dy="0">Investigar</tspan></text><text x="175" y="246.0" font-size="10" fill="#444" font-weight="normal" text-anchor="middle" dominant-baseline="middle"><tspan x="175" dy="0">Absorber</tspan></text><text x="250" y="246.0" font-size="10" fill="#444" font-weight="normal" text-anchor="middle" dominant-baseline="middle"><tspan x="250" dy="0">Hacer</tspan></text><text x="325" y="246.0" font-size="10" fill="#444" font-weight="normal" text-anchor="middle" dominant-baseline="middle"><tspan x="325" dy="0">Interactuar</tspan></text><text x="400" y="246.0" font-size="10" fill="#444" font-weight="normal" text-anchor="middle" dominant-baseline="middle"><tspan x="400" dy="0">Reflexionar</tspan></text><rect x="85" y="182" width="92" height="32" rx="6" fill="#2f5f8f"/><text x="131.0" y="198.0" font-size="11" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="131.0" dy="0">Datos</tspan></text><rect x="167" y="132" width="92" height="32" rx="6" fill="#6a4c93"/><text x="213.0" y="148.0" font-size="11" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="213.0" dy="0">Información</tspan></text><rect x="249" y="82" width="92" height="32" rx="6" fill="#c94b4b"/><text x="295.0" y="98.0" font-size="11" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="295.0" dy="0">Conocimiento</tspan></text><rect x="331" y="32" width="92" height="32" rx="6" fill="#e08b2a"/><text x="377.0" y="48.0" font-size="11" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="377.0" dy="0">Sabiduría</tspan></text><path d="M110,150 L330,30" stroke="#4f8487" stroke-width="16" stroke-linecap="round" opacity=".35"/><text x="205" y="78.0" font-size="12" fill="#4f8487" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="205" dy="0">Comprensión</tspan></text><line x1="120" y1="222" x2="400" y2="90" stroke="#3b7fbf" stroke-width="1.5" stroke-dasharray="4 4"/><text x="245" y="200.0" font-size="10" fill="#3b7fbf" font-weight="normal" text-anchor="middle" dominant-baseline="middle" font-style="italic"><tspan x="245" dy="0">pasado</tspan></text><text x="385" y="118.0" font-size="10" fill="#3b7fbf" font-weight="normal" text-anchor="middle" dominant-baseline="middle" font-style="italic"><tspan x="385" dy="0">futuro</tspan></text></svg><figcaption>Adaptado del diagrama clásico datos-información-conocimiento-sabiduría.</figcaption></figure><div class="text">
+<p>Otra forma de representar el modelo es como un recorrido en el tiempo y en la acción:</p>
+<ul class="dots">
+<li><b>Eje horizontal</b>: lo que hacemos (investigar, absorber, hacer, interactuar, reflexionar).</li>
+<li><b>Eje vertical</b>: cómo se relacionan las partes (reunirlas, conectarlas, formar un todo, unir el todo).</li>
+<li>Datos, información y conocimiento miran al <b>pasado</b>: describen lo que ya ocurrió. La sabiduría mira al <b>futuro</b>: orienta qué hacer.</li>
+<li>La <b>comprensión</b> no es un escalón más, sino lo que permite pasar de un nivel al siguiente.</li>
+</ul>
+</div></div>
+  <div class="remember"><h2>Para entenderlo y recordarlo</h2><ul><li>Subir en la escala exige actuar (hacer, interactuar, reflexionar), no solo acumular.</li><li>La comprensión es el motor que conecta los niveles.</li></ul></div>
+  <div class="hint"><b>Pista visual</b> Una escalera de cuatro cajas de colores atravesada por una flecha diagonal: la comprensión.</div>
+  <div class="num">16</div>
+</section>
+<section class="page" style="--c:#647f52">
+  <div class="band"></div>
+  <header><div class="kicker">TEMA 2 · 1. INFORMACIÓN</div><h1>Hacia teorías unificadas: Stonier y Bates</h1>
+  <div class="orig">Ideas clave · diapositiva original 20</div></header>
+  <div class="main split"><div class="text">
+<p>Ha habido intentos de explicar la información en todos los dominios. Los más relevantes para las CID son los de Stonier, Bates y Floridi (este último, en la página siguiente).</p>
+<div class="cards2 tight">
+<div><h3>Tom Stonier (1927-1999)</h3><ul class="dots">
+<li>La información es una <b>entidad física</b>, como la materia y la energía: la capacidad de crear y mantener organización.</li>
+<li>Se expresa en la vida, en la inteligencia humana y, por último, en el significado (información registrada).</li>
+<li>Su propuesta ha tenido poco desarrollo explícito posterior.</li></ul></div>
+<div><h3>Marcia Bates (2005; 2006)</h3><ul class="dots">
+<li>Integra la información en los ámbitos físico, biológico y mental.</li>
+<li>Distingue una cadena de cinco conceptos: información 1, datos 1, información 2, datos 2 y conocimiento (ver diagrama).</li></ul></div>
+</div>
+</div><figure class="fig"><svg viewBox="0 0 320 265" xmlns="http://www.w3.org/2000/svg" font-family="Noto Sans, sans-serif"><defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#4a5262"/></marker></defs><rect x="5" y="5" width="120" height="40" rx="10" fill="#4f8487"/><text x="65.0" y="25.0" font-size="12" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="65.0" dy="0">Información 1</tspan></text><text x="140" y="18.75" font-size="10" fill="#2b3240" font-weight="normal" text-anchor="start" dominant-baseline="middle"><tspan x="140" dy="0">patrón de organización</tspan><tspan x="140" dy="12.5">de materia y energía</tspan></text><line x1="65" y1="45" x2="65" y2="56" stroke="#4a5262" stroke-width="2.2" marker-end="url(#ar)"/><rect x="5" y="57" width="120" height="40" rx="10" fill="#a97f3f"/><text x="65.0" y="77.0" font-size="12" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="65.0" dy="0">Datos 1</tspan></text><text x="140" y="70.75" font-size="10" fill="#2b3240" font-weight="normal" text-anchor="start" dominant-baseline="middle"><tspan x="140" dy="0">parte que un</tspan><tspan x="140" dy="12.5">organismo percibe</tspan></text><line x1="65" y1="97" x2="65" y2="108" stroke="#4a5262" stroke-width="2.2" marker-end="url(#ar)"/><rect x="5" y="109" width="120" height="40" rx="10" fill="#7f6ea3"/><text x="65.0" y="129.0" font-size="12" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="65.0" dy="0">Información 2</tspan></text><text x="140" y="122.75" font-size="10" fill="#2b3240" font-weight="normal" text-anchor="start" dominant-baseline="middle"><tspan x="140" dy="0">patrón al que un ser</tspan><tspan x="140" dy="12.5">vivo da significado</tspan></text><line x1="65" y1="149" x2="65" y2="160" stroke="#4a5262" stroke-width="2.2" marker-end="url(#ar)"/><rect x="5" y="161" width="120" height="40" rx="10" fill="#b0654a"/><text x="65.0" y="181.0" font-size="12" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="65.0" dy="0">Datos 2</tspan></text><text x="140" y="174.75" font-size="10" fill="#2b3240" font-weight="normal" text-anchor="start" dominant-baseline="middle"><tspan x="140" dy="0">información seleccionada</tspan><tspan x="140" dy="12.5">o registrada por humanos</tspan></text><line x1="65" y1="201" x2="65" y2="212" stroke="#4a5262" stroke-width="2.2" marker-end="url(#ar)"/><rect x="5" y="213" width="120" height="40" rx="10" fill="#647f52"/><text x="65.0" y="233.0" font-size="12" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="65.0" dy="0">Conocimiento</tspan></text><text x="140" y="226.75" font-size="10" fill="#2b3240" font-weight="normal" text-anchor="start" dominant-baseline="middle"><tspan x="140" dy="0">información con significado,</tspan><tspan x="140" dy="12.5">integrada con lo que sabemos</tspan></text></svg></figure></div>
+  <div class="remember"><h2>Para entenderlo y recordarlo</h2><ul><li>Stonier: la información es física, como la materia y la energía.</li><li>Bates: el patrón existe → un organismo lo percibe → le da significado → la sociedad lo registra → se integra en lo que sabemos.</li></ul></div>
+  <div class="hint"><b>Pista visual</b> Una escalera de cinco peldaños que baja de la naturaleza (información 1) al conocimiento.</div>
+  <div class="num">17</div>
+</section>
+<section class="page" style="--c:#b0654a">
+  <div class="band"></div>
+  <header><div class="kicker">TEMA 2 · 1. INFORMACIÓN</div><h1>Floridi: datos bien formados, significativos y verídicos</h1>
+  <div class="orig">Ideas clave · diapositiva original 21</div></header>
+  <div class="main split"><div class="text">
+<p><b>Punto de partida. ¿Qué es un dato?</b> Una diferencia que se puede percibir: luz encendida / apagada, un 0 / un 1, tinta negra sobre papel blanco.</p>
+<table class="t">
+<tr><th>Condición</th><th>Sí</th><th>No</th></tr>
+<tr><td><b>Bien formados</b><br><span class="small">siguen las reglas de la sintaxis</span></td><td>«La biblioteca abre a las 8:00»</td><td>«abre biblioteca 8:00 las a la»</td></tr>
+<tr><td><b>Significativos</b><br><span class="small">tienen sentido en un código compartido</span></td><td>«La biblioteca abre a las 8:00»</td><td>«Las ideas verdes incoloras duermen furiosamente» (Chomsky, 1957)</td></tr>
+<tr><td><b>Verídicos</b><br><span class="small">se corresponden con la realidad</span></td><td>«La Universidad de Murcia está en Murcia»</td><td>«La Universidad de Murcia está en Sevilla»</td></tr>
+</table>
+<p>Solo cuando se cumplen <b>las tres condiciones</b> hablamos de información (Floridi, 2010, 2011).</p>
+</div><figure class="fig"><svg viewBox="0 0 320 282" xmlns="http://www.w3.org/2000/svg" font-family="Noto Sans, sans-serif"><defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#4a5262"/></marker></defs><rect x="20" y="5" width="280" height="34" rx="10" fill="#d9d2c5"/><text x="160.0" y="22.0" font-size="13" fill="#2b3240" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="160.0" dy="0">DATOS</tspan></text><line x1="160" y1="41" x2="160" y2="53" stroke="#4a5262" stroke-width="2.2" marker-end="url(#ar)"/><rect x="15" y="55" width="290" height="44" rx="8" fill="#b0654a"/><text x="160" y="70.0" font-size="13" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="160" dy="0">Bien formados</tspan></text><text x="160" y="87.0" font-size="10" fill="#fff" font-weight="normal" text-anchor="middle" dominant-baseline="middle"><tspan x="160" dy="0">sintaxis correcta</tspan></text><line x1="160" y1="99" x2="160" y2="111" stroke="#4a5262" stroke-width="2.2" marker-end="url(#ar)"/><rect x="37" y="113" width="246" height="44" rx="8" fill="#a97f3f"/><text x="160" y="128.0" font-size="13" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="160" dy="0">Significativos</tspan></text><text x="160" y="145.0" font-size="10" fill="#fff" font-weight="normal" text-anchor="middle" dominant-baseline="middle"><tspan x="160" dy="0">tienen sentido en un código</tspan></text><line x1="160" y1="157" x2="160" y2="169" stroke="#4a5262" stroke-width="2.2" marker-end="url(#ar)"/><rect x="59" y="171" width="202" height="44" rx="8" fill="#647f52"/><text x="160" y="186.0" font-size="13" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="160" dy="0">Verídicos</tspan></text><text x="160" y="203.0" font-size="10" fill="#fff" font-weight="normal" text-anchor="middle" dominant-baseline="middle"><tspan x="160" dy="0">se corresponden con la realidad</tspan></text><line x1="160" y1="231" x2="160" y2="244" stroke="#4a5262" stroke-width="2.2" marker-end="url(#ar)"/><rect x="95" y="246" width="130" height="30" rx="10" fill="#2b3240"/><text x="160.0" y="261.0" font-size="12" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="160.0" dy="0">INFORMACIÓN</tspan></text></svg></figure></div>
+  <div class="remember"><h2>Para entenderlo y recordarlo</h2><ul><li>Información = datos + sintaxis + significado + verdad.</li><li>Si falla una sola condición, no hay información en sentido estricto.</li></ul></div>
+  <div class="hint"><b>Pista visual</b> Un embudo con tres filtros: forma, sentido y verdad.</div>
+  <div class="num">18</div>
+</section>
+<section class="page" style="--c:#b65c72">
+  <div class="band"></div>
+  <header><div class="kicker">TEMA 2 · 1. INFORMACIÓN</div><h1>Contenido semántico = datos bien formados y significativos</h1>
+  <div class="orig">Ideas clave · diapositiva original 22</div></header>
+  <div class="main"><div class="text">
+<p>Todo lo que está bien formado y tiene significado es <b>contenido semántico</b>. Según sea verdadero o falso, y según la intención de quien lo difunde, hay tres tipos:</p>
+<table class="t">
+<tr><th>Tipo</th><th>¿Verdadera?</th><th>¿Intención de engañar?</th><th>Ejemplo</th></tr>
+<tr><td><b>Información</b></td><td>Sí</td><td>No</td><td>«Los exámenes empiezan el 7 de enero», en la web oficial.</td></tr>
+<tr><td><b>Información errónea</b></td><td>No</td><td>No</td><td>Una compañera escribe en el grupo que empiezan el 17 porque lo leyó mal.</td></tr>
+<tr><td><b>Desinformación</b></td><td>No</td><td>Sí</td><td>Una cuenta falsa anuncia que «se suspenden los exámenes» para crear caos.</td></tr>
+</table>
+<p class="q"><b>Para debatir:</b> para Floridi, la información errónea y la desinformación no son información, aunque lo parezcan. Bates, en cambio, no exige que la información sea verdadera. ¿Dónde encajaría la malinformación, que es verdadera pero se usa para dañar?</p>
+</div><figure class="fig below"><svg viewBox="0 0 320 255" xmlns="http://www.w3.org/2000/svg" font-family="Noto Sans, sans-serif"><defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#4a5262"/></marker></defs><rect x="70" y="5" width="180" height="44" rx="10" fill="#b65c72"/><text x="160.0" y="20.125" font-size="11" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="160.0" dy="0">Contenido semántico</tspan><tspan x="160.0" dy="13.75">(bien formado + significativo)</tspan></text><line x1="110" y1="49" x2="50" y2="92" stroke="#4a5262" stroke-width="2.2" marker-end="url(#ar)"/><line x1="160" y1="49" x2="160" y2="92" stroke="#4a5262" stroke-width="2.2" marker-end="url(#ar)"/><line x1="210" y1="49" x2="270" y2="92" stroke="#4a5262" stroke-width="2.2" marker-end="url(#ar)"/><rect x="0" y="95" width="100" height="50" rx="10" fill="#647f52"/><text x="50.0" y="120.0" font-size="12" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="50.0" dy="0">Información</tspan></text><rect x="110" y="95" width="100" height="50" rx="10" fill="#a97f3f"/><text x="160.0" y="113.125" font-size="11" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="160.0" dy="0">Información</tspan><tspan x="160.0" dy="13.75">errónea</tspan></text><rect x="220" y="95" width="100" height="50" rx="10" fill="#7f6ea3"/><text x="270.0" y="113.125" font-size="11" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="270.0" dy="0">Desinfor-</tspan><tspan x="270.0" dy="13.75">mación</tspan></text><text x="50" y="160.0" font-size="10" fill="#555" font-weight="normal" text-anchor="middle" dominant-baseline="middle"><tspan x="50" dy="0">verdadera</tspan></text><text x="160" y="160.0" font-size="10" fill="#555" font-weight="normal" text-anchor="middle" dominant-baseline="middle"><tspan x="160" dy="0">falsa, sin querer</tspan></text><text x="270" y="160.0" font-size="10" fill="#555" font-weight="normal" text-anchor="middle" dominant-baseline="middle"><tspan x="270" dy="0">falsa, a propósito</tspan></text><rect x="0" y="180" width="320" height="70" rx="10" fill="#fff" stroke="#b65c72" stroke-dasharray="5 4"/><text x="160" y="200.0" font-size="12" fill="#b65c72" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="160" dy="0">¿Y la malinformación?</tspan></text><text x="160" y="218.75" font-size="10" fill="#2b3240" font-weight="normal" text-anchor="middle" dominant-baseline="middle"><tspan x="160" dy="0">Es verdadera (información para Floridi),</tspan><tspan x="160" dy="12.5">pero se difunde para hacer daño.</tspan></text></svg></figure></div>
+  <div class="remember"><h2>Para entenderlo y recordarlo</h2><ul><li>Contenido semántico = bien formado + significativo. Información = además, verdadero.</li><li>Floridi exige verdad; Bates no.</li></ul></div>
+  <div class="hint"><b>Pista visual</b> Un tronco (contenido semántico) con tres ramas y una cuarta, la malinformación, en duda.</div>
+  <div class="num">19</div>
+</section>
+<section class="page" style="--c:#4f8487">
+  <div class="band"></div>
+  <header><div class="kicker">TEMA 2 · 1. INFORMACIÓN</div><h1>Otras teorías unificadas de la información</h1>
+  <div class="orig">Ideas clave · diapositiva original 23</div></header>
+  <div class="main split"><div class="text">
+<p>Intentan explicar con un solo concepto qué es la información en todos los ámbitos: la física, la biología, la mente y la sociedad.</p>
+<table class="t">
+<tr><th>Teoría</th><th>Autoría</th><th>Enfoque</th></tr>
+<tr><td>Teoría General de la Información</td><td>Burgin (2010)</td><td>matemático y lógico</td></tr>
+<tr><td>Metafilosofía centrada en la información</td><td>Brenner y Wu</td><td>filosófico</td></tr>
+<tr><td>Teoría Unificada de la Información</td><td>Hofkirchner (2009, 2010)</td><td>sistemas complejos</td></tr>
+<tr><td>Cibersemiótica</td><td>Brier (2008, 2017)</td><td>signos y significado</td></tr>
+</table>
+<p class="q"><b>¿Por qué las estudiamos?</b> Son marcos ambiciosos que buscan unificar el concepto de información, pero todavía no se han aplicado en las CID. Conocerlas nos ayuda a situar nuestra disciplina en un debate más amplio.</p>
+</div><figure class="fig"><svg viewBox="0 0 320 260" xmlns="http://www.w3.org/2000/svg" font-family="Noto Sans, sans-serif"><defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#4a5262"/></marker></defs><circle cx="160" cy="130" r="52" fill="#fff" stroke="#4f8487" stroke-width="4"/><text x="160" y="116.25" font-size="11" fill="#4f8487" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="160" dy="0">Información</tspan><tspan x="160" dy="13.75">en todos</tspan><tspan x="160" dy="13.75">los ámbitos</tspan></text><rect x="5" y="10" width="120" height="58" rx="8" fill="#4f8487"/><text x="65" y="26.0" font-size="12" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="65" dy="0">Burgin</tspan></text><text x="65" y="42.75" font-size="10" fill="#fff" font-weight="normal" text-anchor="middle" dominant-baseline="middle"><tspan x="65" dy="0">Teoría General</tspan><tspan x="65" dy="12.5">de la Información</tspan></text><rect x="195" y="10" width="120" height="58" rx="8" fill="#a97f3f"/><text x="255" y="26.0" font-size="12" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="255" dy="0">Brenner y Wu</tspan></text><text x="255" y="42.75" font-size="10" fill="#fff" font-weight="normal" text-anchor="middle" dominant-baseline="middle"><tspan x="255" dy="0">Metafilosofía</tspan><tspan x="255" dy="12.5">centrada en la inf.</tspan></text><rect x="5" y="195" width="120" height="58" rx="8" fill="#647f52"/><text x="65" y="211.0" font-size="12" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="65" dy="0">Hofkirchner</tspan></text><text x="65" y="227.75" font-size="10" fill="#fff" font-weight="normal" text-anchor="middle" dominant-baseline="middle"><tspan x="65" dy="0">Teoría Unificada</tspan><tspan x="65" dy="12.5">de la Información</tspan></text><rect x="195" y="195" width="120" height="58" rx="8" fill="#7f6ea3"/><text x="255" y="211.0" font-size="12" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="255" dy="0">Brier</tspan></text><text x="255" y="234.0" font-size="10" fill="#fff" font-weight="normal" text-anchor="middle" dominant-baseline="middle"><tspan x="255" dy="0">Cibersemiótica</tspan></text></svg></figure></div>
+  <div class="remember"><h2>Para entenderlo y recordarlo</h2><ul><li>Cuatro intentos de unificar el concepto: Burgin, Brenner y Wu, Hofkirchner y Brier.</li><li>Aún no se aplican en las CID, pero sitúan la disciplina en el debate.</li></ul></div>
+  <div class="hint"><b>Pista visual</b> Cuatro cajas alrededor de un mismo círculo: cuatro caminos hacia la misma meta.</div>
+  <div class="num">20</div>
+</section>
+<section class="page" style="--c:#a97f3f">
+  <div class="band"></div>
+  <header><div class="kicker">TEMA 2 · 1. INFORMACIÓN</div><h1>Cuatro teorías, cuatro ideas clave</h1>
+  <div class="orig">Ideas clave · diapositiva original 24</div></header>
+  <div class="main full">
+<div class="cards2 tight">
+<div><h3>Burgin (2010) · Teoría General de la Información</h3>La información es la capacidad de cambiar un sistema, igual que la energía es la capacidad de cambiar la materia.<p class="ex">Ejemplo: una noticia solo es información para ti si cambia lo que sabes.</p></div>
+<div><h3>Brenner y Wu · Metafilosofía centrada en la información</h3>La información forma parte del mundo físico y biológico, junto a la materia y la energía.<p class="ex">Ejemplo: unas huellas en la arena informan de que alguien pasó, aunque nadie las mire.</p></div>
+<div><h3>Hofkirchner (2009, 2010) · Teoría Unificada</h3>Un «superconcepto» de información que surge (emerge) en sistemas complejos que se autoorganizan.<p class="ex">Ejemplo: en una colonia de hormigas ninguna manda, pero el grupo «sabe» dónde está la comida.</p></div>
+<div><h3>Brier (2008, 2017) · Cibersemiótica</h3>La información solo tiene sentido cuando un ser vivo interpreta un signo. Une biología, mente y sociedad.<p class="ex">Ejemplo: un semáforo en rojo significa «para» para quien conduce, pero nada para un perro.</p></div>
+</div>
+</div>
+  <div class="remember"><h2>Para entenderlo y recordarlo</h2><ul><li>Burgin: cambio · Brenner y Wu: parte del mundo · Hofkirchner: emergencia · Brier: interpretación de signos.</li><li>Asocia cada teoría a su ejemplo: noticia, huellas, hormigas, semáforo.</li></ul></div>
+  <div class="hint"><b>Pista visual</b> Cuatro tarjetas, cuatro escenas: una noticia, unas huellas, un hormiguero y un semáforo.</div>
+  <div class="num">21</div>
+</section>
+<section class="page" style="--c:#7f6ea3">
+  <div class="band"></div>
+  <header><div class="kicker">TEMA 2 · 1. INFORMACIÓN</div><h1>Conclusiones sobre la información</h1>
+  <div class="orig">Ideas clave · diapositiva original 25</div></header>
+  <div class="main split"><div class="text">
+<ol class="steps">
+<li><b>Concepto central.</b> La información es un concepto fundamental, si no el central, de las ciencias de la información y la documentación.</li>
+<li><b>Complejo y multifacético.</b> Ninguna comprensión única de la idea funciona en todos los contextos.</li>
+<li><b>Base necesaria.</b> La teoría de Shannon se acepta como fundamento de toda teoría general de la información.</li>
+<li><b>Enfoque más apropiado.</b> La filosofía de la información de Floridi parece la más adecuada para las CID.</li>
+</ol>
+</div><figure class="fig"><svg viewBox="0 0 320 245" xmlns="http://www.w3.org/2000/svg" font-family="Noto Sans, sans-serif"><defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#4a5262"/></marker></defs><rect x="10" y="10" width="145" height="105" rx="12" fill="#b65c72"/><text x="82" y="40.0" font-size="26" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="82" dy="0">1</tspan></text><text x="82" y="82.0" font-size="12" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="82" dy="0">Concepto central</tspan></text><rect x="165" y="10" width="145" height="105" rx="12" fill="#4f8487"/><text x="237" y="40.0" font-size="26" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="237" dy="0">2</tspan></text><text x="237" y="74.5" font-size="12" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="237" dy="0">Complejo y</tspan><tspan x="237" dy="15.0">multifacético</tspan></text><rect x="10" y="130" width="145" height="105" rx="12" fill="#647f52"/><text x="82" y="160.0" font-size="26" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="82" dy="0">3</tspan></text><text x="82" y="202.0" font-size="12" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="82" dy="0">Base: Shannon</tspan></text><rect x="165" y="130" width="145" height="105" rx="12" fill="#b0654a"/><text x="237" y="160.0" font-size="26" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="237" dy="0">4</tspan></text><text x="237" y="194.5" font-size="12" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="237" dy="0">Enfoque CID:</tspan><tspan x="237" dy="15.0">Floridi</tspan></text></svg></figure></div>
+  <div class="remember"><h2>Para entenderlo y recordarlo</h2><ul><li>Central y multifacético.</li><li>Shannon es la base; Floridi, el enfoque para las CID.</li></ul></div>
+  <div class="hint"><b>Pista visual</b> Cuatro casillas numeradas: dos describen el concepto y dos nombran a sus autores clave.</div>
+  <div class="num">22</div>
+</section>
+<section class="page" style="--c:#647f52">
+  <div class="band"></div>
+  <header><div class="kicker">TEMA 2 · 2. DOCUMENTOS Y DOCUMENTACIÓN</div><h1>¿Qué es un documento?</h1>
+  <div class="orig">Ideas clave · diapositiva original 27</div></header>
+  <div class="main split"><div class="text">
+<blockquote><cite>Suzanne Briet (1951, p. 10)</cite>¿Es una estrella un documento? ¿Es una piedra rodada por un torrente un documento? ¿Es un animal vivo un documento? No. Pero las fotografías y los catálogos de estrellas, las piedras en un museo de mineralogía y los animales que están registrados y se exhiben en un zoológico son documentos.</blockquote>
+<blockquote><cite>Michael Buckland (2017)</cite>Un objeto se considera documento cuando existe una afirmación o una percepción de que es evidencia de alguna creencia.</blockquote>
+</div><figure class="fig"><svg viewBox="0 0 320 282" xmlns="http://www.w3.org/2000/svg" font-family="Noto Sans, sans-serif"><defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#4a5262"/></marker></defs><text x="80" y="14.0" font-size="12" fill="#888" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="80" dy="0">No es documento</tspan></text><text x="250" y="14.0" font-size="12" fill="#647f52" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="250" dy="0">Es documento</tspan></text><rect x="5" y="34" width="150" height="58" rx="10" fill="#ebe6dd"/><text x="80.0" y="63.0" font-size="11" fill="#666" font-weight="normal" text-anchor="middle" dominant-baseline="middle"><tspan x="80.0" dy="0">Estrella en el cielo</tspan></text><line x1="160" y1="63" x2="182" y2="63" stroke="#647f52" stroke-width="2.2" marker-end="url(#ar)"/><rect x="185" y="34" width="135" height="58" rx="10" fill="#647f52"/><text x="252.5" y="56.125" font-size="11" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="252.5" dy="0">Fotografía o catálogo</tspan><tspan x="252.5" dy="13.75">de estrellas</tspan></text><rect x="5" y="106" width="150" height="58" rx="10" fill="#ebe6dd"/><text x="80.0" y="135.0" font-size="11" fill="#666" font-weight="normal" text-anchor="middle" dominant-baseline="middle"><tspan x="80.0" dy="0">Piedra en el torrente</tspan></text><line x1="160" y1="135" x2="182" y2="135" stroke="#647f52" stroke-width="2.2" marker-end="url(#ar)"/><rect x="185" y="106" width="135" height="58" rx="10" fill="#647f52"/><text x="252.5" y="128.125" font-size="11" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="252.5" dy="0">Piedra etiquetada</tspan><tspan x="252.5" dy="13.75">en un museo</tspan></text><rect x="5" y="178" width="150" height="58" rx="10" fill="#ebe6dd"/><text x="80.0" y="207.0" font-size="11" fill="#666" font-weight="normal" text-anchor="middle" dominant-baseline="middle"><tspan x="80.0" dy="0">Antílope en la sabana</tspan></text><line x1="160" y1="207" x2="182" y2="207" stroke="#647f52" stroke-width="2.2" marker-end="url(#ar)"/><rect x="185" y="178" width="135" height="58" rx="10" fill="#647f52"/><text x="252.5" y="200.125" font-size="11" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="252.5" dy="0">Antílope registrado</tspan><tspan x="252.5" dy="13.75">en un zoo</tspan></text><text x="160" y="255.75" font-size="10" fill="#555" font-weight="normal" text-anchor="middle" dominant-baseline="middle" font-style="italic"><tspan x="160" dy="0">Briet (1951): lo que convierte algo en documento</tspan><tspan x="160" dy="12.5">es que se trate como evidencia</tspan></text></svg></figure></div>
+  <div class="remember"><h2>Para entenderlo y recordarlo</h2><ul><li>Un objeto es documento cuando se trata como evidencia, no por lo que es.</li><li>Briet (1951) y Buckland (2017) coinciden en esta idea.</li></ul></div>
+  <div class="hint"><b>Pista visual</b> Tres parejas: el mismo objeto antes y después de convertirse en evidencia.</div>
+  <div class="num">23</div>
+</section>
+<section class="page" style="--c:#b0654a">
+  <div class="band"></div>
+  <header><div class="kicker">TEMA 2 · 2. DOCUMENTOS Y DOCUMENTACIÓN</div><h1>Preguntas sobre los límites</h1>
+  <div class="orig">Ideas clave · diapositiva original 28</div></header>
+  <div class="main split"><div class="text">
+<ul class="dots">
+<li>Los documentos, como portadores de información, son centrales en las disciplinas y profesiones de la información. El movimiento de la documentación de la primera mitad del siglo XX fue uno de los precursores de la ciencia de la información.</li>
+<li>Aunque los documentos contienen información y datos, <b>no son sinónimos</b> de ninguno de los dos.</li>
+<li><b>Etimología:</b> del latín <i>docere</i> (enseñar, informar) y el sufijo <i>-mentum</i> (medio). El diccionario lo define como algo escrito o inscrito que aporta evidencia o información sobre cualquier tema.</li>
+</ul>
+<p class="lead">¿Dónde está el límite?</p>
+<ul class="dots">
+<li>¿Una pintura o una escultura? ¿Una muestra geológica etiquetada?</li>
+<li>¿Un antílope en un zoo, en un entorno que indica su hábitat?</li>
+<li>Si la fotografía de la Luna es un documento, ¿lo es la Luna vista con un telescopio?</li>
+</ul>
+<p>Estas cuestiones las abordaron los documentalistas europeos de la primera mitad del siglo XX: Paul Otlet, Henri La Fontaine, Frits Donker Duyvis y Suzanne Briet, cuyo texto de 1951 resume las ideas de la época.</p>
+</div><figure class="fig"><svg viewBox="0 0 320 255" xmlns="http://www.w3.org/2000/svg" font-family="Noto Sans, sans-serif"><defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#4a5262"/></marker></defs><defs><linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#b0654a"/><stop offset="1" stop-color="#e3d6c9"/></linearGradient></defs><rect x="10" y="40" width="300" height="18" rx="9" fill="url(#g)"/><text x="10" y="22.0" font-size="10" fill="#b0654a" font-weight="bold" text-anchor="start" dominant-baseline="middle"><tspan x="10" dy="0">claramente documento</tspan></text><text x="310" y="22.0" font-size="10" fill="#999" font-weight="bold" text-anchor="end" dominant-baseline="middle"><tspan x="310" dy="0">dudoso</tspan></text><circle cx="25" cy="49" r="6" fill="#fff" stroke="#2b3240" stroke-width="2"/><line x1="25" y1="57" x2="25" y2="79" stroke="#aaa"/><text x="25" y="95.0" font-size="10" fill="#2b3240" font-weight="normal" text-anchor="middle" dominant-baseline="middle"><tspan x="25" dy="0">Libro</tspan></text><circle cx="79" cy="49" r="6" fill="#fff" stroke="#2b3240" stroke-width="2"/><line x1="79" y1="57" x2="79" y2="119" stroke="#aaa"/><text x="79" y="128.75" font-size="10" fill="#2b3240" font-weight="normal" text-anchor="middle" dominant-baseline="middle"><tspan x="79" dy="0">Foto de</tspan><tspan x="79" dy="12.5">la Luna</tspan></text><circle cx="133" cy="49" r="6" fill="#fff" stroke="#2b3240" stroke-width="2"/><line x1="133" y1="57" x2="133" y2="79" stroke="#aaa"/><text x="133" y="88.75" font-size="10" fill="#2b3240" font-weight="normal" text-anchor="middle" dominant-baseline="middle"><tspan x="133" dy="0">Muestra</tspan><tspan x="133" dy="12.5">etiquetada</tspan></text><circle cx="187" cy="49" r="6" fill="#fff" stroke="#2b3240" stroke-width="2"/><line x1="187" y1="57" x2="187" y2="119" stroke="#aaa"/><text x="187" y="135.0" font-size="10" fill="#2b3240" font-weight="normal" text-anchor="middle" dominant-baseline="middle"><tspan x="187" dy="0">Escultura</tspan></text><circle cx="241" cy="49" r="6" fill="#fff" stroke="#2b3240" stroke-width="2"/><line x1="241" y1="57" x2="241" y2="79" stroke="#aaa"/><text x="241" y="88.75" font-size="10" fill="#2b3240" font-weight="normal" text-anchor="middle" dominant-baseline="middle"><tspan x="241" dy="0">Antílope</tspan><tspan x="241" dy="12.5">en el zoo</tspan></text><circle cx="295" cy="49" r="6" fill="#fff" stroke="#2b3240" stroke-width="2"/><line x1="295" y1="57" x2="295" y2="119" stroke="#aaa"/><text x="295" y="128.75" font-size="10" fill="#2b3240" font-weight="normal" text-anchor="middle" dominant-baseline="middle"><tspan x="295" dy="0">Luna en el</tspan><tspan x="295" dy="12.5">telescopio</tspan></text><text x="160" y="190.0" font-size="13" fill="#b0654a" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="160" dy="0">docere (enseñar, informar)</tspan></text><text x="160" y="212.0" font-size="13" fill="#b0654a" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="160" dy="0">+ -mentum (medio, instrumento)</tspan></text><text x="160" y="240.0" font-size="11" fill="#555" font-weight="normal" text-anchor="middle" dominant-baseline="middle" font-style="italic"><tspan x="160" dy="0">«medio para enseñar o informar»</tspan></text></svg></figure></div>
+  <div class="remember"><h2>Para entenderlo y recordarlo</h2><ul><li>Documento ≠ información ≠ datos.</li><li>Docere + -mentum: «medio para enseñar». El límite de qué es documento es discutible.</li></ul></div>
+  <div class="hint"><b>Pista visual</b> Una línea de grises: del libro, que es claramente documento, a la Luna en el telescopio.</div>
+  <div class="num">24</div>
+</section>
+<section class="page" style="--c:#b65c72">
+  <div class="band"></div>
+  <header><div class="kicker">TEMA 2 · 2. DOCUMENTOS Y DOCUMENTACIÓN</div><h1>Los pioneros de la documentación</h1>
+  <div class="orig">Ideas clave · diapositiva original 29</div></header>
+  <div class="main split"><div class="text">
+<h3 class="sub">Controlar el saber publicado</h3>
+<ul class="dots">
+<li>Desde mediados del siglo XIX crece el volumen de información académica publicada, sobre todo en ciencia y tecnología.</li>
+<li>La documentación amplía el estudio de la bibliografía (que existe desde el siglo XVIII) a la autoría, la impresión, la publicación y los servicios bibliotecarios.</li>
+<li>Los pioneros plantearon por primera vez las preguntas sobre los límites de lo que es un documento y sobre los procesos de documentación.</li>
+<li>Su conclusión: <b>cualquier objeto</b> debería considerarse documento si proporciona información y evidencia.</li>
+</ul>
+</div><figure class="fig"><svg viewBox="0 0 320 265" xmlns="http://www.w3.org/2000/svg" font-family="Noto Sans, sans-serif"><defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#4a5262"/></marker></defs><circle cx="35" cy="34" r="26" fill="#b65c72"/><text x="35" y="35.0" font-size="14" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="35" dy="0">PO</tspan></text><text x="72" y="25.0" font-size="13" fill="#2b3240" font-weight="bold" text-anchor="start" dominant-baseline="middle"><tspan x="72" dy="0">Paul Otlet</tspan></text><text x="72" y="44.0" font-size="11" fill="#666" font-weight="normal" text-anchor="start" dominant-baseline="middle"><tspan x="72" dy="0">1868–1944</tspan></text><circle cx="35" cy="98" r="26" fill="#4f8487"/><text x="35" y="99.0" font-size="14" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="35" dy="0">HL</tspan></text><text x="72" y="89.0" font-size="13" fill="#2b3240" font-weight="bold" text-anchor="start" dominant-baseline="middle"><tspan x="72" dy="0">Henri La Fontaine</tspan></text><text x="72" y="108.0" font-size="11" fill="#666" font-weight="normal" text-anchor="start" dominant-baseline="middle"><tspan x="72" dy="0">1854–1943</tspan></text><circle cx="35" cy="162" r="26" fill="#a97f3f"/><text x="35" y="163.0" font-size="14" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="35" dy="0">FD</tspan></text><text x="72" y="153.0" font-size="13" fill="#2b3240" font-weight="bold" text-anchor="start" dominant-baseline="middle"><tspan x="72" dy="0">Frits Donker Duyvis</tspan></text><text x="72" y="172.0" font-size="11" fill="#666" font-weight="normal" text-anchor="start" dominant-baseline="middle"><tspan x="72" dy="0">1894–1961</tspan></text><circle cx="35" cy="226" r="26" fill="#7f6ea3"/><text x="35" y="227.0" font-size="14" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="35" dy="0">SB</tspan></text><text x="72" y="217.0" font-size="13" fill="#2b3240" font-weight="bold" text-anchor="start" dominant-baseline="middle"><tspan x="72" dy="0">Suzanne Briet</tspan></text><text x="72" y="236.0" font-size="11" fill="#666" font-weight="normal" text-anchor="start" dominant-baseline="middle"><tspan x="72" dy="0">1894–1989</tspan></text></svg></figure></div>
+  <div class="remember"><h2>Para entenderlo y recordarlo</h2><ul><li>Problema: demasiada información publicada. Respuesta: la documentación.</li><li>Conclusión de los pioneros: cualquier objeto que aporte evidencia puede ser documento.</li></ul></div>
+  <div class="hint"><b>Pista visual</b> Cuatro iniciales: PO, HL, FD y SB, los fundadores de la documentación.</div>
+  <div class="num">25</div>
+</section>
+<section class="page" style="--c:#4f8487">
+  <div class="band"></div>
+  <header><div class="kicker">TEMA 2 · 2. DOCUMENTOS Y DOCUMENTACIÓN</div><h1>Una conclusión: evidencia</h1>
+  <div class="orig">Ideas clave · diapositiva original 30</div></header>
+  <div class="main split"><div class="text">
+<ul class="dots">
+<li>Los pioneros ampliaron la idea de documento más allá de los textos impresos, e incluso más allá de los objetos creados con la intención de comunicar.</li>
+<li>El énfasis pasó de la <b>comunicación</b> a la <b>evidencia</b>: un documento es un elemento físico que aporta evidencia y, por eso, es informativo.</li>
+<li>Buckland desarrolla esta línea en «Information as thing» (1991), donde opone la información como cosa a la información como conocimiento o como proceso, y en «What is a "document"?» (1997).</li>
+<li>Esta visión amplia tiene consecuencias prácticas: subdisciplinas enteras, como la <b>documentación de museos</b>, solo tienen sentido si se acepta.</li>
+</ul>
+</div><figure class="fig"><svg viewBox="0 0 320 255" xmlns="http://www.w3.org/2000/svg" font-family="Noto Sans, sans-serif"><defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#4a5262"/></marker></defs><rect x="10" y="30" width="130" height="70" rx="10" fill="#d9d2c5"/><text x="75.0" y="57.5" font-size="12" fill="#2b3240" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="75.0" dy="0">Comunicación</tspan><tspan x="75.0" dy="15.0">(textos impresos)</tspan></text><line x1="145" y1="65" x2="175" y2="65" stroke="#4f8487" stroke-width="4" marker-end="url(#ar)"/><rect x="180" y="30" width="130" height="70" rx="10" fill="#4f8487"/><text x="245.0" y="57.5" font-size="12" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="245.0" dy="0">Evidencia</tspan><tspan x="245.0" dy="15.0">(cualquier objeto)</tspan></text><text x="160" y="130.0" font-size="12" fill="#4f8487" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="160" dy="0">Buckland: información como cosa</tspan></text><rect x="10" y="150" width="300" height="96" rx="10" fill="#fff" stroke="#4f8487"/><text x="160" y="172.0" font-size="11" fill="#4f8487" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="160" dy="0">Ejemplo</tspan></text><text x="160" y="192.5" font-size="10" fill="#2b3240" font-weight="normal" text-anchor="middle" dominant-baseline="middle"><tspan x="160" dy="0">Un hacha de sílex no se hizo para informar,</tspan><tspan x="160" dy="12.5">pero en un museo es evidencia de cómo</tspan><tspan x="160" dy="12.5">vivían sus autores: funciona como documento.</tspan></text></svg></figure></div>
+  <div class="remember"><h2>Para entenderlo y recordarlo</h2><ul><li>De la comunicación a la evidencia: el documento como entidad física.</li><li>Sin esta idea no existiría la documentación de museos.</li></ul></div>
+  <div class="hint"><b>Pista visual</b> Una flecha que lleva de «comunicación» a «evidencia».</div>
+  <div class="num">26</div>
+</section>
+<section class="page" style="--c:#a97f3f">
+  <div class="band"></div>
+  <header><div class="kicker">TEMA 2 · 2. DOCUMENTOS Y DOCUMENTACIÓN</div><h1>La teoría moderna del documento</h1>
+  <div class="orig">Ideas clave · diapositiva original 31</div></header>
+  <div class="main split"><div class="text">
+<ul class="dots">
+<li>La teoría moderna del documento, a veces llamada <b>teoría neodocumental</b>, examina el concepto de documento y cómo combinarlo con otros conceptos para entender la comunicación de información y conocimiento en una infosfera donde muchos documentos son digitales.</li>
+<li>Además de la naturaleza y los atributos de los documentos, estudia los <b>procesos de documentación</b>, mediante los cuales se crean, organizan y usan.</li>
+<li>Los documentos adoptan formas muy diversas, pero hay una distinción común entre dos tipos principales: <b>intencionales</b> y <b>atributivos</b>.</li>
+</ul>
+</div><figure class="fig"><svg viewBox="0 0 320 270" xmlns="http://www.w3.org/2000/svg" font-family="Noto Sans, sans-serif"><defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#4a5262"/></marker></defs><rect x="85" y="5" width="150" height="50" rx="10" fill="#a97f3f"/><text x="160.0" y="21.875" font-size="13" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="160.0" dy="0">Teoría del</tspan><tspan x="160.0" dy="16.25">documento</tspan></text><line x1="130" y1="55" x2="70" y2="95" stroke="#4a5262" stroke-width="2.2" marker-end="url(#ar)"/><line x1="190" y1="55" x2="250" y2="95" stroke="#4a5262" stroke-width="2.2" marker-end="url(#ar)"/><rect x="5" y="98" width="140" height="60" rx="10" fill="#fff" stroke="#a97f3f" stroke-width="2"/><text x="75.0" y="120.5" font-size="12" fill="#a97f3f" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="75.0" dy="0">Naturaleza y</tspan><tspan x="75.0" dy="15.0">atributos</tspan></text><rect x="175" y="98" width="140" height="60" rx="10" fill="#fff" stroke="#a97f3f" stroke-width="2"/><text x="245.0" y="120.5" font-size="12" fill="#a97f3f" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="245.0" dy="0">Procesos de</tspan><tspan x="245.0" dy="15.0">documentación</tspan></text><line x1="75" y1="158" x2="75" y2="190" stroke="#4a5262" stroke-width="2.2" marker-end="url(#ar)"/><line x1="245" y1="158" x2="245" y2="190" stroke="#4a5262" stroke-width="2.2" marker-end="url(#ar)"/><rect x="5" y="193" width="140" height="50" rx="10" fill="#7f6ea3"/><text x="75.0" y="218.0" font-size="12" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="75.0" dy="0">Intencionales</tspan></text><rect x="175" y="193" width="140" height="50" rx="10" fill="#647f52"/><text x="245.0" y="211.125" font-size="11" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="245.0" dy="0">crear, organizar,</tspan><tspan x="245.0" dy="13.75">usar…</tspan></text><text x="75" y="258.0" font-size="11" fill="#7f6ea3" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="75" dy="0">+ atributivos</tspan></text></svg></figure></div>
+  <div class="remember"><h2>Para entenderlo y recordarlo</h2><ul><li>La teoría neodocumental estudia qué son los documentos y qué procesos los crean, organizan y usan.</li><li>Primera distinción: documentos intencionales y atributivos.</li></ul></div>
+  <div class="hint"><b>Pista visual</b> Un árbol con dos ramas: lo que es el documento y lo que se hace con él.</div>
+  <div class="num">27</div>
+</section>
+<section class="page" style="--c:#7f6ea3">
+  <div class="band"></div>
+  <header><div class="kicker">TEMA 2 · 2. DOCUMENTOS Y DOCUMENTACIÓN</div><h1>Documentos intencionales y atributivos</h1>
+  <div class="orig">Ideas clave · diapositiva original 32</div></header>
+  <div class="main split"><div class="text">
+<table class="t">
+<tr><th></th><th>Intencionales</th><th>Atributivos</th></tr>
+<tr><td><b>Origen</b></td><td>Se crean deliberadamente como documentos.</td><td>Objetos no creados como documentos que después pasan a serlo.</td></tr>
+<tr><td><b>Ejemplos</b></td><td>Libros, fotografías.</td><td>Especímenes de un herbario; objetos de museo tratados como evidencia.</td></tr>
+<tr><td><b>Reconocimiento</b></td><td>Casi universal.</td><td>Depende del uso y del contexto.</td></tr>
+</table>
+<ul class="dots">
+<li>Un objeto puede ser documento para una persona, en un momento y con un propósito concretos. Importa más <b>si funciona como documento</b> que su forma física.</li>
+<li>Como muchas cosas pueden ser documentos, la teoría se centra en un conjunto de <b>atributos</b> que todos los documentos poseen, al menos en cierta medida.</li>
+</ul>
+</div><figure class="fig"><svg viewBox="0 0 320 258" xmlns="http://www.w3.org/2000/svg" font-family="Noto Sans, sans-serif"><defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#4a5262"/></marker></defs><rect x="5" y="5" width="150" height="36" rx="10" fill="#7f6ea3"/><text x="80.0" y="23.0" font-size="13" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="80.0" dy="0">Intencional</tspan></text><rect x="165" y="5" width="150" height="36" rx="10" fill="#647f52"/><text x="240.0" y="23.0" font-size="13" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="240.0" dy="0">Atributivo</tspan></text><path d="M50,60 h43.2 l16.8,16.8 v63.2 h-60 z" fill="#7f6ea3"/><path d="M93.2,60 v16.8 h16.8 z" fill="#fff" opacity=".45"/><rect x="60.8" y="96.0" width="38.4" height="4.8" rx="2" fill="#fff" opacity=".85"/><rect x="60.8" y="108.0" width="38.4" height="4.8" rx="2" fill="#fff" opacity=".85"/><rect x="60.8" y="120.0" width="38.4" height="4.8" rx="2" fill="#fff" opacity=".85"/><path d="M240,145 C190,120 195,70 245,55 C290,75 290,125 240,145 Z" fill="#647f52"/><path d="M240,145 L245,58" stroke="#fff" stroke-width="3"/><text x="80" y="158.125" font-size="11" fill="#2b3240" font-weight="normal" text-anchor="middle" dominant-baseline="middle"><tspan x="80" dy="0">se crea para</tspan><tspan x="80" dy="13.75">ser documento</tspan></text><text x="240" y="158.125" font-size="11" fill="#2b3240" font-weight="normal" text-anchor="middle" dominant-baseline="middle"><tspan x="240" dy="0">pasa a serlo al</tspan><tspan x="240" dy="13.75">usarse como evidencia</tspan></text><text x="80" y="210.0" font-size="11" fill="#7f6ea3" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="80" dy="0">libro · fotografía</tspan></text><text x="240" y="210.0" font-size="11" fill="#647f52" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="240" dy="0">planta de herbario</tspan></text><text x="160" y="245.0" font-size="11" fill="#555" font-weight="normal" text-anchor="middle" dominant-baseline="middle" font-style="italic"><tspan x="160" dy="0">Lo decisivo es la función, no la forma física.</tspan></text></svg></figure></div>
+  <div class="remember"><h2>Para entenderlo y recordarlo</h2><ul><li>Intencional: nace documento. Atributivo: se convierte en documento.</li><li>Lo que cuenta es la función, no la forma.</li></ul></div>
+  <div class="hint"><b>Pista visual</b> Un libro y una hoja de herbario: uno nació documento; la otra llegó a serlo.</div>
+  <div class="num">28</div>
+</section>
+<section class="page" style="--c:#647f52">
+  <div class="band"></div>
+  <header><div class="kicker">TEMA 2 · 2. DOCUMENTOS Y DOCUMENTACIÓN</div><h1>Cinco atributos de los documentos</h1>
+  <div class="orig">Ideas clave · diapositiva original 33</div></header>
+  <div class="main split"><div class="text">
+<ol class="steps">
+<li><b>Indizabilidad.</b> Un documento trata sobre algo o señala algo, como un dedo índice: tiene «sobreidad» y puede actuar como símbolo.</li>
+<li><b>Documentalidad.</b> Su poder especial: cumple una función social en un contexto, un momento y un lugar determinados.</li>
+<li><b>Complementariedad.</b> Tiene tres dimensiones: material (composición física o técnica), informativa (actividad cognitiva) y social (significado económico, político o cultural).</li>
+<li><b>Fijeza.</b> Es lo bastante estable en el tiempo para cumplir su función. Un libro puede durar siglos; los documentos digitales cambian más, y la teoría neodocumental reconoce esa fluidez.</li>
+<li><b>Productividad.</b> De un original surgen nuevos documentos, de forma <b>jerárquica</b> (primarios, secundarios, terciarios) o <b>rizomática</b>, sin un documento primario ni prioridades absolutas entre ellos.</li>
+</ol>
+</div><figure class="fig"><svg viewBox="0 0 320 265" xmlns="http://www.w3.org/2000/svg" font-family="Noto Sans, sans-serif"><defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#4a5262"/></marker></defs><polygon points="160,40 250,106 216,212 104,212 70,106" fill="none" stroke="#647f52" stroke-width="3"/><text x="160" y="135.0" font-size="14" fill="#647f52" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="160" dy="0">Documento</tspan></text><rect x="105.0" y="20.0" width="110" height="40" rx="10" fill="#4f8487"/><text x="160.0" y="40.0" font-size="11" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="160.0" dy="0">Indizabilidad</tspan></text><rect x="195.35036904803957" y="85.64338553438" width="110" height="40" rx="10" fill="#a97f3f"/><text x="250.35036904803957" y="105.64338553438" font-size="11" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="250.35036904803957" dy="0">Documentalidad</tspan></text><rect x="160.83959896778495" y="191.85661446562" width="110" height="40" rx="10" fill="#b0654a"/><text x="215.83959896778495" y="204.98161446562" font-size="11" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="215.83959896778495" dy="0">Complemen-</tspan><tspan x="215.83959896778495" dy="13.75">tariedad</tspan></text><rect x="49.16040103221506" y="191.85661446562" width="110" height="40" rx="10" fill="#b65c72"/><text x="104.16040103221506" y="211.85661446562" font-size="11" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="104.16040103221506" dy="0">Fijeza</tspan></text><rect x="14.649630951960404" y="85.64338553438" width="110" height="40" rx="10" fill="#7f6ea3"/><text x="69.6496309519604" y="105.64338553438" font-size="11" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="69.6496309519604" dy="0">Productividad</tspan></text></svg></figure></div>
+  <div class="remember"><h2>Para entenderlo y recordarlo</h2><ul><li>Indizabilidad, documentalidad, complementariedad, fijeza y productividad.</li><li>Regla mnemotécnica: «I-Do-Co-Fi-Pro».</li></ul></div>
+  <div class="hint"><b>Pista visual</b> Un pentágono con el documento en el centro y un atributo en cada vértice.</div>
+  <div class="num">29</div>
+</section>
+<section class="page" style="--c:#b0654a">
+  <div class="band"></div>
+  <header><div class="kicker">TEMA 2 · 2. DOCUMENTOS Y DOCUMENTACIÓN</div><h1>Los procesos de documentación</h1>
+  <div class="orig">Ideas clave · diapositiva original 34</div></header>
+  <div class="main split"><div class="text">
+<table class="t">
+<tr><th>Proceso</th><th>Qué incluye</th></tr>
+<tr><td><b>1. Creación</b></td><td>Autoría u otra forma de creación.</td></tr>
+<tr><td><b>2. Selección</b></td><td>Elección y recolección.</td></tr>
+<tr><td><b>3. Organización</b></td><td>Disposición, clasificación e indización.</td></tr>
+<tr><td><b>4. Difusión</b></td><td>Copia, reproducción y difusión.</td></tr>
+<tr><td><b>5. Preservación</b></td><td>Conservación y digitalización.</td></tr>
+<tr><td><b>6. Destrucción</b></td><td>Eliminación del documento (expurgo).</td></tr>
+</table>
+<div class="cards2 tight">
+<div><h3>Más allá de las instituciones</h3>Son los procesos de la cadena de la información registrada, base de bibliotecas y archivos. También importan en la vida cotidiana, para registrar el pasado y planificar el futuro.</div>
+<div><h3>Otras entidades como documentos</h3>Tratar los paisajes como documentos permite usarlos como evidencia en juicios sobre derechos de tierras y agua. Tratar los objetos de museo como documentos mejora la experiencia de los visitantes.</div>
+</div>
+</div><figure class="fig"><svg viewBox="0 0 320 262" xmlns="http://www.w3.org/2000/svg" font-family="Noto Sans, sans-serif"><defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#4a5262"/></marker></defs><circle cx="160" cy="130" r="92" fill="none" stroke="#d3cbbd" stroke-width="10"/><text x="160" y="116.25" font-size="11" fill="#2b3240" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="160" dy="0">Cadena de la</tspan><tspan x="160" dy="13.75">información</tspan><tspan x="160" dy="13.75">registrada</tspan></text><rect x="105.0" y="21.0" width="110" height="34" rx="10" fill="#b65c72"/><text x="160.0" y="38.0" font-size="11" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="160.0" dy="0">1 Creación</tspan></text><rect x="184.67433714816835" y="67.0" width="110" height="34" rx="10" fill="#4f8487"/><text x="239.67433714816835" y="84.0" font-size="11" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="239.67433714816835" dy="0">2 Selección</tspan></text><rect x="184.67433714816838" y="159.0" width="110" height="34" rx="10" fill="#a97f3f"/><text x="239.67433714816838" y="176.0" font-size="11" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="239.67433714816838" dy="0">3 Organización</tspan></text><rect x="105.0" y="205.0" width="110" height="34" rx="10" fill="#7f6ea3"/><text x="160.0" y="222.0" font-size="11" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="160.0" dy="0">4 Difusión</tspan></text><rect x="25.325662851831666" y="159.00000000000003" width="110" height="34" rx="10" fill="#647f52"/><text x="80.32566285183167" y="176.00000000000003" font-size="11" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="80.32566285183167" dy="0">5 Preservación</tspan></text><rect x="25.325662851831652" y="67.0" width="110" height="34" rx="10" fill="#b0654a"/><text x="80.32566285183165" y="84.0" font-size="11" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="80.32566285183165" dy="0">6 Destrucción</tspan></text></svg></figure></div>
+  <div class="remember"><h2>Para entenderlo y recordarlo</h2><ul><li>Crear, seleccionar, organizar, difundir, preservar y destruir.</li><li>Se aplican a bibliotecas y archivos, a la vida cotidiana y a paisajes u objetos.</li></ul></div>
+  <div class="hint"><b>Pista visual</b> Un ciclo de seis colores: del nacimiento del documento a su expurgo.</div>
+  <div class="num">30</div>
+</section>
+<section class="page" style="--c:#b65c72">
+  <div class="band"></div>
+  <header><div class="kicker">TEMA 2 · 2. DOCUMENTOS Y DOCUMENTACIÓN</div><h1>Categorización y organización de documentos</h1>
+  <div class="orig">Ideas clave · diapositiva original 35</div></header>
+  <div class="main split"><div class="text">
+<div class="cards2 tight">
+<div><h3>Bibliografía</h3>Desde el siglo XVIII estudia las obras impresas. Se ocupa de su <b>descripción</b>, su <b>selección</b> para fines concretos, su <b>organización</b> y su <b>difusión</b>.</div>
+<div><h3>Documentación</h3>Se desarrolla a partir de la bibliografía y crea sistemas de descripción y clasificación: herramientas para organizar los recursos.</div>
+</div>
+<p>Una forma sencilla y útil de categorizar los documentos es por <b>nivel de recurso</b>: del nivel 0 (información en bruto) al nivel 5 (listas de listas de listas). Los niveles se detallan en la página siguiente.</p>
+</div><figure class="fig"><svg viewBox="0 0 320 250" xmlns="http://www.w3.org/2000/svg" font-family="Noto Sans, sans-serif"><defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#4a5262"/></marker></defs><text x="160" y="14.0" font-size="13" fill="#2b3240" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="160" dy="0">Qué hace la bibliografía</tspan></text><rect x="5" y="34" width="72" height="72" rx="36" fill="#b65c72"/><text x="41" y="62.0" font-size="20" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="41" dy="0">1</tspan></text><text x="41" y="86.0" font-size="9" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="41" dy="0">Descripción</tspan></text><line x1="77" y1="70" x2="84" y2="70" stroke="#4a5262" stroke-width="2.2" marker-end="url(#ar)"/><rect x="84" y="34" width="72" height="72" rx="36" fill="#4f8487"/><text x="120" y="62.0" font-size="20" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="120" dy="0">2</tspan></text><text x="120" y="86.0" font-size="9" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="120" dy="0">Selección</tspan></text><line x1="156" y1="70" x2="163" y2="70" stroke="#4a5262" stroke-width="2.2" marker-end="url(#ar)"/><rect x="163" y="34" width="72" height="72" rx="36" fill="#a97f3f"/><text x="199" y="62.0" font-size="20" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="199" dy="0">3</tspan></text><text x="199" y="86.0" font-size="9" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="199" dy="0">Organización</tspan></text><line x1="235" y1="70" x2="242" y2="70" stroke="#4a5262" stroke-width="2.2" marker-end="url(#ar)"/><rect x="242" y="34" width="72" height="72" rx="36" fill="#7f6ea3"/><text x="278" y="62.0" font-size="20" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="278" dy="0">4</tspan></text><text x="278" y="86.0" font-size="9" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="278" dy="0">Difusión</tspan></text><rect x="5" y="130" width="145" height="60" rx="10" fill="#fff" stroke="#b65c72" stroke-width="2"/><text x="77.5" y="153.125" font-size="11" fill="#b65c72" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="77.5" dy="0">Bibliografía</tspan><tspan x="77.5" dy="13.75">desde el s. XVIII</tspan></text><line x1="152" y1="160" x2="168" y2="160" stroke="#4a5262" stroke-width="2.2" marker-end="url(#ar)"/><rect x="170" y="130" width="145" height="60" rx="10" fill="#b65c72"/><text x="242.5" y="153.125" font-size="11" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="242.5" dy="0">Documentación</tspan><tspan x="242.5" dy="13.75">(finales s. XIX)</tspan></text><text x="160" y="213.125" font-size="11" fill="#555" font-weight="normal" text-anchor="middle" dominant-baseline="middle" font-style="italic"><tspan x="160" dy="0">Del 0 (información en bruto)</tspan><tspan x="160" dy="13.75">al 5 (listas de listas de listas)</tspan></text></svg></figure></div>
+  <div class="remember"><h2>Para entenderlo y recordarlo</h2><ul><li>Bibliografía: describir, seleccionar, organizar, difundir.</li><li>La documentación nace de la bibliografía y clasifica los recursos por niveles (0-5).</li></ul></div>
+  <div class="hint"><b>Pista visual</b> Cuatro círculos encadenados: las cuatro tareas de la bibliografía.</div>
+  <div class="num">31</div>
+</section>
+<section class="page" style="--c:#4f8487">
+  <div class="band"></div>
+  <header><div class="kicker">TEMA 2 · 2. DOCUMENTOS Y DOCUMENTACIÓN</div><h1>Niveles de recurso documental</h1>
+  <div class="orig">Ideas clave · diapositiva original 36</div></header>
+  <div class="main full">
+<table class="t">
+<tr><th>Nivel</th><th>Qué es</th><th>Ejemplos</th></tr>
+<tr><td><b>0 · Cero</b></td><td>Información en bruto, antes de entrar en la cadena de comunicación.</td><td>Salida de instrumentos de laboratorio, de una interfaz de búsqueda o de una API.</td></tr>
+<tr><td><b>1 · Primario</b></td><td>La «información original».</td><td>Artículos de revista, entradas de blog, tuits.</td></tr>
+<tr><td><b>2 · Secundario</b></td><td>Información de valor añadido, que organiza material primario.</td><td>Libros de texto, reseñas, resúmenes.</td></tr>
+<tr><td><b>3 · Terciario</b></td><td>Apunta a los primarios y secundarios y facilita su uso.</td><td>Bibliografías, enciclopedias, directorios.</td></tr>
+<tr><td><b>4 · Cuaternario</b></td><td>Listas de listas: acceso a recursos de nivel superior.</td><td>Bibliografías de bibliografías.</td></tr>
+<tr><td><b>5 · Quinario</b></td><td>Listas de listas de listas.</td><td>Proliferan en la web, igual que los cuaternarios.</td></tr>
+</table>
+<p class="q"><b>La categorización es subjetiva.</b> Una bibliografía médica es terciaria, pero para un futuro historiador de la sanidad sería primaria. También varía según la disciplina: un historiador considera primarios los documentos de archivo originales, y secundarios los artículos basados en ellos.</p>
+</div>
+  <div class="remember"><h2>Para entenderlo y recordarlo</h2><ul><li>0 bruto · 1 original · 2 valor añadido · 3 apunta · 4 listas de listas · 5 listas de listas de listas.</li><li>El nivel depende de quién usa el documento y para qué.</li></ul></div>
+  <div class="hint"><b>Pista visual</b> Una pila que se estrecha hacia arriba: cada nivel apunta al de abajo.</div>
+  <div class="num">32</div>
+</section>
+<section class="page" style="--c:#a97f3f">
+  <div class="band"></div>
+  <header><div class="kicker">TEMA 2 · 2. DOCUMENTOS Y DOCUMENTACIÓN</div><h1>Colecciones: de la posesión al acceso</h1>
+  <div class="orig">Ideas clave · diapositiva original 37</div></header>
+  <div class="main split"><div class="text">
+<ul class="dots">
+<li>El diccionario define colección como «un número de objetos recolectados o reunidos, vistos como un todo; un grupo de cosas recolectadas y organizadas».</li>
+<li>En las CID, una <b>colección</b> es un conjunto organizado de elementos con información, seleccionados para un propósito en un contexto particular y, por lo general, únicos para esa situación. Las hay en bibliotecas, archivos, museos, galerías y todo tipo de centros de información.</li>
+<li>Pasar de colecciones físicas a digitales supone pasar de la <b>propiedad y la ubicación</b> al <b>acceso</b>, algo reconocido desde hace años.</li>
+<li>La colección digital es dinámica e impermanente, con ciclos de vida diversos e impredecibles, y en parte ya no está bajo control local.</li>
+<li>Como sus recursos se enlazan con otros, cuesta trazar un límite claro sobre lo que está dentro. Un mismo documento digital puede estar a la vez en varias colecciones, algo imposible en el mundo predigital.</li>
+</ul>
+</div><figure class="fig"><svg viewBox="0 0 320 258" xmlns="http://www.w3.org/2000/svg" font-family="Noto Sans, sans-serif"><defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#4a5262"/></marker></defs><circle cx="110" cy="115" r="85" fill="#a97f3f"/><text x="85" y="106.875" font-size="13" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="85" dy="0">Colección</tspan><tspan x="85" dy="16.25">física</tspan></text><circle cx="215" cy="115" r="85" fill="#4f8487" opacity=".85"/><text x="240" y="106.875" font-size="13" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="240" dy="0">Colección</tspan><tspan x="240" dy="16.25">digital</tspan></text><text x="110" y="222.0" font-size="11" fill="#a97f3f" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="110" dy="0">propiedad · ubicación</tspan></text><text x="215" y="245.0" font-size="11" fill="#4f8487" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="215" dy="0">acceso · vínculos · criterios</tspan></text></svg></figure></div>
+  <div class="remember"><h2>Para entenderlo y recordarlo</h2><ul><li>Colección física: poseer y ubicar. Colección digital: dar acceso.</li><li>Lo digital difumina los límites: un documento puede estar en varias colecciones a la vez.</li></ul></div>
+  <div class="hint"><b>Pista visual</b> Dos círculos que se solapan: la zona común son los documentos que viven en ambos mundos.</div>
+  <div class="num">33</div>
+</section>
+<section class="page" style="--c:#7f6ea3">
+  <div class="band"></div>
+  <header><div class="kicker">TEMA 2 · 2. DOCUMENTOS Y DOCUMENTACIÓN</div><h1>Colección física frente a colección digital</h1>
+  <div class="orig">Ideas clave · diapositiva original 38</div></header>
+  <div class="main full">
+<table class="t">
+<tr><th>Dimensión</th><th>Colección física</th><th>Colección digital</th></tr>
+<tr><td><b>Base</b></td><td>Propiedad y ubicación.</td><td>Acceso.</td></tr>
+<tr><td><b>Límites</b></td><td>Definidos por contención: lo que hay dentro.</td><td>Difusos por los vínculos entre recursos; se definen por criterios de selección.</td></tr>
+<tr><td><b>Control</b></td><td>Local.</td><td>En parte, ya no es local.</td></tr>
+<tr><td><b>Ciclo de vida</b></td><td>Más estable.</td><td>Dinámico, impermanente, con ciclos diversos e impredecibles.</td></tr>
+<tr><td><b>Pertenencia</b></td><td>Cada ítem está en una colección.</td><td>Un mismo documento puede estar en varias colecciones.</td></tr>
+</table>
+<p class="small">Imagen de la diapositiva original: el Archivo Apostólico Vaticano, ejemplo de colección física, definida por lo que contienen sus estanterías.</p>
+</div>
+  <div class="remember"><h2>Para entenderlo y recordarlo</h2><ul><li>Cinco diferencias: base, límites, control, ciclo de vida y pertenencia.</li><li>En lo digital, la colección se define por criterios, no por paredes.</li></ul></div>
+  <div class="hint"><b>Pista visual</b> Las estanterías del Archivo Vaticano frente a una red de enlaces.</div>
+  <div class="num">34</div>
+</section>
+<section class="page" style="--c:#647f52">
+  <div class="band"></div>
+  <header><div class="kicker">TEMA 2 · 3. ANÁLISIS DEL DOMINIO</div><h1>Dominios de información</h1>
+  <div class="orig">Ideas clave · diapositiva original 40</div></header>
+  <div class="main split"><div class="text">
+<p>Los contextos de uso de la información pueden describirse por área geográfica, tipo de institución o perfil de las personas usuarias. La distinción más útil es el <b>dominio</b>, que suele coincidir con:</p>
+<ul class="dots">
+<li>una disciplina académica (matemáticas, historia);</li>
+<li>una actividad profesional (atención sanitaria, finanzas);</li>
+<li>un interés recreativo (coleccionar libros);</li>
+<li>la información cotidiana o una comunidad de discurso.</li>
+</ul>
+<p class="lead">Tres dimensiones definen y explican un dominio:</p>
+<dl class="defs">
+<dt>Ontológica</dt><dd>su principal objeto de interés: la botánica, las plantas; la historia, el pasado; la teología, lo divino.</dd>
+<dt>Epistemológica</dt><dd>el tipo de conocimiento del dominio, o los distintos tipos asociados a paradigmas o formas de comprensión.</dd>
+<dt>Sociológica</dt><dd>las personas y grupos que intervienen en el dominio.</dd>
+</dl>
+</div><figure class="fig"><svg viewBox="0 0 320 268" xmlns="http://www.w3.org/2000/svg" font-family="Noto Sans, sans-serif"><defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#4a5262"/></marker></defs><polygon points="160,20 300,240 20,240" fill="none" stroke="#647f52" stroke-width="4"/><rect x="95" y="5" width="130" height="46" rx="10" fill="#647f52"/><text x="160.0" y="21.125" font-size="11" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="160.0" dy="0">Ontológica</tspan><tspan x="160.0" dy="13.75">¿de qué trata?</tspan></text><rect x="0" y="215" width="130" height="46" rx="10" fill="#a97f3f"/><text x="65.0" y="231.125" font-size="11" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="65.0" dy="0">Epistemológica</tspan><tspan x="65.0" dy="13.75">¿cómo se conoce?</tspan></text><rect x="190" y="215" width="130" height="46" rx="10" fill="#7f6ea3"/><text x="255.0" y="231.75" font-size="10" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="255.0" dy="0">Sociológica</tspan><tspan x="255.0" dy="12.5">¿quiénes intervienen?</tspan></text><text x="160" y="165.0" font-size="16" fill="#647f52" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="160" dy="0">DOMINIO</tspan></text></svg></figure></div>
+  <div class="remember"><h2>Para entenderlo y recordarlo</h2><ul><li>Dominio = disciplina, profesión, afición o comunidad de discurso.</li><li>Se analiza en tres dimensiones: qué estudia, cómo conoce y quién participa.</li></ul></div>
+  <div class="hint"><b>Pista visual</b> Un triángulo con el dominio en el centro y una dimensión en cada vértice.</div>
+  <div class="num">35</div>
+</section>
+<section class="page" style="--c:#b0654a">
+  <div class="band"></div>
+  <header><div class="kicker">TEMA 2 · 3. ANÁLISIS DEL DOMINIO</div><h1>Terminología de dominio</h1>
+  <div class="orig">Ideas clave · diapositiva original 41</div></header>
+  <div class="main split"><div class="text">
+<p>La <b>denominación estructurada de las cosas</b> es una de las herramientas más básicas para organizar y comunicar información de forma precisa y sin ambigüedad. Todos los dominios tienen la suya; en la información cotidiana, es el diccionario.</p>
+<table class="t">
+<tr><th>Herramienta</th><th>Descripción</th></tr>
+<tr><td><b>1 · Diccionarios generales</b></td><td>Pueden ser multilingües.</td></tr>
+<tr><td><b>2 · Diccionarios y glosarios temáticos</b></td><td>Para temas específicos.</td></tr>
+<tr><td><b>3 · Diccionarios de uso especial</b></td><td>Rimas, citas, pistas de crucigramas.</td></tr>
+<tr><td><b>4 · Nombres propios</b></td><td>Diccionarios biográficos y de lugares.</td></tr>
+<tr><td><b>5 · Listas de nombres específicos</b></td><td>Productos, medicamentos, sustancias químicas.</td></tr>
+<tr><td><b>6 · Herramientas de recuperación</b></td><td>Clasificaciones, taxonomías, ontologías, encabezamientos de materia y tesauros.</td></tr>
+</table>
+</div><figure class="fig"><svg viewBox="0 0 320 262" xmlns="http://www.w3.org/2000/svg" font-family="Noto Sans, sans-serif"><defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#4a5262"/></marker></defs><rect x="5" y="5" width="98" height="100" rx="10" fill="#b0654a"/><text x="54" y="35.0" font-size="22" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="54" dy="0">1</tspan></text><text x="54" y="75.0" font-size="11" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="54" dy="0">Generales</tspan></text><rect x="110" y="5" width="98" height="100" rx="10" fill="#a97f3f"/><text x="159" y="35.0" font-size="22" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="159" dy="0">2</tspan></text><text x="159" y="75.0" font-size="11" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="159" dy="0">Temáticos</tspan></text><rect x="215" y="5" width="98" height="100" rx="10" fill="#4f8487"/><text x="264" y="35.0" font-size="22" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="264" dy="0">3</tspan></text><text x="264" y="75.0" font-size="11" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="264" dy="0">Uso especial</tspan></text><rect x="5" y="120" width="98" height="100" rx="10" fill="#647f52"/><text x="54" y="150.0" font-size="22" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="54" dy="0">4</tspan></text><text x="54" y="183.125" font-size="11" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="54" dy="0">Nombres</tspan><tspan x="54" dy="13.75">propios</tspan></text><rect x="110" y="120" width="98" height="100" rx="10" fill="#7f6ea3"/><text x="159" y="150.0" font-size="22" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="159" dy="0">5</tspan></text><text x="159" y="183.125" font-size="11" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="159" dy="0">Nombres</tspan><tspan x="159" dy="13.75">específicos</tspan></text><rect x="215" y="120" width="98" height="100" rx="10" fill="#b65c72"/><text x="264" y="150.0" font-size="22" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="264" dy="0">6</tspan></text><text x="264" y="190.0" font-size="11" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="264" dy="0">Recuperación</tspan></text><text x="160" y="250.0" font-size="11" fill="#555" font-weight="normal" text-anchor="middle" dominant-baseline="middle" font-style="italic"><tspan x="160" dy="0">de lo general a lo especializado →</tspan></text></svg></figure></div>
+  <div class="remember"><h2>Para entenderlo y recordarlo</h2><ul><li>Cada dominio tiene su terminología: nombrar bien es organizar bien.</li><li>Seis tipos, del diccionario general al tesauro.</li></ul></div>
+  <div class="hint"><b>Pista visual</b> Seis bloques numerados que van del diccionario general a las ontologías.</div>
+  <div class="num">36</div>
+</section>
+<section class="page" style="--c:#b65c72">
+  <div class="band"></div>
+  <header><div class="kicker">TEMA 2 · 3. ANÁLISIS DEL DOMINIO</div><h1>Análisis de dominio: once enfoques (Hjørland)</h1>
+  <div class="orig">Ideas clave · diapositiva original 42</div></header>
+  <div class="main full">
+<p>Birger Hjørland propuso, dentro del paradigma <b>sociocognitivo</b>, once enfoques con los que la ciencia de la información puede abordar un dominio. Es un puente entre investigación y práctica.</p>
+<ol class="cols2">
+<li>Guías de literatura y portales temáticos</li>
+<li>Clasificaciones especiales y tesauros</li>
+<li>Indización y recuperación en temas especializados</li>
+<li>Estudios empíricos de usuarios</li>
+<li>Estudios bibliométricos</li>
+<li>Estudios históricos</li>
+<li>Estudios de documentos y «géneros»</li>
+<li>Estudios epistemológicos y críticos</li>
+<li>Terminología, lenguajes especiales y análisis del discurso</li>
+<li>Estructuras e instituciones en la comunicación de la información</li>
+<li>Cognición, conocimiento experto e inteligencia artificial</li>
+</ol>
+<p>Quien trabaja en un ámbito no tiene por qué hacer estos estudios, pero sí conocer sus resultados; por ejemplo, la Clasificación Internacional de Enfermedades en información sanitaria. Comprender la terminología de un dominio es imprescindible para ofrecer información de forma eficaz.</p>
+</div>
+  <div class="remember"><h2>Para entenderlo y recordarlo</h2><ul><li>Once enfoques que van de la práctica (guías, tesauros) a la investigación (epistemología, IA).</li><li>No hace falta aplicarlos todos, pero sí conocer sus resultados.</li></ul></div>
+  <div class="hint"><b>Pista visual</b> Una lista de once casillas en dos columnas: la caja de herramientas de Hjørland.</div>
+  <div class="num">37</div>
+</section>
+<section class="page" style="--c:#4f8487">
+  <div class="band"></div>
+  <header><div class="kicker">TEMA 2 · 3. ANÁLISIS DEL DOMINIO</div><h1>Ejemplo 1: la química</h1>
+  <div class="orig">Ideas clave · diapositiva original 43</div></header>
+  <div class="main split"><div class="text">
+<h3 class="sub">Disciplina científica</h3>
+<ul class="dots">
+<li>Estudia las sustancias, sus propiedades y sus reacciones; es la base de las industrias química y farmacéutica.</li>
+<li>Tiene una base de información muy amplia y fue pionera en servicios de información.</li>
+<li>Recursos: libros, revistas, bases de datos bibliográficas y bancos de datos de propiedades.</li>
+<li>Entidades clave: <b>sustancias y reacciones</b>, con múltiples representaciones (nombres, números de registro, diagramas 2D y 3D).</li>
+</ul>
+<h3 class="sub">Hitos</h3>
+<ul class="dots">
+<li><b>1881</b>: primera edición del <i>Handbuch</i> de Beilstein, gran compilación de datos de compuestos orgánicos.</li>
+<li><b>1907</b>: nace <i>Chemical Abstracts</i>, hoy Chemical Abstracts Service (CAS), de la American Chemical Society.</li>
+</ul>
+</div><figure class="fig"><svg viewBox="0 0 320 260" xmlns="http://www.w3.org/2000/svg" font-family="Noto Sans, sans-serif"><defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#4a5262"/></marker></defs><rect x="0" y="0" width="320" height="260" rx="10" fill="#fff" stroke="#ddd"/><text x="160" y="22.0" font-size="11" fill="#2b3240" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="160" dy="0">Dapsona: una sustancia, muchas representaciones</tspan></text><polygon points="116.0,100.0 90.0,115.0 64.0,100.0 64.0,70.0 90.0,55.0 116.0,70.0" fill="none" stroke="#2b3240" stroke-width="2.5"/><circle cx="90" cy="85" r="16.5" fill="none" stroke="#2b3240" stroke-width="1.5"/><polygon points="256.0,100.0 230.0,115.0 204.0,100.0 204.0,70.0 230.0,55.0 256.0,70.0" fill="none" stroke="#2b3240" stroke-width="2.5"/><circle cx="230" cy="85" r="16.5" fill="none" stroke="#2b3240" stroke-width="1.5"/><line x1="116" y1="85" x2="148" y2="85" stroke="#2b3240" stroke-width="2.5"/><line x1="172" y1="85" x2="204" y2="85" stroke="#2b3240" stroke-width="2.5"/><text x="160" y="86.0" font-size="16" fill="#a97f3f" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="160" dy="0">S</tspan></text><line x1="157" y1="76" x2="157" y2="62" stroke="#2b3240" stroke-width="2"/><line x1="163" y1="76" x2="163" y2="62" stroke="#2b3240" stroke-width="2"/><line x1="157" y1="96" x2="157" y2="110" stroke="#2b3240" stroke-width="2"/><line x1="163" y1="96" x2="163" y2="110" stroke="#2b3240" stroke-width="2"/><text x="160" y="54.0" font-size="12" fill="#b0654a" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="160" dy="0">O</tspan></text><text x="160" y="119.0" font-size="12" fill="#b0654a" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="160" dy="0">O</tspan></text><line x1="64" y1="85" x2="40" y2="85" stroke="#2b3240" stroke-width="2.5"/><line x1="256" y1="85" x2="280" y2="85" stroke="#2b3240" stroke-width="2.5"/><text x="26" y="86.0" font-size="11" fill="#4f8487" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="26" dy="0">H₂N</tspan></text><text x="298" y="86.0" font-size="11" fill="#4f8487" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="298" dy="0">NH₂</tspan></text><text x="14" y="150.0" font-size="10" fill="#777" font-weight="bold" text-anchor="start" dominant-baseline="middle"><tspan x="14" dy="0">Fórmula</tspan></text><text x="95" y="150.0" font-size="10" fill="#2b3240" font-weight="normal" text-anchor="start" dominant-baseline="middle"><tspan x="95" dy="0">C₁₂H₁₂N₂O₂S</tspan></text><text x="14" y="176.0" font-size="10" fill="#777" font-weight="bold" text-anchor="start" dominant-baseline="middle"><tspan x="14" dy="0">Masa media</tspan></text><text x="95" y="176.0" font-size="10" fill="#2b3240" font-weight="normal" text-anchor="start" dominant-baseline="middle"><tspan x="95" dy="0">248,30 Da</tspan></text><text x="14" y="202.0" font-size="10" fill="#777" font-weight="bold" text-anchor="start" dominant-baseline="middle"><tspan x="14" dy="0">SMILES</tspan></text><text x="95" y="202.0" font-size="10" fill="#2b3240" font-weight="normal" text-anchor="start" dominant-baseline="middle"><tspan x="95" dy="0">Nc1ccc(cc1)S(=O)(=O)c1ccc(N)cc1</tspan></text><text x="14" y="228.0" font-size="10" fill="#777" font-weight="bold" text-anchor="start" dominant-baseline="middle"><tspan x="14" dy="0">InChIKey</tspan></text><text x="95" y="228.0" font-size="10" fill="#2b3240" font-weight="normal" text-anchor="start" dominant-baseline="middle"><tspan x="95" dy="0">MQJKPEGWNLWLTK-UHFFFAOYSA-N</tspan></text></svg></figure></div>
+  <div class="remember"><h2>Para entenderlo y recordarlo</h2><ul><li>En química, la entidad clave es la sustancia, y cada una tiene muchas representaciones.</li><li>Beilstein (1881) y Chemical Abstracts (1907): pioneros de los servicios de información.</li></ul></div>
+  <div class="hint"><b>Pista visual</b> La molécula de dapsona con su fórmula, su masa y sus códigos SMILES e InChIKey.</div>
+  <div class="num">38</div>
+</section>
+<section class="page" style="--c:#a97f3f">
+  <div class="band"></div>
+  <header><div class="kicker">TEMA 2 · 3. ANÁLISIS DEL DOMINIO</div><h1>Ejemplo 2: la historia</h1>
+  <div class="orig">Ideas clave · diapositiva original 44</div></header>
+  <div class="main split"><div class="text">
+<div class="cards2 tight">
+<div><h3>Si es ciencia social…</h3>Busca tendencias generales y explicaciones a partir de datos sociales, para establecer «leyes» históricas.</div>
+<div><h3>Si es humanidad…</h3>Interpreta acontecimientos únicos y se centra en los relatos individuales.</div>
+</div>
+<ul class="dots">
+<li><b>Fuentes primarias:</b> documentos de archivo, artefactos de museo y prensa de época. <b>Secundarias:</b> artículos e informes de investigación. La digitalización los abre a más público.</li>
+<li><b>Herramientas de organización:</b> Historic England mantiene tesauros de lugares marítimos, cargamentos, materiales de construcción y tipos de aviones; el Museo Británico, de objetos y materiales.</li>
+<li><b>Instituciones muy diversas:</b> universidades, sociedades científicas, editoriales, radiotelevisiones y gobiernos; bibliotecas, archivos y centros de documentación de museos.</li>
+</ul>
+</div><figure class="fig"><svg viewBox="0 0 320 265" xmlns="http://www.w3.org/2000/svg" font-family="Noto Sans, sans-serif"><defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#4a5262"/></marker></defs><rect x="5" y="5" width="150" height="40" rx="10" fill="#4f8487"/><text x="80.0" y="25.0" font-size="13" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="80.0" dy="0">Ciencia social</tspan></text><rect x="165" y="5" width="150" height="40" rx="10" fill="#a97f3f"/><text x="240.0" y="25.0" font-size="13" fill="#fff" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="240.0" dy="0">Humanidad</tspan></text><rect x="5" y="55" width="150" height="110" rx="8" fill="#fff" stroke="#ddd"/><polyline points="20,145 50,130 80,120 110,95 140,75" fill="none" stroke="#4f8487" stroke-width="3"/><circle cx="20" cy="150" r="3.5" fill="#4f8487"/><circle cx="35" cy="128" r="3.5" fill="#4f8487"/><circle cx="50" cy="138" r="3.5" fill="#4f8487"/><circle cx="70" cy="112" r="3.5" fill="#4f8487"/><circle cx="90" cy="125" r="3.5" fill="#4f8487"/><circle cx="110" cy="100" r="3.5" fill="#4f8487"/><circle cx="125" cy="82" r="3.5" fill="#4f8487"/><circle cx="140" cy="88" r="3.5" fill="#4f8487"/><rect x="165" y="55" width="150" height="110" rx="8" fill="#fff" stroke="#ddd"/><path d="M205,70 h28.799999999999997 l11.200000000000001,11.200000000000001 v42.8 h-40 z" fill="#a97f3f"/><path d="M233.8,70 v11.200000000000001 h11.200000000000001 z" fill="#fff" opacity=".45"/><rect x="212.2" y="94.3" width="25.6" height="3.2399999999999998" rx="2" fill="#fff" opacity=".85"/><rect x="212.2" y="102.39999999999999" width="25.6" height="3.2399999999999998" rx="2" fill="#fff" opacity=".85"/><rect x="212.2" y="110.5" width="25.6" height="3.2399999999999998" rx="2" fill="#fff" opacity=".85"/><path d="M255,120 q20,-30 40,-10" fill="none" stroke="#a97f3f" stroke-width="3"/><text x="80" y="178.125" font-size="11" fill="#2b3240" font-weight="normal" text-anchor="middle" dominant-baseline="middle"><tspan x="80" dy="0">tendencias y</tspan><tspan x="80" dy="13.75">«leyes» generales</tspan></text><text x="240" y="178.125" font-size="11" fill="#2b3240" font-weight="normal" text-anchor="middle" dominant-baseline="middle"><tspan x="240" dy="0">eventos únicos y</tspan><tspan x="240" dy="13.75">relatos individuales</tspan></text><text x="160" y="233.125" font-size="11" fill="#555" font-weight="normal" text-anchor="middle" dominant-baseline="middle" font-style="italic"><tspan x="160" dy="0">Dos maneras de entender la disciplina</tspan><tspan x="160" dy="13.75">→ dos maneras de usar sus fuentes</tspan></text></svg></figure></div>
+  <div class="remember"><h2>Para entenderlo y recordarlo</h2><ul><li>La historia puede ser ciencia social (tendencias) o humanidad (relatos).</li><li>Sus fuentes y herramientas cambian según esa elección epistemológica.</li></ul></div>
+  <div class="hint"><b>Pista visual</b> Un gráfico de tendencias frente a un documento único con su relato.</div>
+  <div class="num">39</div>
+</section>
+<section class="page" style="--c:#7f6ea3">
+  <div class="band"></div>
+  <header><div class="kicker">TEMA 2 · 3. ANÁLISIS DEL DOMINIO</div><h1>El trabajo de información en un dominio</h1>
+  <div class="orig">Ideas clave · diapositiva original 45</div></header>
+  <div class="main full">
+<p>Actividades más habituales del profesional especializado en la información de un dominio:</p>
+<ul class="grid2">
+<li>Búsquedas y consultas de referencia «difíciles»</li>
+<li>Asistir o liderar revisiones sistemáticas</li>
+<li>Evaluar e interpretar información</li>
+<li>Proporcionar conocimiento actualizado</li>
+<li>Sugerir recursos y desarrollar colecciones</li>
+<li>Promover recursos especializados</li>
+<li>Crear guías para usuarios</li>
+<li>Crear terminologías y taxonomías</li>
+<li>Catalogar y describir recursos</li>
+<li>Gestionar datos de investigación</li>
+<li>Coordinar conocimientos y comunidades</li>
+<li>Formación, consultoría y asesoramiento</li>
+</ul>
+<p class="q"><b>¿Cuánto hay que saber de la materia?</b> No tanto como las personas usuarias: quien gestiona información médica no tiene por qué ser médico. Sí hay que entender la lógica y el lenguaje del área y conocer sus fuentes y necesidades. Por ejemplo, saber que <i>Phyllostachys aurea</i> es una planta (un bambú), no un filósofo griego.</p>
+</div>
+  <div class="remember"><h2>Para entenderlo y recordarlo</h2><ul><li>Doce tareas típicas: buscar, evaluar, organizar, crear herramientas y formar.</li><li>Basta con dominar la lógica y el lenguaje del área, no ser especialista en ella.</li></ul></div>
+  <div class="hint"><b>Pista visual</b> Un birrete: hay que saber lo suficiente del área, sin necesidad de ser experto en ella.</div>
+  <div class="num">40</div>
+</section>
+<section class="page" style="--c:#647f52">
+  <div class="band"></div>
+  <header><div class="kicker">TEMA 2 · SÍNTESIS</div><h1>Síntesis de la lección</h1>
+  <div class="orig">Ideas clave · diapositiva original 46</div></header>
+  <div class="main split"><div class="text">
+<dl class="defs big">
+<dt>1 · Información</dt><dd>Concepto central y multifacético. Shannon es su base necesaria; Floridi, el enfoque más apropiado para las CID.</dd>
+<dt>2 · Documentos</dt><dd>Es documento lo que funciona como evidencia e información y se relaciona con otros en una colección. En lo digital, las colecciones se definen por criterios.</dd>
+<dt>3 · Dominios</dt><dd>El dominio (ontológico, epistemológico, sociológico) condiciona el uso de la información. Hjørland ofrece un puente entre investigación y práctica.</dd>
+</dl>
+</div><figure class="fig"><svg viewBox="0 0 320 262" xmlns="http://www.w3.org/2000/svg" font-family="Noto Sans, sans-serif"><defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#4a5262"/></marker></defs><rect x="5" y="5" width="310" height="75" rx="12" fill="#4f8487"/><circle cx="45" cy="42" r="24" fill="#fff"/><text x="45" y="43.0" font-size="20" fill="#4f8487" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="45" dy="0">1</tspan></text><text x="90" y="29.0" font-size="15" fill="#fff" font-weight="bold" text-anchor="start" dominant-baseline="middle"><tspan x="90" dy="0">Información</tspan></text><text x="90" y="57.0" font-size="10" fill="#fff" font-weight="normal" text-anchor="start" dominant-baseline="middle"><tspan x="90" dy="0">concepto central; Shannon + Floridi</tspan></text><rect x="5" y="90" width="310" height="75" rx="12" fill="#a97f3f"/><circle cx="45" cy="127" r="24" fill="#fff"/><text x="45" y="128.0" font-size="20" fill="#a97f3f" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="45" dy="0">2</tspan></text><text x="90" y="114.0" font-size="15" fill="#fff" font-weight="bold" text-anchor="start" dominant-baseline="middle"><tspan x="90" dy="0">Documentos</tspan></text><text x="90" y="142.0" font-size="10" fill="#fff" font-weight="normal" text-anchor="start" dominant-baseline="middle"><tspan x="90" dy="0">evidencia que funciona como información</tspan></text><rect x="5" y="175" width="310" height="75" rx="12" fill="#b65c72"/><circle cx="45" cy="212" r="24" fill="#fff"/><text x="45" y="213.0" font-size="20" fill="#b65c72" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="45" dy="0">3</tspan></text><text x="90" y="199.0" font-size="15" fill="#fff" font-weight="bold" text-anchor="start" dominant-baseline="middle"><tspan x="90" dy="0">Dominios</tspan></text><text x="90" y="227.0" font-size="10" fill="#fff" font-weight="normal" text-anchor="start" dominant-baseline="middle"><tspan x="90" dy="0">el contexto que condiciona el uso</tspan></text></svg></figure></div>
+  <div class="remember"><h2>Para entenderlo y recordarlo</h2><ul><li>Información → documentos → dominios: del concepto al objeto y del objeto al contexto.</li></ul></div>
+  <div class="hint"><b>Pista visual</b> Tres bandas de color, una por bloque del tema.</div>
+  <div class="num">41</div>
+</section>
+</body></html>
