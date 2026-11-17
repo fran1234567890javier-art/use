@@ -100,7 +100,6 @@ for _ in range(6): add(P(""))
 add(P([("Práctica 3", {"b": True, "color": RED, "size": 44})], align="center", after=1200))
 add(P([("PRÁCTICA 3: Los tesauros: de usarlos a construirlos", {"b": True, "size": 48})], align="center", after=1200))
 add(P("Nombre de los componentes del grupo: Jaime, Marta, Anais y Lerybel", align="center"))
-add(P([HL("[Completad los apellidos de cada componente]")], align="center"))
 add(PB())
 
 # ---------------- Índice
@@ -196,14 +195,13 @@ add(table([
      "Cada tramo de edad es una etapa concreta dentro de un concepto más amplio, el desarrollo evolutivo."],
     [["Jerarquía: un término con ", B("TE")], "Desarrollo evolutivo TE Edad 00-03", "Deficiencia sensorial TE Deficiencia visual",
      "El término más amplio agrupa a otros más concretos: la deficiencia visual es un tipo de deficiencia sensorial, igual que la edad 00-03 es una etapa del desarrollo evolutivo."],
-    [["Asociación: un término con ", B("TR")], "Enfermedades TR Medicina", [HL("[Anais: copiad aquí otro término con TR del tesauro]")],
-     "No son sinónimos ni uno es un tipo del otro, pero están muy ligados: la medicina es la disciplina que estudia y trata las enfermedades."],
+    [["Asociación: un término con ", B("TR")], "Enfermedades TR Medicina", "Deficiencia visual TR Ceguera",
+     "No son sinónimos ni uno es un tipo del otro, pero conviene tenerlos en cuenta juntos: la medicina estudia y trata las enfermedades, y la ceguera es el grado más grave de la deficiencia visual. Quien busca uno puede necesitar también el otro."],
     [["Un término que tenga ", B("a la vez"), " USE o UP, TG, TE y TR"],
-     [["Seguridad en el empleo:"], ["UP Empleo amenazado"], [HL("TG [completar]")], [HL("TE [completar]")], [HL("TR [completar]")]],
-     [HL("[Otro término con los cuatro tipos de relación, si lo hay]")],
-     "Es un término situado en el centro de la estructura: tiene sinónimos que remiten a él, un término más general por encima, otros más concretos por debajo y términos asociados."],
+     [[B("Deficiencia sensorial")], ["UP Discapacidad sensorial"], ["TG Deficiencia, discapacidad, minusvalía, necesidades especiales"], ["TE Deficiencia auditiva"], ["TE Deficiencia visual"], ["TR Atención temprana"]],
+     [[B("Seguridad en el empleo")], ["UP Empleo amenazado"], ["TG Empleo"], ["TE Estabilidad laboral"], ["TR Desempleo"]],
+     "Son términos situados en el centro de la estructura: tienen sinónimos que remiten a ellos (UP), un término más general por encima (TG), otros más concretos por debajo (TE) y términos asociados (TR). Por eso enlazan con muchas partes del tesauro."],
 ], [1650, 2350, 2350, 2720]))
-add(box([[HL("Nota para Anais (borrar al terminar): "), ("abrid en el tesauro la ficha de «Seguridad en el empleo» y copiad su TG, sus TE y su TR. Si no tiene los tres, sustituidlo por otro término que tenga USE/UP, TG, TE y TR a la vez. Completad también el segundo ejemplo de TR.", {"hl": True})]]))
 
 add(P([B("Ejercicio 2. Usar el tesauro para encontrar documentos")], keep=True, before=120))
 add(P(["Ahora vais a comprobar para qué sirve todo lo anterior: ", B("encontrar documentos"), ". Imaginad que tenéis que hacer un trabajo sobre la ", B("deficiencia visual"), "."], align="both"))
@@ -270,7 +268,8 @@ col3 = "pescado\npez espada (= emperador)\nqueso\nqueso de oveja\ntarta de queso
 add(table([[col1, col2, col3]], [3023, 3023, 3024], header=False))
 
 add(P([B("Paso 1. Agrupar los términos en campos temáticos (10 min)")], keep=True, before=120))
-add(P(["Colocad ", B("cada término en uno de los cuatro campos"), " de la Tabla 1."], align="both"))
+add(P(["Colocad ", B("cada término en uno de los cuatro campos"), " de la Tabla 1. Truco: cortad y pegad los términos de la lista anterior hasta que no quede ninguno; así sabréis que no os habéis dejado ninguno."], align="both"))
+add(box([[B("Dos decisiones que tenéis que tomar, como haría cualquier profesional: "), "(1) los ", B("productos lácteos"), " también son de origen animal, pero como tienen su propio campo, colocadlos ", B("solo en «Productos lácteos»"), ": en un tesauro un término no se repite en dos lugares. (2) Si un término os genera dudas (por ejemplo, ¿la bebida de soja es un lácteo?), decidid entre todos dónde va y anotad por qué. Lo comentaremos en clase."]], shade="F2F2F2"))
 add(P([("Tabla 1. Agrupación de términos en campos temáticos", {"color": "595959", "size": 18})], align="center", keep=True))
 add(table([
     ["CAMPOS TEMÁTICOS", "TÉRMINOS"],
@@ -292,7 +291,14 @@ add(box([
 ]))
 
 add(P([B("Paso 2. Elaborar la presentación jerárquica")], keep=True, before=120))
-add(P(["Dentro de cada campo, los términos se ordenan ", B("de lo general a lo específico"), " con sangrías: cada sangría es un nivel más concreto. Los sinónimos no aparecen en la presentación jerárquica: solo los descriptores."], align="both"))
+add(P(["Dentro de cada campo, ordenad los términos ", B("de lo general a lo específico"), " con sangrías, como en un árbol. Revisad atentamente estos dos ejemplos de tesauros reales:"], align="both"))
+add(P([B("Ejemplo 1. Presentación jerárquica:")], keep=True))
+add(tree([(0,"Administración"),(1,"Administración del personal"),(2,"Promoción del personal"),(2,"Recursos humanos"),(1,"Gestión"),(2,"Autogestión"),(0,"Ambiente demográfico"),(1,"Composición de la población"),(2,"Distribución por edades"),(3,"Adultos"),(3,"Ancianos"),(3,"Jóvenes"),(3,"Niñas"),(3,"Niños"),(2,"Distribución por sexos"),(3,"Hombres"),(3,"Mujeres")]))
+add(P([B("Ejemplo 2. Presentación jerárquica:")], keep=True))
+add(tree([(0,"VIDA POLÍTICA"),(1,"Marco político"),(2,"Ideología política"),(3,"Liberalismo"),(3,"Marxismo"),(3,"Anarquismo"),(3,"Comunismo"),(3,"Socialismo"),(1,"Partido político"),(2,"Organización de los partidos"),(3,"Financiación de los partidos"),(3,"Constitución de un partido"),(2,"Tendencia política"),(3,"Izquierda política"),(3,"Centro político"),(3,"Derecha política"),(3,"Extrema izquierda"),(3,"Extrema derecha")]))
+add(P([B("Cómo se leen: "), "cada sangría es un nivel más concreto. En el ejemplo 1, «Distribución por sexos» es más específico que «Composición de la población», y «Hombres» y «Mujeres» son más específicos que «Distribución por sexos»."], align="both"))
+add(P([B("Pista: "), "algunos de vuestros términos son generales y agrupan a otros (por ejemplo, «marisco» agrupa a «almejas» y «mejillones»). ", B("Los sinónimos no aparecen"), " en la presentación jerárquica: solo los descriptores."], align="both"))
+add(P("Elaborad la presentación jerárquica de los cuatro campos temáticos a partir de vuestra Tabla 1:", align="both"))
 trees = [
     ("Productos de repostería", [(0, "Bizcochos"), (0, "Chocolate"), (1, "Chocolate blanco"), (1, "Chocolate negro"), (0, "Pasteles"), (1, "Pastel de maracuyá"), (0, "Tartas"), (1, "Tarta de queso"), (0, "Tocino de cielo")]),
     ("Productos de origen animal", [(0, "Carnes"), (1, "Carne de bovino"), (1, "Carne de porcino"), (0, "Huevos"), (0, "Marisco"), (1, "Almejas"), (1, "Mejillones"), (0, "Pescado"), (1, "Anchoa"), (1, "Pez espada")]),
@@ -304,8 +310,19 @@ for title, lines in trees:
     add(tree(lines))
 
 add(P([B("Paso 3. Elaborar la presentación alfabética")], keep=True, before=120))
-add(P(["Todos los términos ordenados de la A a la Z con sus relaciones. Los ", B("descriptores"), " van en negrita con sus relaciones UP, TG, TE y TR; los ",
-       B("no descriptores"), " van en letra normal, solo con USE y el descriptor al que remiten."], align="both"))
+add(P("La presentación alfabética contiene todos los términos ordenados de la A a la Z con sus relaciones. Debéis incluir:", align="both"))
+add(P(["los ", B("descriptores"), " en negrita, con la relación de sinonimia (", B("UP"), "), de jerarquía (", B("TG"), "/", B("TE"), ") y de asociación (", B("TR"), ");"], num=2))
+add(P(["los ", B("no descriptores"), " (sinónimos) también en su lugar alfabético, solo con ", B("USE"), " y el descriptor al que remiten."], num=2))
+add(P("Así se ve en un tesauro real:", keep=True))
+add(table([["Aberración cromosómica", "USE Aberración cromopática"],
+           [[B("Aberración cromopática")], "UP Aberración cromosómica"],
+           [[B("Abogados")], "TG Profesiones"],
+           [[B("Aborto")], [["UP Interrupción del embarazo"], ["TG Control de natalidad"], ["TE Aborto ilegal"], ["TR Intervención"]]],
+           [[B("Aborto ilegal")], "TG Aborto"],
+           ["Abuso de poder", "USE Abuso de superioridad"],
+           [[B("Abuso de superioridad")], [["UP Abuso de poder"], ["TG Abusos"]]]], [3400, 5670], header=False))
+add(box([[B("Cómo repartiros el trabajo: "), "dividid el alfabeto entre los miembros del grupo, por ejemplo, A–C, Ch–M y N–Y. ", B("Comprobación final (muy importante): "), "las relaciones son ", B("recíprocas"), ". Si en «Almejas» escribís «TG Marisco», en «Marisco» tiene que aparecer «TE Almejas»; si en «Boquerón» pone «USE Anchoa», en «Anchoa» tiene que aparecer «UP Boquerón»; y si «Tarta de queso» lleva «TR Queso», «Queso» debe llevar «TR Tarta de queso». La persona coordinadora revisa que todo cuadre. Incluid al menos ", B("cuatro relaciones TR"), "."]], shade="F2F2F2"))
+add(P(["Os damos hechos los tres primeros términos. Continuad a partir de ", B("Bebida de soja"), " hasta llegar a ", B("Yogur griego"), ":"], align="both"))
 alpha = [
     ("Almejas", True, ["TG Marisco"]),
     ("Anchoa", True, ["UP Boquerón", "TG Pescado"]),
