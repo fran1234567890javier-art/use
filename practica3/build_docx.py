@@ -99,17 +99,17 @@ add = body.append
 for _ in range(6): add(P(""))
 add(P([("Práctica 3", {"b": True, "color": RED, "size": 44})], align="center", after=1200))
 add(P([("PRÁCTICA 3: Los tesauros: de usarlos a construirlos", {"b": True, "size": 48})], align="center", after=1200))
-add(P("Nombre de los componentes del grupo: Jaime, Marta, Anais y Lerybel", align="center"))
+add(P("Nombre de los componentes del grupo: Jaime Palao, Marta Fernández, Anais Martín y Lerybel Torres", align="center"))
 add(PB())
 
 # ---------------- Índice
 add(P([("Contenido", {"color": BLUE, "size": 32})], after=200))
-toc = [("1. Objetivos", 0), ("2. Relación del equipo", 0), ("3. Metodología", 0),
-       ("3.1. Conceptos previos: ¿qué es un tesauro?", 1), ("4. Resultados", 0),
-       ("4.1. Parte I. Usar un tesauro real (30 min)", 1),
-       ("4.2. Parte II. Construir un minitesauro sobre alimentación (45 min)", 1)]
-for t, lvl in toc:
-    add(P(t, ind=lvl * 284, after=80))
+toc = [("1. Objetivos", 0, 3), ("2. Relación del equipo", 0, 3), ("3. Metodología", 0, 3),
+       ("3.1. Conceptos previos: ¿qué es un tesauro?", 1, 3), ("4. Resultados", 0, 5),
+       ("4.1. Parte I. Usar un tesauro real (30 min)", 1, 5),
+       ("4.2. Parte II. Construir un minitesauro sobre alimentación (45 min)", 1, 9)]
+for t, lvl, pg in toc:
+    add(f'<w:p><w:pPr><w:tabs><w:tab w:val="right" w:leader="dot" w:pos="9060"/></w:tabs><w:spacing w:after="80"/><w:ind w:left="{lvl*284}"/></w:pPr>{run(t)}<w:r><w:tab/></w:r>{run(str(pg))}</w:p>')
 add(PB())
 
 # ---------------- 1. Objetivos
@@ -126,10 +126,10 @@ add(P("2. Relación del equipo", style="Heading1"))
 add(P(["El grupo se compondrá de un ", B("máximo de cuatro personas"), ". A cada una se le asigna un rol con una tarea específica:"], align="both"))
 add(table([
     ["Nombre y apellidos", "Rol", "Tarea"],
-    ["Jaime", "Coordinación", "Controla el tiempo y revisa que todo sea coherente al final"],
-    ["Marta", "Secretaría", "Escribe las respuestas en este documento"],
-    ["Anais", "Búsqueda", "Maneja el tesauro en línea y hace las capturas"],
-    ["Lerybel", "Revisión", "Comprueba los símbolos (USE, UP, TG, TE, TR) y la ortografía"],
+    ["Jaime Palao", "Coordinación", "Controla el tiempo y revisa que todo sea coherente al final"],
+    ["Marta Fernández", "Secretaría", "Escribe las respuestas en este documento"],
+    ["Anais Martín", "Búsqueda", "Maneja el tesauro en línea y hace las capturas"],
+    ["Lerybel Torres", "Revisión", "Comprueba los símbolos (USE, UP, TG, TE, TR) y la ortografía"],
 ], [2700, 1900, 4470]))
 add(P([("Si sois tres personas, una de ellas asume dos roles. Si sois más personas, dos personas asumirán un mismo rol.", {"i": True, "color": RED})]))
 
@@ -217,25 +217,8 @@ for s in steps:
     add(P(s, num=3, align="both"))
 
 add(P([I("Metadatos del documento seleccionado")], before=120, keep=True))
-add(box([[HL("[Pegad aquí vuestra captura de pantalla original y borrad esta línea. Debajo dejamos transcritos los metadatos por si la captura no se lee bien.]")]]))
-add(table([
-    ["Campo", "Valor"],
-    [[B("Título")], "Escuchando a los niños: testimonios de menores ciegos de todo el mundo"],
-    [[B("Año")], "2009"],
-    [[B("Autor")], "Peláez Narváez, Ana (dir. y coord.)"],
-    [[B("Otros autores")], "Stirton, David (trad.)"],
-    [[B("Lugar de edición")], "Madrid"],
-    [[B("Editorial")], "Comité Español de Representantes de Personas con Discapacidad (CERMI): Ediciones Cinca"],
-    [[B("Tipo")], "Estudios"],
-    [[B("Páginas")], "284 p."],
-    [[B("Serie")], "Cermi.es; 41"],
-    [[B("Idioma")], "Español"],
-    [[B("Fuente")], "Comité Español de Representantes de Personas con Discapacidad (CERMI)"],
-    [[B("Formato")], "Web"],
-    [[B("Temáticas")], "Necesidades especiales o discapacidad"],
-    [[B("Descriptores")], "deficiencia visual, ceguera, adolescentes, ONCE"],
-    [[B("Resumen")], "Selección de historias de niños y niñas con discapacidad visual de distintos países y de sus familias, colegios y comunidades. Recoge testimonios diversos de superación personal como adolescentes con discapacidad (resumen del propio documento, abreviado)."],
-], [2200, 6870]))
+add(box([[HL("[Pegad aquí la captura de pantalla de los metadatos y borrad esta línea]")]]))
+
 
 add(P("Responded a estas preguntas:", keep=True))
 add(P([B("a) "), "¿En qué campo temático y bajo qué término genérico (TG) habéis encontrado «deficiencia visual»? Escribid el camino completo, de lo general a lo específico."], align="both", keep=True))
@@ -376,7 +359,7 @@ for term, desc, rels in alpha:
     rows.append([[B(term)] if desc else term, [[r] for r in rels]])
 add(table(rows, [3400, 5670]))
 add(box([
-    [B("Comprobación final (coordinación). "), "Todas las relaciones son recíprocas: cada TG tiene su TE correspondiente, cada USE su UP y cada TR aparece en los dos términos. La lista tiene 46 entradas: 38 descriptores y 8 no descriptores, y 8 relaciones TR (se pedían al menos 4)."],
+    [B("Comprobación final (coordinación). "), "Todas las relaciones son recíprocas: cada TG tiene su TE correspondiente, cada USE su UP y cada TR aparece en los dos términos. La lista tiene 46 entradas: 38 descriptores y 8 no descriptores, y 9 relaciones TR distintas (se pedían al menos 4)."],
     [B("Orden alfabético. "), "Seguimos la norma actual de la RAE, en la que la «ch» se ordena dentro de la «c» (después de «ce»). Se ordena palabra por palabra, por eso «Carne de vacuno» va antes que «Carnes» y «Leche de vaca» antes que «Legumbres»."],
     [B("Términos de primer nivel. "), "Los términos que encabezan cada campo (por ejemplo, Carnes, Huevos o Leche) no llevan TG porque los campos temáticos son categorías de agrupación, no descriptores de la lista."],
 ], shade="F2F2F2"))
