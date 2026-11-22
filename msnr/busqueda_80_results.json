@@ -1,0 +1,317 @@
+{
+ "setups_totales": 114,
+ "aprendizaje": 55,
+ "prueba": 59,
+ "combinaciones_probadas": 350,
+ "con_80pct_en_aprendizaje": 0,
+ "todas_sin_filtros": {
+  "sin BE": {
+   "aprendizaje": {
+    "n": 55,
+    "win": 16.4,
+    "R_medio": -0.018
+   },
+   "prueba": {
+    "n": 59,
+    "win": 8.5,
+    "R_medio": -0.492
+   },
+   "todo": {
+    "n": 114,
+    "win": 12.3,
+    "R_medio": -0.263
+   }
+  },
+  "BE a +2R": {
+   "aprendizaje": {
+    "n": 55,
+    "win": 12.7,
+    "R_medio": 0.0
+   },
+   "prueba": {
+    "n": 59,
+    "win": 3.4,
+    "R_medio": -0.61
+   },
+   "todo": {
+    "n": 114,
+    "win": 7.9,
+    "R_medio": -0.316
+   }
+  }
+ },
+ "mejores_15": [
+  {
+   "modo": "sin BE",
+   "filtros": {
+    "side": "short",
+    "level": "A-H1",
+    "wd": "Fri",
+    "stop": "medio"
+   },
+   "aprendizaje": {
+    "n": 5,
+    "win": 60.0,
+    "R_medio": 2.6
+   },
+   "prueba": {
+    "n": 2,
+    "win": 0.0,
+    "R_medio": -1.0
+   }
+  },
+  {
+   "modo": "sin BE",
+   "filtros": {
+    "side": "short",
+    "wd": "Fri",
+    "stop": "medio"
+   },
+   "aprendizaje": {
+    "n": 5,
+    "win": 60.0,
+    "R_medio": 2.6
+   },
+   "prueba": {
+    "n": 2,
+    "win": 0.0,
+    "R_medio": -1.0
+   }
+  },
+  {
+   "modo": "sin BE",
+   "filtros": {
+    "level": "A-H1",
+    "wd": "Fri",
+    "stop": "medio"
+   },
+   "aprendizaje": {
+    "n": 5,
+    "win": 60.0,
+    "R_medio": 2.6
+   },
+   "prueba": {
+    "n": 2,
+    "win": 0.0,
+    "R_medio": -1.0
+   }
+  },
+  {
+   "modo": "BE a +2R",
+   "filtros": {
+    "side": "short",
+    "level": "A-H1",
+    "wd": "Fri",
+    "stop": "medio"
+   },
+   "aprendizaje": {
+    "n": 5,
+    "win": 60.0,
+    "R_medio": 2.8
+   },
+   "prueba": {
+    "n": 2,
+    "win": 0.0,
+    "R_medio": -1.0
+   }
+  },
+  {
+   "modo": "BE a +2R",
+   "filtros": {
+    "side": "short",
+    "wd": "Fri",
+    "stop": "medio"
+   },
+   "aprendizaje": {
+    "n": 5,
+    "win": 60.0,
+    "R_medio": 2.8
+   },
+   "prueba": {
+    "n": 2,
+    "win": 0.0,
+    "R_medio": -1.0
+   }
+  },
+  {
+   "modo": "BE a +2R",
+   "filtros": {
+    "level": "A-H1",
+    "wd": "Fri",
+    "stop": "medio"
+   },
+   "aprendizaje": {
+    "n": 5,
+    "win": 60.0,
+    "R_medio": 2.8
+   },
+   "prueba": {
+    "n": 2,
+    "win": 0.0,
+    "R_medio": -1.0
+   }
+  },
+  {
+   "modo": "sin BE",
+   "filtros": {
+    "side": "short",
+    "level": "A-H1",
+    "wd": "Fri"
+   },
+   "aprendizaje": {
+    "n": 6,
+    "win": 50.0,
+    "R_medio": 2.0
+   },
+   "prueba": {
+    "n": 8,
+    "win": 25.0,
+    "R_medio": 0.5
+   }
+  },
+  {
+   "modo": "sin BE",
+   "filtros": {
+    "side": "short",
+    "wd": "Fri"
+   },
+   "aprendizaje": {
+    "n": 6,
+    "win": 50.0,
+    "R_medio": 2.0
+   },
+   "prueba": {
+    "n": 8,
+    "win": 25.0,
+    "R_medio": 0.5
+   }
+  },
+  {
+   "modo": "sin BE",
+   "filtros": {
+    "level": "A-H1",
+    "wd": "Fri"
+   },
+   "aprendizaje": {
+    "n": 6,
+    "win": 50.0,
+    "R_medio": 2.0
+   },
+   "prueba": {
+    "n": 8,
+    "win": 25.0,
+    "R_medio": 0.5
+   }
+  },
+  {
+   "modo": "BE a +2R",
+   "filtros": {
+    "side": "short",
+    "level": "A-H1",
+    "wd": "Fri"
+   },
+   "aprendizaje": {
+    "n": 6,
+    "win": 50.0,
+    "R_medio": 2.333
+   },
+   "prueba": {
+    "n": 8,
+    "win": 0.0,
+    "R_medio": -0.75
+   }
+  },
+  {
+   "modo": "BE a +2R",
+   "filtros": {
+    "side": "short",
+    "wd": "Fri"
+   },
+   "aprendizaje": {
+    "n": 6,
+    "win": 50.0,
+    "R_medio": 2.333
+   },
+   "prueba": {
+    "n": 8,
+    "win": 0.0,
+    "R_medio": -0.75
+   }
+  },
+  {
+   "modo": "BE a +2R",
+   "filtros": {
+    "level": "A-H1",
+    "wd": "Fri"
+   },
+   "aprendizaje": {
+    "n": 6,
+    "win": 50.0,
+    "R_medio": 2.333
+   },
+   "prueba": {
+    "n": 8,
+    "win": 0.0,
+    "R_medio": -0.75
+   }
+  },
+  {
+   "modo": "sin BE",
+   "filtros": {
+    "wd": "Fri",
+    "stop": "medio"
+   },
+   "aprendizaje": {
+    "n": 7,
+    "win": 42.9,
+    "R_medio": 1.571
+   },
+   "prueba": {
+    "n": 4,
+    "win": 25.0,
+    "R_medio": 0.5
+   }
+  },
+  {
+   "modo": "BE a +2R",
+   "filtros": {
+    "wd": "Fri",
+    "stop": "medio"
+   },
+   "aprendizaje": {
+    "n": 7,
+    "win": 42.9,
+    "R_medio": 1.714
+   },
+   "prueba": {
+    "n": 4,
+    "win": 25.0,
+    "R_medio": 0.5
+   }
+  },
+  {
+   "modo": "sin BE",
+   "filtros": {
+    "tf": "M1",
+    "side": "long",
+    "level": "V-H1",
+    "kz": "NY AM"
+   },
+   "aprendizaje": {
+    "n": 5,
+    "win": 40.0,
+    "R_medio": 1.4
+   },
+   "prueba": {
+    "n": 6,
+    "win": 33.3,
+    "R_medio": 1.0
+   }
+  }
+ ],
+ "de_las_80pct_en_prueba": {
+  "n_con_operaciones": 0,
+  "acierto_medio_prueba": null,
+  "cuantas_siguen_80": 0
+ }
+}
