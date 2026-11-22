@@ -1,0 +1,988 @@
+{
+ "reglas": "\nAlchemist SnR \"completo\" mecanizado en XAUUSD 2026 (velas M1 reales con spread).\nPartes del método (según las guías públicas del curso) y cómo se mecanizan:\n  1. POI de temporalidad alta: niveles A / V frescos de D1 y H4 y gaps diarios (cierre 17:00 -> apertura 18:00 NY).\n  2. Storyline multi-temporalidad: dirección por la última ruptura con cuerpo de un nivel A/V en H4 y en H1.\n     Solo se opera si H4 y H1 coinciden.\n  3. Liquidez de línea de tendencia: antes de llegar al POI, el precio hace al menos 2 swings consecutivos\n     contra la storyline (máximos decrecientes antes de un largo / mínimos crecientes antes de un corto),\n     es decir, una línea de tendencia que barrer. (El ángulo de 45-60 grados depende de la escala del\n     gráfico; se sustituye por exigir al menos 2 swings alineados.)\n  4. Quasimodo (QM) en la temporalidad de entrada (M15 o M5): largo = L, H, LL (barre L y toca el POI),\n     HH (cierre con cuerpo por encima de H). El nivel QM es L. Cortos, al revés.\n  5. Entrada: orden límite en el nivel QM (retesteo), solo en killzones (Londres y Nueva York).\n  6. Stop: detrás del LL/HH del QM + 0,05 ATR(H1); se acepta entre 0,15 y 1 ATR(H1).\n  7. Salida: 50 % en TP1 (el HH/LL del QM) con stop a la entrada, 50 % a la siguiente liquidez de H1/PDH-PDL.\n     Variantes: todo a 3R, todo a 5R.\n  8. Una operación a la vez, máximo 2 pérdidas al día.\n",
+ "periodo": "2026-01-01 a 2026-11-19 (321 días)",
+ "resultados": {
+  "Alchemist completo M15": {
+   "parcial TP1+BE+TP2": {
+    "stats": {
+     "n": 3,
+     "win_pct": 33.3,
+     "R_medio": 0.52,
+     "R_total": 1.56,
+     "pf": 1.78,
+     "racha_perdidas": 2,
+     "ic90": [
+      -1.0,
+      2.041
+     ],
+     "prob_R_le_0": 0.298,
+     "stop_medio_pips": 103.6,
+     "tp1_R_medio": 3.51,
+     "tp2_R_medio": 3.75,
+     "salidas": {
+      "stop": 2,
+      "BE": 0,
+      "TP1": 0,
+      "TP2": 1,
+      "abierta": 0
+     }
+    },
+    "cuenta_100": {
+     "1%": {
+      "final": 101.5,
+      "multiplicador": 1.015,
+      "maxDD_pct": -2.0,
+      "sin_lote": 0
+     },
+     "5%": {
+      "final": 106.32,
+      "multiplicador": 1.063,
+      "maxDD_pct": -9.8,
+      "sin_lote": 0
+     }
+    }
+   },
+   "todo a 3R": {
+    "stats": {
+     "n": 3,
+     "win_pct": 33.3,
+     "R_medio": 0.333,
+     "R_total": 1.0,
+     "pf": 1.5,
+     "racha_perdidas": 2,
+     "ic90": [
+      -1.0,
+      1.667
+     ],
+     "prob_R_le_0": 0.298,
+     "stop_medio_pips": 103.6,
+     "tp1_R_medio": 3.0,
+     "tp2_R_medio": 3.0,
+     "salidas": {
+      "stop": 2,
+      "BE": 0,
+      "TP1": 1,
+      "TP2": 0,
+      "abierta": 0
+     }
+    },
+    "cuenta_100": {
+     "1%": {
+      "final": 100.95,
+      "multiplicador": 1.01,
+      "maxDD_pct": -2.0,
+      "sin_lote": 0
+     },
+     "5%": {
+      "final": 103.79,
+      "multiplicador": 1.038,
+      "maxDD_pct": -9.8,
+      "sin_lote": 0
+     }
+    }
+   },
+   "todo a 5R": {
+    "stats": {
+     "n": 3,
+     "win_pct": 33.3,
+     "R_medio": 1.0,
+     "R_total": 3.0,
+     "pf": 2.5,
+     "racha_perdidas": 2,
+     "ic90": [
+      -1.0,
+      3.0
+     ],
+     "prob_R_le_0": 0.298,
+     "stop_medio_pips": 103.6,
+     "tp1_R_medio": 5.0,
+     "tp2_R_medio": 5.0,
+     "salidas": {
+      "stop": 2,
+      "BE": 0,
+      "TP1": 1,
+      "TP2": 0,
+      "abierta": 0
+     }
+    },
+    "cuenta_100": {
+     "1%": {
+      "final": 102.91,
+      "multiplicador": 1.029,
+      "maxDD_pct": -2.0,
+      "sin_lote": 0
+     },
+     "5%": {
+      "final": 112.81,
+      "multiplicador": 1.128,
+      "maxDD_pct": -9.8,
+      "sin_lote": 0
+     }
+    }
+   }
+  },
+  "Alchemist completo M5": {
+   "parcial TP1+BE+TP2": {
+    "stats": {
+     "n": 2,
+     "win_pct": 0.0,
+     "R_medio": -1.0,
+     "R_total": -2.0,
+     "pf": 0.0,
+     "racha_perdidas": 2,
+     "ic90": [
+      -1.0,
+      -1.0
+     ],
+     "prob_R_le_0": 1.0,
+     "stop_medio_pips": 67.8,
+     "tp1_R_medio": 4.5,
+     "tp2_R_medio": 4.93,
+     "salidas": {
+      "stop": 2,
+      "BE": 0,
+      "TP1": 0,
+      "TP2": 0,
+      "abierta": 0
+     }
+    },
+    "cuenta_100": {
+     "1%": {
+      "final": 98.01,
+      "multiplicador": 0.98,
+      "maxDD_pct": -2.0,
+      "sin_lote": 0
+     },
+     "5%": {
+      "final": 90.25,
+      "multiplicador": 0.902,
+      "maxDD_pct": -9.8,
+      "sin_lote": 0
+     }
+    }
+   },
+   "todo a 3R": {
+    "stats": {
+     "n": 2,
+     "win_pct": 0.0,
+     "R_medio": -1.0,
+     "R_total": -2.0,
+     "pf": 0.0,
+     "racha_perdidas": 2,
+     "ic90": [
+      -1.0,
+      -1.0
+     ],
+     "prob_R_le_0": 1.0,
+     "stop_medio_pips": 67.8,
+     "tp1_R_medio": 3.0,
+     "tp2_R_medio": 3.0,
+     "salidas": {
+      "stop": 2,
+      "BE": 0,
+      "TP1": 0,
+      "TP2": 0,
+      "abierta": 0
+     }
+    },
+    "cuenta_100": {
+     "1%": {
+      "final": 98.01,
+      "multiplicador": 0.98,
+      "maxDD_pct": -2.0,
+      "sin_lote": 0
+     },
+     "5%": {
+      "final": 90.25,
+      "multiplicador": 0.902,
+      "maxDD_pct": -9.8,
+      "sin_lote": 0
+     }
+    }
+   },
+   "todo a 5R": {
+    "stats": {
+     "n": 2,
+     "win_pct": 0.0,
+     "R_medio": -1.0,
+     "R_total": -2.0,
+     "pf": 0.0,
+     "racha_perdidas": 2,
+     "ic90": [
+      -1.0,
+      -1.0
+     ],
+     "prob_R_le_0": 1.0,
+     "stop_medio_pips": 67.8,
+     "tp1_R_medio": 5.0,
+     "tp2_R_medio": 5.0,
+     "salidas": {
+      "stop": 2,
+      "BE": 0,
+      "TP1": 0,
+      "TP2": 0,
+      "abierta": 0
+     }
+    },
+    "cuenta_100": {
+     "1%": {
+      "final": 98.01,
+      "multiplicador": 0.98,
+      "maxDD_pct": -2.0,
+      "sin_lote": 0
+     },
+     "5%": {
+      "final": 90.25,
+      "multiplicador": 0.902,
+      "maxDD_pct": -9.8,
+      "sin_lote": 0
+     }
+    }
+   }
+  },
+  "M15 sin línea de tendencia": {
+   "parcial TP1+BE+TP2": {
+    "stats": {
+     "n": 3,
+     "win_pct": 33.3,
+     "R_medio": 0.52,
+     "R_total": 1.56,
+     "pf": 1.78,
+     "racha_perdidas": 2,
+     "ic90": [
+      -1.0,
+      2.041
+     ],
+     "prob_R_le_0": 0.298,
+     "stop_medio_pips": 103.6,
+     "tp1_R_medio": 3.51,
+     "tp2_R_medio": 3.75,
+     "salidas": {
+      "stop": 2,
+      "BE": 0,
+      "TP1": 0,
+      "TP2": 1,
+      "abierta": 0
+     }
+    },
+    "cuenta_100": {
+     "1%": {
+      "final": 101.5,
+      "multiplicador": 1.015,
+      "maxDD_pct": -2.0,
+      "sin_lote": 0
+     },
+     "5%": {
+      "final": 106.32,
+      "multiplicador": 1.063,
+      "maxDD_pct": -9.8,
+      "sin_lote": 0
+     }
+    }
+   },
+   "todo a 3R": {
+    "stats": {
+     "n": 3,
+     "win_pct": 33.3,
+     "R_medio": 0.333,
+     "R_total": 1.0,
+     "pf": 1.5,
+     "racha_perdidas": 2,
+     "ic90": [
+      -1.0,
+      1.667
+     ],
+     "prob_R_le_0": 0.298,
+     "stop_medio_pips": 103.6,
+     "tp1_R_medio": 3.0,
+     "tp2_R_medio": 3.0,
+     "salidas": {
+      "stop": 2,
+      "BE": 0,
+      "TP1": 1,
+      "TP2": 0,
+      "abierta": 0
+     }
+    },
+    "cuenta_100": {
+     "1%": {
+      "final": 100.95,
+      "multiplicador": 1.01,
+      "maxDD_pct": -2.0,
+      "sin_lote": 0
+     },
+     "5%": {
+      "final": 103.79,
+      "multiplicador": 1.038,
+      "maxDD_pct": -9.8,
+      "sin_lote": 0
+     }
+    }
+   },
+   "todo a 5R": {
+    "stats": {
+     "n": 3,
+     "win_pct": 33.3,
+     "R_medio": 1.0,
+     "R_total": 3.0,
+     "pf": 2.5,
+     "racha_perdidas": 2,
+     "ic90": [
+      -1.0,
+      3.0
+     ],
+     "prob_R_le_0": 0.298,
+     "stop_medio_pips": 103.6,
+     "tp1_R_medio": 5.0,
+     "tp2_R_medio": 5.0,
+     "salidas": {
+      "stop": 2,
+      "BE": 0,
+      "TP1": 1,
+      "TP2": 0,
+      "abierta": 0
+     }
+    },
+    "cuenta_100": {
+     "1%": {
+      "final": 102.91,
+      "multiplicador": 1.029,
+      "maxDD_pct": -2.0,
+      "sin_lote": 0
+     },
+     "5%": {
+      "final": 112.81,
+      "multiplicador": 1.128,
+      "maxDD_pct": -9.8,
+      "sin_lote": 0
+     }
+    }
+   }
+  },
+  "M15 solo storyline H4": {
+   "parcial TP1+BE+TP2": {
+    "stats": {
+     "n": 5,
+     "win_pct": 20.0,
+     "R_medio": -0.088,
+     "R_total": -0.44,
+     "pf": 0.89,
+     "racha_perdidas": 4,
+     "ic90": [
+      -1.0,
+      1.737
+     ],
+     "prob_R_le_0": 0.749,
+     "stop_medio_pips": 105.2,
+     "tp1_R_medio": 3.05,
+     "tp2_R_medio": 3.64,
+     "salidas": {
+      "stop": 4,
+      "BE": 0,
+      "TP1": 0,
+      "TP2": 1,
+      "abierta": 0
+     }
+    },
+    "cuenta_100": {
+     "1%": {
+      "final": 99.48,
+      "multiplicador": 0.995,
+      "maxDD_pct": -3.9,
+      "sin_lote": 0
+     },
+     "5%": {
+      "final": 95.95,
+      "multiplicador": 0.96,
+      "maxDD_pct": -18.5,
+      "sin_lote": 0
+     }
+    }
+   },
+   "todo a 3R": {
+    "stats": {
+     "n": 5,
+     "win_pct": 20.0,
+     "R_medio": -0.2,
+     "R_total": -1.0,
+     "pf": 0.75,
+     "racha_perdidas": 4,
+     "ic90": [
+      -1.0,
+      1.4
+     ],
+     "prob_R_le_0": 0.749,
+     "stop_medio_pips": 105.2,
+     "tp1_R_medio": 3.0,
+     "tp2_R_medio": 3.0,
+     "salidas": {
+      "stop": 4,
+      "BE": 0,
+      "TP1": 1,
+      "TP2": 0,
+      "abierta": 0
+     }
+    },
+    "cuenta_100": {
+     "1%": {
+      "final": 98.94,
+      "multiplicador": 0.989,
+      "maxDD_pct": -3.9,
+      "sin_lote": 0
+     },
+     "5%": {
+      "final": 93.67,
+      "multiplicador": 0.937,
+      "maxDD_pct": -18.5,
+      "sin_lote": 0
+     }
+    }
+   },
+   "todo a 5R": {
+    "stats": {
+     "n": 5,
+     "win_pct": 20.0,
+     "R_medio": 0.2,
+     "R_total": 1.0,
+     "pf": 1.25,
+     "racha_perdidas": 4,
+     "ic90": [
+      -1.0,
+      2.6
+     ],
+     "prob_R_le_0": 0.331,
+     "stop_medio_pips": 105.2,
+     "tp1_R_medio": 5.0,
+     "tp2_R_medio": 5.0,
+     "salidas": {
+      "stop": 4,
+      "BE": 0,
+      "TP1": 1,
+      "TP2": 0,
+      "abierta": 0
+     }
+    },
+    "cuenta_100": {
+     "1%": {
+      "final": 100.86,
+      "multiplicador": 1.009,
+      "maxDD_pct": -3.9,
+      "sin_lote": 0
+     },
+     "5%": {
+      "final": 101.81,
+      "multiplicador": 1.018,
+      "maxDD_pct": -18.5,
+      "sin_lote": 0
+     }
+    }
+   }
+  },
+  "M15 + POI de H1": {
+   "parcial TP1+BE+TP2": {
+    "stats": {
+     "n": 11,
+     "win_pct": 36.4,
+     "R_medio": 0.524,
+     "R_total": 5.76,
+     "pf": 1.82,
+     "racha_perdidas": 3,
+     "ic90": [
+      -0.545,
+      1.582
+     ],
+     "prob_R_le_0": 0.184,
+     "stop_medio_pips": 101.5,
+     "tp1_R_medio": 3.73,
+     "tp2_R_medio": 6.38,
+     "salidas": {
+      "stop": 7,
+      "BE": 0,
+      "TP1": 0,
+      "TP2": 4,
+      "abierta": 0
+     }
+    },
+    "cuenta_100": {
+     "1%": {
+      "final": 105.67,
+      "multiplicador": 1.057,
+      "maxDD_pct": -3.7,
+      "sin_lote": 0
+     },
+     "5%": {
+      "final": 126.03,
+      "multiplicador": 1.26,
+      "maxDD_pct": -18.0,
+      "sin_lote": 0
+     }
+    }
+   },
+   "todo a 3R": {
+    "stats": {
+     "n": 11,
+     "win_pct": 36.4,
+     "R_medio": 0.455,
+     "R_total": 5.0,
+     "pf": 1.71,
+     "racha_perdidas": 3,
+     "ic90": [
+      -0.636,
+      1.545
+     ],
+     "prob_R_le_0": 0.17,
+     "stop_medio_pips": 101.5,
+     "tp1_R_medio": 3.0,
+     "tp2_R_medio": 3.0,
+     "salidas": {
+      "stop": 7,
+      "BE": 0,
+      "TP1": 4,
+      "TP2": 0,
+      "abierta": 0
+     }
+    },
+    "cuenta_100": {
+     "1%": {
+      "final": 104.9,
+      "multiplicador": 1.049,
+      "maxDD_pct": -3.0,
+      "sin_lote": 0
+     },
+     "5%": {
+      "final": 122.14,
+      "multiplicador": 1.221,
+      "maxDD_pct": -15.5,
+      "sin_lote": 0
+     }
+    }
+   },
+   "todo a 5R": {
+    "stats": {
+     "n": 11,
+     "win_pct": 27.3,
+     "R_medio": 0.636,
+     "R_total": 7.0,
+     "pf": 1.88,
+     "racha_perdidas": 3,
+     "ic90": [
+      -0.455,
+      2.273
+     ],
+     "prob_R_le_0": 0.154,
+     "stop_medio_pips": 101.5,
+     "tp1_R_medio": 5.0,
+     "tp2_R_medio": 5.0,
+     "salidas": {
+      "stop": 8,
+      "BE": 0,
+      "TP1": 3,
+      "TP2": 0,
+      "abierta": 0
+     }
+    },
+    "cuenta_100": {
+     "1%": {
+      "final": 106.82,
+      "multiplicador": 1.068,
+      "maxDD_pct": -3.0,
+      "sin_lote": 0
+     },
+     "5%": {
+      "final": 129.57,
+      "multiplicador": 1.296,
+      "maxDD_pct": -14.3,
+      "sin_lote": 0
+     }
+    }
+   }
+  },
+  "M5 + POI de H1": {
+   "parcial TP1+BE+TP2": {
+    "stats": {
+     "n": 18,
+     "win_pct": 16.7,
+     "R_medio": -0.423,
+     "R_total": -7.61,
+     "pf": 0.49,
+     "racha_perdidas": 9,
+     "ic90": [
+      -0.869,
+      0.149
+     ],
+     "prob_R_le_0": 0.898,
+     "stop_medio_pips": 75.8,
+     "tp1_R_medio": 4.24,
+     "tp2_R_medio": 6.67,
+     "salidas": {
+      "stop": 15,
+      "BE": 0,
+      "TP1": 0,
+      "TP2": 3,
+      "abierta": 0
+     }
+    },
+    "cuenta_100": {
+     "1%": {
+      "final": 92.51,
+      "multiplicador": 0.925,
+      "maxDD_pct": -12.8,
+      "sin_lote": 0
+     },
+     "5%": {
+      "final": 65.48,
+      "multiplicador": 0.655,
+      "maxDD_pct": -50.5,
+      "sin_lote": 0
+     }
+    }
+   },
+   "todo a 3R": {
+    "stats": {
+     "n": 17,
+     "win_pct": 11.8,
+     "R_medio": -0.529,
+     "R_total": -9.0,
+     "pf": 0.4,
+     "racha_perdidas": 15,
+     "ic90": [
+      -1.0,
+      -0.059
+     ],
+     "prob_R_le_0": 0.959,
+     "stop_medio_pips": 78.3,
+     "tp1_R_medio": 3.0,
+     "tp2_R_medio": 3.0,
+     "salidas": {
+      "stop": 15,
+      "BE": 0,
+      "TP1": 2,
+      "TP2": 0,
+      "abierta": 0
+     }
+    },
+    "cuenta_100": {
+     "1%": {
+      "final": 91.24,
+      "multiplicador": 0.912,
+      "maxDD_pct": -14.0,
+      "sin_lote": 0
+     },
+     "5%": {
+      "final": 61.27,
+      "multiplicador": 0.613,
+      "maxDD_pct": -53.7,
+      "sin_lote": 0
+     }
+    }
+   },
+   "todo a 5R": {
+    "stats": {
+     "n": 17,
+     "win_pct": 11.8,
+     "R_medio": -0.294,
+     "R_total": -5.0,
+     "pf": 0.67,
+     "racha_perdidas": 15,
+     "ic90": [
+      -1.0,
+      0.412
+     ],
+     "prob_R_le_0": 0.685,
+     "stop_medio_pips": 78.3,
+     "tp1_R_medio": 5.0,
+     "tp2_R_medio": 5.0,
+     "salidas": {
+      "stop": 15,
+      "BE": 0,
+      "TP1": 2,
+      "TP2": 0,
+      "abierta": 0
+     }
+    },
+    "cuenta_100": {
+     "1%": {
+      "final": 94.82,
+      "multiplicador": 0.948,
+      "maxDD_pct": -14.0,
+      "sin_lote": 0
+     },
+     "5%": {
+      "final": 72.39,
+      "multiplicador": 0.724,
+      "maxDD_pct": -53.7,
+      "sin_lote": 0
+     }
+    }
+   }
+  },
+  "Alchemist M15+M5": {
+   "parcial TP1+BE+TP2": {
+    "stats": {
+     "n": 5,
+     "win_pct": 20.0,
+     "R_medio": -0.088,
+     "R_total": -0.44,
+     "pf": 0.89,
+     "racha_perdidas": 3,
+     "ic90": [
+      -1.0,
+      1.737
+     ],
+     "prob_R_le_0": 0.736,
+     "stop_medio_pips": 89.3,
+     "tp1_R_medio": 3.91,
+     "tp2_R_medio": 4.22,
+     "salidas": {
+      "stop": 4,
+      "BE": 0,
+      "TP1": 0,
+      "TP2": 1,
+      "abierta": 0
+     }
+    },
+    "cuenta_100": {
+     "1%": {
+      "final": 99.48,
+      "multiplicador": 0.995,
+      "maxDD_pct": -3.0,
+      "sin_lote": 0
+     },
+     "5%": {
+      "final": 95.95,
+      "multiplicador": 0.96,
+      "maxDD_pct": -14.3,
+      "sin_lote": 0
+     }
+    }
+   },
+   "todo a 3R": {
+    "stats": {
+     "n": 5,
+     "win_pct": 20.0,
+     "R_medio": -0.2,
+     "R_total": -1.0,
+     "pf": 0.75,
+     "racha_perdidas": 3,
+     "ic90": [
+      -1.0,
+      1.4
+     ],
+     "prob_R_le_0": 0.736,
+     "stop_medio_pips": 89.3,
+     "tp1_R_medio": 3.0,
+     "tp2_R_medio": 3.0,
+     "salidas": {
+      "stop": 4,
+      "BE": 0,
+      "TP1": 1,
+      "TP2": 0,
+      "abierta": 0
+     }
+    },
+    "cuenta_100": {
+     "1%": {
+      "final": 98.94,
+      "multiplicador": 0.989,
+      "maxDD_pct": -3.0,
+      "sin_lote": 0
+     },
+     "5%": {
+      "final": 93.67,
+      "multiplicador": 0.937,
+      "maxDD_pct": -14.3,
+      "sin_lote": 0
+     }
+    }
+   },
+   "todo a 5R": {
+    "stats": {
+     "n": 5,
+     "win_pct": 20.0,
+     "R_medio": 0.2,
+     "R_total": 1.0,
+     "pf": 1.25,
+     "racha_perdidas": 3,
+     "ic90": [
+      -1.0,
+      2.6
+     ],
+     "prob_R_le_0": 0.336,
+     "stop_medio_pips": 89.3,
+     "tp1_R_medio": 5.0,
+     "tp2_R_medio": 5.0,
+     "salidas": {
+      "stop": 4,
+      "BE": 0,
+      "TP1": 1,
+      "TP2": 0,
+      "abierta": 0
+     }
+    },
+    "cuenta_100": {
+     "1%": {
+      "final": 100.86,
+      "multiplicador": 1.009,
+      "maxDD_pct": -3.0,
+      "sin_lote": 0
+     },
+     "5%": {
+      "final": 101.81,
+      "multiplicador": 1.018,
+      "maxDD_pct": -14.3,
+      "sin_lote": 0
+     }
+    }
+   }
+  }
+ },
+ "operaciones": [
+  {
+   "fecha": "2026-01-16 09:36:00",
+   "tf": "M15",
+   "lado": "short",
+   "nivel": "A-H4",
+   "entrada": 4610.69,
+   "stop": 4616.81,
+   "stop_pips": 61.2,
+   "tp1": 4582.68,
+   "tp1_R": 4.58,
+   "tp2": 4582.14,
+   "tp2_R": 4.67,
+   "tp2_origen": "liquidez H1/PDH-PDL",
+   "salida": "stop",
+   "salida_fecha": "2026-01-16 10:05:00",
+   "R": -1.0
+  },
+  {
+   "fecha": "2026-03-16 07:23:00",
+   "tf": "M15",
+   "lado": "short",
+   "nivel": "A-H4",
+   "entrada": 5018.86,
+   "stop": 5037.49,
+   "stop_pips": 186.3,
+   "tp1": 4969.99,
+   "tp1_R": 2.62,
+   "tp2": 4966.71,
+   "tp2_R": 2.8,
+   "tp2_origen": "liquidez H1/PDH-PDL",
+   "salida": "stop",
+   "salida_fecha": "2026-03-16 10:08:00",
+   "R": -1.0
+  },
+  {
+   "fecha": "2026-05-20 10:16:00",
+   "tf": "M5",
+   "lado": "short",
+   "nivel": "A-H4",
+   "entrada": 4497.2,
+   "stop": 4507.13,
+   "stop_pips": 99.3,
+   "tp1": 4466.96,
+   "tp1_R": 3.04,
+   "tp2": 4464.47,
+   "tp2_R": 3.29,
+   "tp2_origen": "liquidez H1/PDH-PDL",
+   "salida": "stop",
+   "salida_fecha": "2026-05-20 10:21:00",
+   "R": -1.0
+  },
+  {
+   "fecha": "2026-05-22 08:19:00",
+   "tf": "M15",
+   "lado": "short",
+   "nivel": "A-H4",
+   "entrada": 4531.21,
+   "stop": 4537.55,
+   "stop_pips": 63.4,
+   "tp1": 4510.07,
+   "tp1_R": 3.33,
+   "tp2": 4507.21,
+   "tp2_R": 3.79,
+   "tp2_origen": "liquidez H1/PDH-PDL",
+   "salida": "TP2",
+   "salida_fecha": "2026-05-22 10:00:00",
+   "R": 3.561
+  },
+  {
+   "fecha": "2026-06-25 08:30:00",
+   "tf": "M5",
+   "lado": "short",
+   "nivel": "A-H4",
+   "entrada": 3995.08,
+   "stop": 3998.7,
+   "stop_pips": 36.2,
+   "tp1": 3973.47,
+   "tp1_R": 5.96,
+   "tp2": 3971.28,
+   "tp2_R": 6.57,
+   "tp2_origen": "liquidez H1/PDH-PDL",
+   "salida": "stop",
+   "salida_fecha": "2026-06-25 08:30:00",
+   "R": -1.0
+  }
+ ],
+ "proyeccion_1_anio": {
+  "riesgo 1%": {
+   "p10": 94.15,
+   "mediana": 98.49,
+   "p90": 103.02,
+   "prob_perder": 65.9,
+   "prob_perder_mitad": 0.0,
+   "prob_x10": 0.0,
+   "prob_x1000": 0.0
+  },
+  "riesgo 2%": {
+   "p10": 88.58,
+   "mediana": 96.83,
+   "p90": 105.84,
+   "prob_perder": 65.9,
+   "prob_perder_mitad": 0.0,
+   "prob_x10": 0.0,
+   "prob_x1000": 0.0
+  },
+  "riesgo 5%": {
+   "p10": 73.51,
+   "mediana": 91.16,
+   "p90": 113.04,
+   "prob_perder": 65.9,
+   "prob_perder_mitad": 0.0,
+   "prob_x10": 0.0,
+   "prob_x1000": 0.0
+  },
+  "riesgo 10%": {
+   "p10": 53.14,
+   "mediana": 80.08,
+   "p90": 120.66,
+   "prob_perder": 65.9,
+   "prob_perder_mitad": 0.0,
+   "prob_x10": 0.0,
+   "prob_x1000": 0.0
+  },
+  "operaciones_por_anio": 6
+ },
+ "azar": {
+  "mediana": -0.167,
+  "estrategia": -0.088,
+  "pct_azar_igual_o_mejor": 44
+ },
+ "por_mes": {
+  "2026-01": [
+   1,
+   -1.0
+  ],
+  "2026-03": [
+   1,
+   -1.0
+  ],
+  "2026-05": [
+   2,
+   2.56
+  ],
+  "2026-06": [
+   1,
+   -1.0
+  ]
+ }
+}
