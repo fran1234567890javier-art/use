@@ -1,0 +1,31 @@
+{
+  "created_by": "trader-budget",
+  "created_at": "2026-10-15T18:50:00Z",
+  "status": "proposed",
+  "paper": true,
+  "note": "Proposals only. Nothing is placed until trader-risk passes each order and you say yes to it in the chat.",
+  "source": "trader/plan.json (TSLA level 2026-10-15)",
+  "orders": [
+    {
+      "symbol": "TSLA",
+      "side": "buy",
+      "qty": "10",
+      "type": "market",
+      "time_in_force": "day",
+      "order_class": "bracket",
+      "take_profit_limit_price": "363.12",
+      "stop_loss_stop_price": "359.62",
+      "why": "level on TSLA: 10 shares, bound by your position cap (10 x 1.17 = $11.70 at the stop)",
+      "plan": {
+        "entry": 360.79,
+        "stop": 359.62,
+        "target": 363.12,
+        "risk_per_share": 1.17,
+        "max_loss": 11.7,
+        "setup": "level",
+        "entry_time": "2:50 PM",
+        "flat_by": "15:55"
+      }
+    }
+  ]
+}
