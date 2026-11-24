@@ -1,5 +1,5 @@
 //@version=5
-strategy("KimiBot v3 · SMC/ICT/CRT/MSNR (estrategia)", shorttitle="KimiBot v3 S", overlay=true, initial_capital=1000, currency=currency.USD, commission_type=strategy.commission.cash_per_contract, commission_value=0, slippage=2, max_labels_count=300, max_lines_count=400, process_orders_on_close=false)
+strategy("KimiBot v3 · SMC/ICT/CRT/MSNR (estrategia)", shorttitle="KimiBot v3 S", overlay=true, initial_capital=1000, currency=currency.USD, commission_type=strategy.commission.cash_per_contract, commission_value=0, slippage=2, max_labels_count=300, max_lines_count=400, max_bars_back=500, process_orders_on_close=false)
 
 // ════════════════════════════════════════════════════════════════════════════
 // Port a TradingView de KimiBot v3 (github.com/ilham191026-projek/KimiBot)
@@ -19,6 +19,7 @@ cooldownMin = input.int(30, "Cooldown entre señales (min)", minval=0, group="Ge
 useSession  = input.bool(true, "Solo sesiones Londres 07-12 y NY 13-17 GMT", group="General")
 showLevels  = input.bool(true, "Dibujar entrada, SL, TP1 y TP2", group="General")
 showPanel   = input.bool(true, "Mostrar panel de capas", group="General")
+showNear    = input.bool(true, "Marcar casi-señales (le falta 1 capa)", group="General")
 capital     = input.float(1000, "Capital (USD)", minval=1, group="Riesgo")
 riskPct     = input.float(1.0, "Riesgo por operación (%)", minval=0.01, step=0.1, group="Riesgo")
 adxThr      = input.float(25, "ADX H1 mínimo", group="Filtro de volatilidad")
@@ -106,29 +107,38 @@ f_h1() =>
     var array<int>   fD = array.new<int>()
     var array<int>   fI = array.new<int>()
     rng = high - low + 1e-10
+    // última vela bajista y alcista vistas (sin usar historial dentro de bucles)
+    var int   lbI = na
+    var float lbH = na
+    var float lbL = na
+    var int   luI = na
+    var float luH = na
+    var float luL = na
     if bar_index >= 10
-        if close > open and (close - open) / rng >= 0.5
-            for j = 1 to 9
-                if close[j] < open[j]
-                    array.push(bT, high[j])
-                    array.push(bB, low[j])
-                    array.push(bI, bar_index)
-                    if array.size(bT) > 3
-                        array.shift(bT)
-                        array.shift(bB)
-                        array.shift(bI)
-                    break
-        if close < open and (open - close) / rng >= 0.5
-            for j = 1 to 9
-                if close[j] > open[j]
-                    array.push(sT, high[j])
-                    array.push(sB, low[j])
-                    array.push(sI, bar_index)
-                    if array.size(sT) > 3
-                        array.shift(sT)
-                        array.shift(sB)
-                        array.shift(sI)
-                    break
+        if close > open and (close - open) / rng >= 0.5 and not na(lbI) and bar_index - lbI <= 9
+            array.push(bT, lbH)
+            array.push(bB, lbL)
+            array.push(bI, bar_index)
+            if array.size(bT) > 3
+                array.shift(bT)
+                array.shift(bB)
+                array.shift(bI)
+        if close < open and (open - close) / rng >= 0.5 and not na(luI) and bar_index - luI <= 9
+            array.push(sT, luH)
+            array.push(sB, luL)
+            array.push(sI, bar_index)
+            if array.size(sT) > 3
+                array.shift(sT)
+                array.shift(sB)
+                array.shift(sI)
+    if close < open
+        lbI := bar_index
+        lbH := high
+        lbL := low
+    if close > open
+        luI := bar_index
+        luH := high
+        luL := low
     if bar_index >= 2
         if low > high[2]
             array.push(fT, low)
@@ -227,19 +237,43 @@ f_m15() =>
     rng = high - low
     cB = low < low[1] - buf and close > low[1] and close > open and rng > 0 and (close - open) / rng >= 0.4
     cS = high > high[1] + buf and close < high[1] and close < open and rng > 0 and (open - close) / rng >= 0.4
+    // guarda los últimos CRT (índice y nivel) en vez de recorrer el historial
+    var array<int>   eBI = array.new<int>()
+    var array<float> eBL = array.new<float>()
+    var array<int>   eSI = array.new<int>()
+    var array<float> eSL = array.new<float>()
+    if cB
+        array.push(eBI, bar_index)
+        array.push(eBL, low)
+        if array.size(eBI) > 40
+            array.shift(eBI)
+            array.shift(eBL)
+    if cS
+        array.push(eSI, bar_index)
+        array.push(eSL, high)
+        if array.size(eSI) > 40
+            array.shift(eSI)
+            array.shift(eSL)
     float frB = na
     float anB = na
     float frS = na
     float anS = na
-    for k = 2 to 31
-        if na(anB) and cB[k]
-            anB := low[k]
-            if k <= 16
-                frB := low[k]
-        if na(anS) and cS[k]
-            anS := high[k]
-            if k <= 16
-                frS := high[k]
+    if array.size(eBI) > 0
+        for k = array.size(eBI) - 1 to 0
+            ago = bar_index - array.get(eBI, k)
+            if ago >= 2 and ago <= 31
+                anB := array.get(eBL, k)
+                if ago <= 16
+                    frB := anB
+                break
+    if array.size(eSI) > 0
+        for k = array.size(eSI) - 1 to 0
+            ago = bar_index - array.get(eSI, k)
+            if ago >= 2 and ago <= 31
+                anS := array.get(eSL, k)
+                if ago <= 16
+                    frS := anS
+                break
     ph = ta.pivothigh(high, 3, 3)
     pl = ta.pivotlow(low, 3, 3)
     var float swH = na
@@ -343,6 +377,8 @@ if signal
     nSig += 1
 
 // ── Dibujo, alertas y panel ─────────────────────────────────────────────────
+nearSig = showNear and barstate.isconfirmed and l1 and score == minScore - 1 and gateOk and sessOk
+plotshape(nearSig and not signal, "Casi señal", shape.circle, dir == 1 ? location.belowbar : location.abovebar, color.new(color.orange, 40), size=size.tiny)
 plotshape(longSig,  "Compra", shape.triangleup,   location.belowbar, color.new(color.teal, 0), size=size.small, text="BUY")
 plotshape(shortSig, "Venta",  shape.triangledown, location.abovebar, color.new(color.red, 0),  size=size.small, text="SELL")
 if signal and showLevels
