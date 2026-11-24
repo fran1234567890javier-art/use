@@ -381,7 +381,8 @@ if signal
 DRAW = r'''
 // ── Dibujo, alertas y panel ─────────────────────────────────────────────────
 nearSig = showNear and barstate.isconfirmed and l1 and score == minScore - 1 and gateOk and sessOk
-plotshape(nearSig and not signal, "Casi señal", shape.circle, dir == 1 ? location.belowbar : location.abovebar, color.new(color.orange, 40), size=size.tiny)
+plotshape(nearSig and not signal and dir == 1, "Casi compra", shape.circle, location.belowbar, color.new(color.orange, 40), size=size.tiny)
+plotshape(nearSig and not signal and dir == -1, "Casi venta", shape.circle, location.abovebar, color.new(color.orange, 40), size=size.tiny)
 plotshape(longSig,  "Compra", shape.triangleup,   location.belowbar, color.new(color.teal, 0), size=size.small, text="BUY")
 plotshape(shortSig, "Venta",  shape.triangledown, location.abovebar, color.new(color.red, 0),  size=size.small, text="SELL")
 if signal and showLevels
