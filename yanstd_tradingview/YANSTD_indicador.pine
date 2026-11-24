@@ -1,0 +1,659 @@
+//@version=5
+indicator("YANSTD SMC Scalper · port TradingView (indicador)", shorttitle="YANSTD", overlay=true, max_boxes_count=300, max_lines_count=500, max_labels_count=300, max_bars_back=500)
+
+// ═══════════════════════════════════════════════════════════════════════════
+// Port simplificado del EA YANSTD (github.com/yanstd888/institutional-smc-scalper-mt5, licencia MIT)
+// Lógica: sesgo M15 (BOS/CHoCH) + King SNR H4/H1 + POI M5 (OB+FVG con desplazamiento)
+//         + órdenes límite en FVG 50% / Fib 0.786 + SL estructural + TP1/TP2/runner.
+// Pensado para XAUUSD en gráfico de 3 minutos (vale M1–M5).
+// Sin ticks, sin noticias, sin SmartBrain: los toques se aproximan con máximo/mínimo de vela.
+// Material educativo, no asesoramiento financiero.
+// ═══════════════════════════════════════════════════════════════════════════
+
+// ───────── Entradas ─────────
+G0 = "Preset y modo"
+preset   = input.string("L5_SCALPING_M2 (expira 60 velas M5)", "Preset", options=["L5_SCALPING_M2 (expira 60 velas M5)", "G27B_CHAMPION (expira 30 velas M5)"], group=G0)
+modo     = input.string("Límite (como el EA)", "Modo de entrada", options=["Límite (como el EA)", "Gatillo M3 (a mercado)"], group=G0)
+
+G1 = "Marcos temporales"
+tfBias   = input.timeframe("15", "Sesgo (BOS/CHoCH)", group=G1)
+tfPoi    = input.timeframe("5", "POI (OB + FVG)", group=G1)
+useKing  = input.bool(true, "Usar King SNR (H4 y H1)", group=G1)
+tfKing1  = input.timeframe("240", "King principal", group=G1)
+tfKing2  = input.timeframe("60", "King secundario", group=G1)
+
+G2 = "POI M5"
+dispMin  = input.float(0.70, "Cuerpo mínimo vela de desplazamiento", step=0.05, group=G2)
+fvgMin   = input.float(0.30, "Hueco FVG mínimo (× ATR M5)", step=0.05, group=G2)
+obMax    = input.float(1.5, "Ancho máximo OB (× ATR M5)", step=0.1, group=G2)
+zMin     = input.float(0.2, "Ancho mínimo zona ($)", step=0.1, group=G2)
+zMax     = input.float(25.0, "Ancho máximo zona ($)", step=1.0, group=G2)
+reqStruc = input.bool(true, "Exigir calificación estructural (barrido o nivel de $5)", group=G2)
+poiAge   = input.int(96, "Vida máxima POI (velas M5)", minval=1, group=G2)
+invalBuf = input.float(0.80, "Colchón de invalidación ($, 8 pips)", step=0.1, group=G2)
+invalN   = input.int(2, "Cierres para invalidar", minval=1, group=G2)
+
+G3 = "Entrada"
+useF50   = input.bool(true, "Candidato FVG_50", group=G3)
+useF79   = input.bool(true, "Candidato FIB_790", group=G3)
+maxDistA = input.float(2.25, "Distancia máxima del límite (× ATR M5)", step=0.25, group=G3)
+dupA     = input.float(0.5, "Separación mínima entre pendientes (× ATR M5)", step=0.1, group=G3)
+useRR    = input.bool(true, "Exigir RR estructural", group=G3)
+minRR    = input.float(1.10, "RR estructural mínimo", step=0.05, group=G3)
+reqOTE   = input.bool(true, "Exigir OTE 0.618–0.786 (el EA rechaza grado D)", group=G3)
+oteTol   = input.float(0.30, "Tolerancia OTE ($)", step=0.1, group=G3)
+minScore = input.float(50, "Puntuación mínima", group=G3)
+minScCT  = input.float(75, "Puntuación mínima contra tendencia", group=G3)
+ctBars   = input.int(16, "Velas M15 desde la última ruptura para permitir contra tendencia", group=G3)
+
+G4 = "Riesgo y salidas"
+slMult   = input.float(2.0, "SL: colchón bajo el POI (× ATR M15)", step=0.1, group=G4)
+slMinA   = input.float(0.35, "SL mínimo (× ATR M15)", step=0.05, group=G4)
+slMaxA   = input.float(2.5, "SL máximo (× ATR M15)", step=0.1, group=G4)
+spreadIn = input.float(0.30, "Spread fijo ($)", step=0.05, group=G4)
+tp1R     = input.float(1.5, "TP1 (R) cierra 50% y SL a breakeven", step=0.1, group=G4)
+tp2R     = input.float(1.6, "TP2 (R) cierra 25%", step=0.1, group=G4)
+mileR    = input.float(1.2, "Hito: con MFE ≥ (R)", step=0.1, group=G4)
+mileLock = input.float(0.3, "…mover SL a entrada + (R)", step=0.1, group=G4)
+tiBars   = input.int(16, "Invalidación por tiempo (velas M5)", group=G4)
+tiMfeR   = input.float(0.7, "…si MFE < (R)", step=0.1, group=G4)
+tiMfeA   = input.float(0.35, "…y MFE < (× ATR M5)", step=0.05, group=G4)
+maxPos   = input.int(3, "Máximo de órdenes activas", minval=1, maxval=3, group=G4)
+useTime  = input.bool(true, "Filtro horario UTC (sin fin de semana ni 20:00–22:59; cierre viernes 20:00)", group=G4)
+pip      = input.float(0.10, "Tamaño de pip ($)", step=0.01, group=G4)
+brkBuf   = input.float(0.05, "Colchón de ruptura M15 ($)", step=0.01, group=G4)
+
+
+G6 = "Visual"
+showPoi  = input.bool(true, "Dibujar POIs", group=G6)
+showLin  = input.bool(true, "Dibujar entrada / SL / TP", group=G6)
+showTrig = input.bool(true, "Marcar gatillos M3", group=G6)
+showBg   = input.bool(true, "Fondo según sesgo M15", group=G6)
+showTab  = input.bool(true, "Panel", group=G6)
+
+expBars  = str.contains(preset, "G27B") ? 30 : 60
+msPoi    = timeframe.in_seconds(tfPoi) * 1000
+msBias   = timeframe.in_seconds(tfBias) * 1000
+modoLim  = str.startswith(modo, "Lím")
+
+// ───────── Sesgo M15: máquina de estados BOS / CHoCH ─────────
+f_bias() =>
+    hd = 6
+    ph = ta.pivothigh(high, hd, hd)
+    pl = ta.pivotlow(low, hd, hd)
+    tPiv = time[hd]
+    c2 = close[1]
+    [diP, diM, adxV] = ta.dmi(14, 14)
+    at = ta.atr(14)
+    var float swH = na
+    var float prvH = na
+    var int swHt = 0
+    var float swL = na
+    var float prvL = na
+    var int swLt = 0
+    if not na(ph)
+        prvH := swH
+        swH := ph
+        swHt := tPiv
+    if not na(pl)
+        prvL := swL
+        swL := pl
+        swLt := tPiv
+    var int trend = 0
+    var int pend = 0
+    var int pendT = 0
+    var float protH = na
+    var float protL = na
+    var int lastBrk = 0
+    c1 = close
+    rg = high - low
+    br = rg > 0 ? math.abs(close - open) / rg : 0.0
+    dBull = br >= 0.55 and close > open
+    dBear = br >= 0.55 and close < open
+    tf = msBias
+    if pend != 0 and time > pendT + 12 * tf
+        pend := 0
+        pendT := 0
+    okSw = not na(swH) and not na(swL) and not na(prvH) and not na(prvL)
+    if okSw
+        if trend == 0
+            if swH > prvH and swL > prvL
+                trend := 1
+                pend := 0
+                protL := swL
+                protH := swH
+            else if swH < prvH and swL < prvL
+                trend := -1
+                pend := 0
+                protH := swH
+                protL := swL
+        else if trend == 1
+            if pend == -1
+                conf = swHt > pendT and swH < protH and swLt > pendT and c2 >= swL and c1 < swL - brkBuf and dBear
+                inval = not na(protH) and c2 <= protH and c1 > protH + brkBuf and dBull
+                if conf
+                    trend := -1
+                    pend := 0
+                    pendT := 0
+                    protH := swH
+                    protL := swL
+                    lastBrk := time
+                else if inval
+                    pend := 0
+                    pendT := 0
+                    protL := swL
+                    protH := swH
+                    lastBrk := time
+            else if not na(protL) and c2 >= protL and c1 < protL - brkBuf and dBear
+                pend := -1
+                lastBrk := time
+                pendT := time
+            else if c2 <= swH and c1 > swH + brkBuf and dBull
+                protL := swL
+                protH := swH
+                lastBrk := time
+        else
+            if pend == 1
+                conf = swLt > pendT and swL > protL and swHt > pendT and c2 <= swH and c1 > swH + brkBuf and dBull
+                inval = not na(protL) and c2 >= protL and c1 < protL - brkBuf and dBear
+                if conf
+                    trend := 1
+                    pend := 0
+                    pendT := 0
+                    protH := swH
+                    protL := swL
+                    lastBrk := time
+                else if inval
+                    pend := 0
+                    pendT := 0
+                    protL := swL
+                    protH := swH
+                    lastBrk := time
+            else if not na(protH) and c2 <= protH and c1 > protH + brkBuf and dBull
+                pend := 1
+                lastBrk := time
+                pendT := time
+            else if c2 >= swL and c1 < swL - brkBuf and dBear
+                protL := swL
+                protH := swH
+                lastBrk := time
+    bs = lastBrk > 0 ? (time - lastBrk) / tf + 1 : 999.0
+    [trend[1], pend[1], bs[1], adxV[1], diP[1], diM[1], at[1], swH[1], swL[1]]
+
+// ───────── King SNR (par de velas barrido + rechazo) ─────────
+f_king() =>
+    at = ta.atr(14)
+    rg = high - low
+    br = rg > 0 ? math.abs(close - open) / rg : 0.0
+    genL = low[1] <= low[2] and low[1] <= low[3]
+    genH = high[1] >= high[2] and high[1] >= high[3]
+    kSup = close[1] < open[1] and close > open and low < low[1] and close > low[1] and br >= 0.55 and genL and (open - low) >= 0.05 * at
+    kRes = close[1] > open[1] and close < open and high > high[1] and close < high[1] and br >= 0.55 and genH and (high - open) >= 0.05 * at
+    var float sBot = na
+    var float sBuf = na
+    var int sT = 0
+    var bool sOn = false
+    var float rTop = na
+    var float rBuf = na
+    var int rT = 0
+    var bool rOn = false
+    if sOn and close < sBot - sBuf
+        sOn := false
+    if rOn and close > rTop + rBuf
+        rOn := false
+    if kSup
+        sBot := low
+        sBuf := 0.1 * at
+        sT := time
+        sOn := true
+    if kRes
+        rTop := high
+        rBuf := 0.1 * at
+        rT := time
+        rOn := true
+    bias = sOn and rOn ? (sT >= rT ? 1 : -1) : sOn ? 1 : rOn ? -1 : 0
+    bias[1]
+
+// ───────── POI M5: desplazamiento + FVG + OB ─────────
+f_poi() =>
+    at = ta.atr(14)
+    hiPrev = ta.highest(high, 12)[2]
+    loPrev = ta.lowest(low, 12)[2]
+    hiSw = ta.highest(high, 12)[3]
+    loSw = ta.lowest(low, 12)[3]
+    rg1 = high[1] - low[1]
+    br1 = rg1 > 0 ? math.abs(close[1] - open[1]) / rg1 : 0.0
+    h2 = high[2]
+    l2 = low[2]
+    obW = h2 - l2
+    bull = close[1] > open[1] and br1 >= dispMin and close[1] > hiPrev and low > h2 and (low - h2) > fvgMin * at and obW <= obMax * at
+    bear = close[1] < open[1] and br1 >= dispMin and close[1] < loPrev and high < l2 and (l2 - high) > fvgMin * at and obW <= obMax * at
+    fTop = bull ? low : l2
+    fBot = bull ? h2 : high
+    fHi = bull ? math.max(high, high[1]) : hiPrev
+    fLo = bull ? loPrev : math.min(low, low[1])
+    swp = bull ? l2 < loSw : h2 > hiSw
+    t = time
+    [bull[1], bear[1], t[1], h2[1], l2[1], fTop[1], fBot[1], fHi[1], fLo[1], swp[1], at[1]]
+
+[trend15, pend15, bars15, adx15, diP15, diM15, atr15, swH15, swL15] = request.security(syminfo.tickerid, tfBias, f_bias(), lookahead=barmerge.lookahead_on)
+[bull5, bear5, poiT, obH5, obL5, fTop5, fBot5, fHi5, fLo5, swp5, atr5] = request.security(syminfo.tickerid, tfPoi, f_poi(), lookahead=barmerge.lookahead_on)
+king1 = request.security(syminfo.tickerid, tfKing1, f_king(), lookahead=barmerge.lookahead_on)
+king2 = request.security(syminfo.tickerid, tfKing2, f_king(), lookahead=barmerge.lookahead_on)
+kingBias = not useKing ? 0 : nz(king1) != 0 ? nz(king1) : nz(king2)
+
+// ───────── M3 (gráfico): barrido + CHoCH ─────────
+atr3 = ta.atr(14)
+ph3 = ta.pivothigh(high, 2, 2)
+pl3 = ta.pivotlow(low, 2, 2)
+var float m3H = na
+var float m3Hp = na
+var float m3L = na
+var float m3Lp = na
+rg3 = high - low
+br3 = rg3 > 0 ? math.abs(close - open) / rg3 : 0.0
+sweepB = not na(m3L) and low < m3L - 0.05 * atr3 and close > m3L
+sweepS = not na(m3H) and high > m3H + 0.05 * atr3 and close < m3H
+sweepRecB = sweepB or sweepB[1] or sweepB[2]
+sweepRecS = sweepS or sweepS[1] or sweepS[2]
+chochB = not na(m3H) and close > open and br3 >= 0.55 and close > m3H + 0.05 * atr3 and close[1] <= m3H and (m3H < nz(m3Hp, m3H + 1) or m3L < nz(m3Lp, m3L + 1))
+chochS = not na(m3L) and close < open and br3 >= 0.55 and close < m3L - 0.05 * atr3 and close[1] >= m3L and (m3H < nz(m3Hp, m3H + 1) or m3L < nz(m3Lp, m3L + 1))
+trigB = sweepRecB and chochB
+trigS = sweepRecS and chochS
+if not na(ph3)
+    m3Hp := m3H
+    m3H := ph3
+if not na(pl3)
+    m3Lp := m3L
+    m3L := pl3
+
+// ───────── Horario (UTC) ─────────
+dowU = dayofweek(time, "UTC")
+hrU = hour(time, "UTC")
+bloqueoT = useTime and (dowU == dayofweek.saturday or dowU == dayofweek.sunday or (hrU >= 20 and hrU <= 22))
+cierreVie = useTime and dowU == dayofweek.friday and hrU >= 20
+
+// ───────── Tipos ─────────
+type Poi
+    int dir
+    float top
+    float bot
+    float fTop
+    float fBot
+    float fHi
+    float fLo
+    int t0
+    bool sweep
+    int outCnt = 0
+    bool dead = false
+    bool hasOrd = false
+    int tTouch = -1
+    string why = ""
+    box bx = na
+
+type Ord
+    int dir
+    float e
+    float sl
+    float r
+    float tp1
+    float tp2
+    int t0
+    string id
+    string kind
+    float score
+    float qty
+    Poi p
+    int tFill = 0
+    bool filled = false
+    bool done = false
+    bool tp1Done = false
+    bool tp2Done = false
+    float mfe = 0.0
+    float rem = 1.0
+    float realR = 0.0
+    line lE = na
+    line lS = na
+    line lT1 = na
+    line lT2 = na
+
+var array<Poi> pois = array.new<Poi>()
+var array<Ord> ords = array.new<Ord>()
+var int lastPoiT = 0
+var int nId = 0
+var int nPoi = 0
+var int nOrd = 0
+var int nFill = 0
+var int nWin = 0
+var int nLoss = 0
+var int nBE = 0
+var int nCanc = 0
+var float sumR = 0.0
+var int rjDir = 0
+var int rjLado = 0
+var int rjDist = 0
+var int rjRR = 0
+var int rjOTE = 0
+var int rjScore = 0
+var int rjOtro = 0
+
+// ───────── Funciones de evaluación ─────────
+f_ote(int d, float edge) =>
+    rngD = swH15 - swL15
+    ok = false
+    if not na(rngD) and rngD > 0
+        if d == 1
+            ok := edge >= swH15 - 0.786 * rngD - oteTol and edge <= swH15 - 0.618 * rngD + oteTol
+        else
+            ok := edge >= swL15 + 0.618 * rngD - oteTol and edge <= swL15 + 0.786 * rngD + oteTol
+    ok
+
+f_key(Poi p) =>
+    tol = 0.1 * atr15
+    lvl = p.dir == 1 ? swL15 : swH15
+    not na(lvl) and lvl >= p.bot - tol and lvl <= p.top + tol
+
+// Devuelve [puntuación (na si se rechaza), SL, motivo]
+f_eval(Poi p, float e, bool isFvg, bool m3, bool mkt) =>
+    d = p.dir
+    float sc = na
+    string why = ""
+    aligned = trend15 == 0 or trend15 == d
+    allowed = aligned or pend15 == d or bars15 >= ctBars
+    counter = (not aligned) or (kingBias != 0 and kingBias != d)
+    dist = math.abs(close - e)
+    side = mkt or (d == 1 ? e < close : e > close)
+    slRaw = d == 1 ? p.bot - atr15 * slMult - spreadIn : p.top + atr15 * slMult + spreadIn
+    dCl = math.min(math.max(math.abs(e - slRaw), atr15 * slMinA), atr15 * slMaxA)
+    sl = e - d * dCl
+    tgt = d == 1 ? math.max(p.fHi, nz(swH15, p.fHi)) : math.min(p.fLo, nz(swL15, p.fLo))
+    rrS = (tgt - e) * d / dCl
+    ote = f_ote(d, d == 1 ? p.fTop : p.fBot)
+    if not allowed
+        why := "dir"
+    else if not side
+        why := "lado"
+    else if dist > maxDistA * atr5
+        why := "dist"
+    else if useRR and rrS < minRR
+        why := "rr"
+    else if reqOTE and not ote
+        why := "ote"
+    else
+        ageB = (time - p.t0) / msPoi
+        s = 50.0
+        s += isFvg ? 15.0 : 0.0
+        s += math.max(0.0, (20.0 - ageB) / 20.0) * 15.0
+        s += math.max(0.0, (100.0 - dist / pip) / 100.0) * 20.0
+        s += p.sweep ? 20.0 : 0.0
+        s += ote ? 15.0 : 0.0
+        s += m3 ? 10.0 : 0.0
+        s += f_key(p) and ote ? 15.0 : 0.0
+        s -= counter ? 10.0 : 0.0
+        s -= adx15 < 20 ? (20.0 - adx15) / 20.0 * 10.0 : 0.0
+        s += (d == 1 ? diP15 > diM15 : diM15 > diP15) ? 5.0 : -5.0
+        if s < (counter ? minScCT : minScore)
+            why := "score"
+        else
+            sc := s
+    [sc, sl, why]
+
+f_qty(float dist) => 0.0
+
+f_count(string why) =>
+    [why == "dir" ? 1 : 0, why == "lado" ? 1 : 0, why == "dist" ? 1 : 0, why == "rr" ? 1 : 0, why == "ote" ? 1 : 0, why == "score" ? 1 : 0, (why == "" or why == "dup" or why == "max" or why == "hora") ? 1 : 0]
+
+// ───────── 1) Gestión de órdenes ─────────
+var bool trigBuyNow = false
+var bool trigSellNow = false
+trigBuyNow := false
+trigSellNow := false
+
+if array.size(ords) > 0
+    for i = array.size(ords) - 1 to 0
+        o = array.get(ords, i)
+        d = o.dir
+        slMoved = false
+        if not o.filled
+            if time > o.t0 + expBars * msPoi or o.p.dead or cierreVie
+                o.done := true
+                nCanc += 1
+            else if (d == 1 ? low <= o.e : high >= o.e)
+                o.filled := true
+                o.tFill := time
+                nFill += 1
+                alert("YANSTD " + syminfo.ticker + ": " + (d == 1 ? "COMPRA" : "VENTA") + " ejecutada en " + str.tostring(o.e, "#.##") + " SL " + str.tostring(o.sl, "#.##") + " TP1 " + str.tostring(o.tp1, "#.##"), alert.freq_once_per_bar_close)
+        if o.filled and not o.done
+            fav = d == 1 ? high : low
+            hitSL = d == 1 ? low <= o.sl : high >= o.sl
+            if hitSL
+                o.realR := o.realR + o.rem * (o.sl - o.e) * d / o.r
+                o.rem := 0.0
+                o.done := true
+            else if o.tFill != time
+                if not o.tp1Done and (fav - o.tp1) * d >= 0
+                    o.tp1Done := true
+                    o.realR := o.realR + 0.5 * tp1R
+                    o.rem := o.rem - 0.5
+                    if (o.e - o.sl) * d > 0
+                        o.sl := o.e
+                        slMoved := true
+                if not o.tp2Done and (fav - o.tp2) * d >= 0
+                    o.tp2Done := true
+                    o.realR := o.realR + 0.25 * tp2R
+                    o.rem := o.rem - 0.25
+                o.mfe := math.max(o.mfe, (fav - o.e) * d)
+                lock = o.e + d * mileLock * o.r
+                if o.mfe >= mileR * o.r and (lock - o.sl) * d > 0
+                    o.sl := lock
+                    slMoved := true
+                tiempo = time - o.tFill >= tiBars * msPoi and o.mfe < tiMfeR * o.r and o.mfe < tiMfeA * atr5
+                if tiempo or cierreVie
+                    o.realR := o.realR + o.rem * (close - o.e) * d / o.r
+                    o.rem := 0.0
+                    o.done := true
+            if o.done
+                sumR += o.realR
+                if o.realR > 0.05
+                    nWin += 1
+                else if o.realR < -0.05
+                    nLoss += 1
+                else
+                    nBE += 1
+                if showLin
+                    label.new(bar_index, d == 1 ? high : low, (o.realR >= 0 ? "+" : "") + str.tostring(o.realR, "#.##") + "R", style=d == 1 ? label.style_label_down : label.style_label_up, color=o.realR >= 0 ? color.new(color.teal, 10) : color.new(color.red, 10), textcolor=color.white, size=size.tiny)
+                alert("YANSTD " + syminfo.ticker + ": operación cerrada " + str.tostring(o.realR, "#.##") + "R", alert.freq_once_per_bar_close)
+        if showLin and not na(o.lE)
+            line.set_x2(o.lE, bar_index)
+            line.set_x2(o.lS, bar_index)
+            line.set_y1(o.lS, o.sl)
+            line.set_y2(o.lS, o.sl)
+            line.set_x2(o.lT1, bar_index)
+            line.set_x2(o.lT2, bar_index)
+            if o.done and not o.filled
+                line.set_style(o.lE, line.style_dotted)
+        if o.done
+            array.remove(ords, i)
+
+// ───────── 2) Mantenimiento de POIs y gatillos M3 ─────────
+if array.size(pois) > 0
+    for i = array.size(pois) - 1 to 0
+        p = array.get(pois, i)
+        d = p.dir
+        ce = (p.fTop + p.fBot) / 2
+        if (d == 1 ? close < p.bot - invalBuf : close > p.top + invalBuf)
+            p.outCnt := p.outCnt + 1
+        if p.outCnt >= invalN
+            p.dead := true
+        if not p.hasOrd and (d == 1 ? low <= ce : high >= ce) and modoLim
+            p.dead := true
+            p.why := p.why == "" ? "toque" : p.why
+        if time - p.t0 > poiAge * msPoi
+            p.dead := true
+        k = p.top - p.bot
+        if (d == 1 ? low <= p.top + 0.15 * k and high >= p.bot - 0.05 * k : high >= p.bot - 0.15 * k and low <= p.top + 0.05 * k)
+            p.tTouch := bar_index
+        trig = p.tTouch >= 0 and bar_index - p.tTouch <= 6 and (d == 1 ? trigB : trigS)
+        if trig and not p.dead
+            if d == 1
+                trigBuyNow := true
+            else
+                trigSellNow := true
+        if not na(p.bx)
+            if p.dead
+                box.set_bgcolor(p.bx, color.new(color.gray, 92))
+                box.set_border_color(p.bx, color.new(color.gray, 70))
+            else
+                box.set_right(p.bx, bar_index)
+        if p.dead
+            if not p.hasOrd
+                [a1, a2, a3, a4, a5, a6, a7] = f_count(p.why)
+                rjDir += a1
+                rjLado += a2
+                rjDist += a3
+                rjRR += a4
+                rjOTE += a5
+                rjScore += a6
+                rjOtro += a7
+            array.remove(pois, i)
+
+// ───────── 3) POIs nuevos desde M5 ─────────
+if poiT != lastPoiT and not na(poiT)
+    lastPoiT := poiT
+    for dd = 0 to 1
+        isB = dd == 0
+        if (isB and bull5) or (not isB and bear5)
+            top = isB ? fTop5 : obH5
+            bot = isB ? obL5 : fBot5
+            w = top - bot
+            psych = math.floor(top / 5.0) * 5.0 >= bot
+            if w >= zMin and w <= zMax and (not reqStruc or swp5 or psych)
+                p = Poi.new(dir=isB ? 1 : -1, top=top, bot=bot, fTop=fTop5, fBot=fBot5, fHi=fHi5, fLo=fLo5, t0=poiT, sweep=swp5)
+                if showPoi
+                    p.bx := box.new(bar_index, top, bar_index, bot, border_color=isB ? color.new(color.green, 40) : color.new(color.red, 40), bgcolor=isB ? color.new(color.green, 85) : color.new(color.red, 85))
+                array.push(pois, p)
+                nPoi += 1
+                if array.size(pois) > 20
+                    old = array.shift(pois)
+                    if not na(old.bx)
+                        box.delete(old.bx)
+
+// ───────── 4) Colocar órdenes ─────────
+nAct = array.size(ords)
+if array.size(pois) > 0 and not bloqueoT and not na(atr15) and not na(atr5)
+    for i = 0 to array.size(pois) - 1
+        p = array.get(pois, i)
+        if not p.dead and not p.hasOrd
+            d = p.dir
+            float bestS = na
+            float bestE = na
+            float bestSL = na
+            string bestK = ""
+            string why = ""
+            if modoLim
+                ce = (p.fTop + p.fBot) / 2
+                f79 = d == 1 ? p.fHi - 0.786 * (p.fHi - p.fLo) : p.fLo + 0.786 * (p.fHi - p.fLo)
+                if useF50
+                    [s1, sl1, w1] = f_eval(p, ce, true, false, false)
+                    why := w1
+                    if not na(s1)
+                        bestS := s1
+                        bestE := ce
+                        bestSL := sl1
+                        bestK := "FVG_50"
+                if useF79
+                    [s2, sl2, w2] = f_eval(p, f79, false, false, false)
+                    why := why == "" ? w2 : why
+                    if not na(s2) and (na(bestS) or s2 > bestS)
+                        bestS := s2
+                        bestE := f79
+                        bestSL := sl2
+                        bestK := "FIB_790"
+            else
+                if p.tTouch >= 0 and bar_index - p.tTouch <= 6 and (d == 1 ? trigB : trigS)
+                    [s3, sl3, w3] = f_eval(p, close, false, true, true)
+                    why := w3
+                    if not na(s3)
+                        bestS := s3
+                        bestE := close
+                        bestSL := sl3
+                        bestK := "M3"
+            if not na(bestS)
+                dup = false
+                opp = false
+                if array.size(ords) > 0
+                    for j = 0 to array.size(ords) - 1
+                        q = array.get(ords, j)
+                        if not q.filled and math.abs(q.e - bestE) < dupA * atr5
+                            dup := true
+                        if q.dir != d
+                            opp := true
+                if nAct >= maxPos
+                    why := "max"
+                else if dup or opp
+                    why := "dup"
+                else
+                    r = math.abs(bestE - bestSL)
+                    nId += 1
+                    nOrd += 1
+                    nAct += 1
+                    p.hasOrd := true
+                    o = Ord.new(dir=d, e=bestE, sl=bestSL, r=r, tp1=bestE + d * tp1R * r, tp2=bestE + d * tp2R * r, t0=time, id="Y" + str.tostring(nId), kind=bestK, score=bestS, qty=f_qty(r), p=p)
+                    if not modoLim
+                        o.filled := true
+                        o.tFill := time
+                        nFill += 1
+                    if showLin
+                        o.lE := line.new(bar_index, bestE, bar_index, bestE, color=color.new(color.blue, 0), width=1)
+                        o.lS := line.new(bar_index, bestSL, bar_index, bestSL, color=color.new(color.red, 0), width=1, style=line.style_dashed)
+                        o.lT1 := line.new(bar_index, o.tp1, bar_index, o.tp1, color=color.new(color.green, 0), width=1, style=line.style_dashed)
+                        o.lT2 := line.new(bar_index, o.tp2, bar_index, o.tp2, color=color.new(color.green, 40), width=1, style=line.style_dotted)
+                        label.new(bar_index, bestE, (d == 1 ? "BUY " : "SELL ") + (modoLim ? "LIMIT " : "") + bestK + " " + str.tostring(bestE, "#.##") + "\nSL " + str.tostring(bestSL, "#.##") + " · TP1 " + str.tostring(o.tp1, "#.##") + "\nscore " + str.tostring(bestS, "#"), style=label.style_label_left, color=d == 1 ? color.new(color.green, 20) : color.new(color.red, 20), textcolor=color.white, size=size.small)
+                    array.push(ords, o)
+                    alert("YANSTD " + syminfo.ticker + ": " + (d == 1 ? "BUY " : "SELL ") + (modoLim ? "LIMIT " : "") + str.tostring(bestE, "#.##") + " SL " + str.tostring(bestSL, "#.##") + " TP1 " + str.tostring(o.tp1, "#.##") + " TP2 " + str.tostring(o.tp2, "#.##") + " (" + bestK + ", score " + str.tostring(bestS, "#") + ")", alert.freq_once_per_bar_close)
+            if why != ""
+                p.why := why
+
+// ───────── Visual ─────────
+plotshape(showTrig and trigBuyNow, "Gatillo M3 compra", shape.triangleup, location.belowbar, color.new(color.lime, 0), size=size.tiny)
+plotshape(showTrig and trigSellNow, "Gatillo M3 venta", shape.triangledown, location.abovebar, color.new(color.fuchsia, 0), size=size.tiny)
+bgcolor(showBg ? (trend15 == 1 ? color.new(color.green, 94) : trend15 == -1 ? color.new(color.red, 94) : na) : na, title="Sesgo M15")
+cambio = trend15 != nz(trend15[1]) and trend15 != 0
+if cambio
+    label.new(bar_index, trend15 == 1 ? low : high, "M15 " + (trend15 == 1 ? "ALCISTA" : "BAJISTA"), style=trend15 == 1 ? label.style_label_up : label.style_label_down, color=color.new(color.gray, 30), textcolor=color.white, size=size.tiny)
+
+f_t(int v) => v == 1 ? "ALCISTA" : v == -1 ? "BAJISTA" : "NINGUNO"
+
+var table tb = table.new(position.top_right, 2, 15, bgcolor=color.new(color.black, 15), border_width=1)
+if showTab and barstate.islast
+    tfMal = timeframe.in_seconds() > timeframe.in_seconds(tfPoi)
+    table.cell(tb, 0, 0, "YANSTD port", text_color=color.yellow, text_size=size.small)
+    table.cell(tb, 1, 0, tfMal ? "¡Usa M1–M5! (ideal M3)" : preset, text_color=tfMal ? color.red : color.white, text_size=size.small)
+    table.cell(tb, 0, 1, "Sesgo M15", text_color=color.white, text_size=size.small)
+    table.cell(tb, 1, 1, f_t(trend15) + (pend15 != 0 ? " (giro pend. " + f_t(pend15) + ")" : ""), text_color=trend15 == 1 ? color.lime : trend15 == -1 ? color.red : color.gray, text_size=size.small)
+    table.cell(tb, 0, 2, "King H4/H1", text_color=color.white, text_size=size.small)
+    table.cell(tb, 1, 2, useKing ? f_t(kingBias) : "off", text_color=color.white, text_size=size.small)
+    table.cell(tb, 0, 3, "ADX M15 / ATR M15", text_color=color.white, text_size=size.small)
+    table.cell(tb, 1, 3, str.tostring(adx15, "#.0") + " / " + str.tostring(atr15, "#.##"), text_color=color.white, text_size=size.small)
+    table.cell(tb, 0, 4, "Horario", text_color=color.white, text_size=size.small)
+    table.cell(tb, 1, 4, bloqueoT ? "BLOQUEADO" : "operable", text_color=bloqueoT ? color.orange : color.lime, text_size=size.small)
+    table.cell(tb, 0, 5, "POIs detectados / vivos", text_color=color.white, text_size=size.small)
+    table.cell(tb, 1, 5, str.tostring(nPoi) + " / " + str.tostring(array.size(pois)), text_color=color.white, text_size=size.small)
+    table.cell(tb, 0, 6, "Órdenes / ejecutadas / canceladas", text_color=color.white, text_size=size.small)
+    table.cell(tb, 1, 6, str.tostring(nOrd) + " / " + str.tostring(nFill) + " / " + str.tostring(nCanc), text_color=color.white, text_size=size.small)
+    table.cell(tb, 0, 7, "Ganadas / perdidas / BE", text_color=color.white, text_size=size.small)
+    table.cell(tb, 1, 7, str.tostring(nWin) + " / " + str.tostring(nLoss) + " / " + str.tostring(nBE), text_color=color.white, text_size=size.small)
+    table.cell(tb, 0, 8, "Suma R (simulada)", text_color=color.white, text_size=size.small)
+    table.cell(tb, 1, 8, str.tostring(sumR, "#.##") + "R", text_color=sumR >= 0 ? color.lime : color.red, text_size=size.small)
+    table.cell(tb, 0, 9, "POIs sin orden por:", text_color=color.silver, text_size=size.small)
+    table.cell(tb, 1, 9, "", text_color=color.silver, text_size=size.small)
+    table.cell(tb, 0, 10, "OTE / puntuación", text_color=color.silver, text_size=size.small)
+    table.cell(tb, 1, 10, str.tostring(rjOTE) + " / " + str.tostring(rjScore), text_color=color.silver, text_size=size.small)
+    table.cell(tb, 0, 11, "distancia / RR", text_color=color.silver, text_size=size.small)
+    table.cell(tb, 1, 11, str.tostring(rjDist) + " / " + str.tostring(rjRR), text_color=color.silver, text_size=size.small)
+    table.cell(tb, 0, 12, "dirección / lado / otros", text_color=color.silver, text_size=size.small)
+    table.cell(tb, 1, 12, str.tostring(rjDir) + " / " + str.tostring(rjLado) + " / " + str.tostring(rjOtro), text_color=color.silver, text_size=size.small)
+    table.cell(tb, 0, 13, "Modo", text_color=color.silver, text_size=size.small)
+    table.cell(tb, 1, 13, modo, text_color=color.silver, text_size=size.small)
+    table.cell(tb, 0, 14, "Educativo, no es consejo", text_color=color.gray, text_size=size.tiny)
+    table.cell(tb, 1, 14, "port sin ticks ni noticias", text_color=color.gray, text_size=size.tiny)
