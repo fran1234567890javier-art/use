@@ -215,8 +215,10 @@ f_m30() =>
         swH := ph
     if not na(pl)
         swL := pl
-    swLo = na(swL) ? ta.lowest(low, 5) : swL
-    swHi = na(swH) ? ta.highest(high, 5) : swH
+    lo5 = ta.lowest(low, 5)
+    hi5 = ta.highest(high, 5)
+    swLo = na(swL) ? lo5 : swL
+    swHi = na(swH) ? hi5 : swH
     [found[1], swLo[1], swHi[1]]
 
 // ── Capa 4: CRT de M15 (barrido de la vela anterior + cierre de vuelta) ─────
@@ -246,8 +248,10 @@ f_m15() =>
         swH := ph
     if not na(pl)
         swL := pl
-    swLo = na(swL) ? ta.lowest(low, 5) : swL
-    swHi = na(swH) ? ta.highest(high, 5) : swH
+    lo5 = ta.lowest(low, 5)
+    hi5 = ta.highest(high, 5)
+    swLo = na(swL) ? lo5 : swL
+    swHi = na(swH) ? hi5 : swH
     [frB[1], anB[1], swLo[1], frS[1], anS[1], swHi[1]]
 
 // ── Capa 5: MSS de M5 + rango de vela para el filtro de "spread" ────────────
@@ -261,8 +265,10 @@ f_m5() =>
     if not na(pl)
         sl := pl
     ok = not na(sh) and not na(sl)
-    mB = ok and ta.highest(close, 5) > sh
-    mS = ok and ta.lowest(close, 5) < sl
+    hc5 = ta.highest(close, 5)
+    lc5 = ta.lowest(close, 5)
+    mB = ok and hc5 > sh
+    mS = ok and lc5 < sl
     r = high - low
     [mB[1], mS[1], r[1]]
 
@@ -283,7 +289,8 @@ engS  = close < open and close[1] > open[1] and open >= close[1] and close <= op
 pinB  = rng1 > 0 and lw1 > body1 * 2 and close > open and body1 / rng1 < 0.3
 pinS  = rng1 > 0 and uw1 > body1 * 2 and close < open and body1 / rng1 < 0.3
 vAvg20 = ta.sma(volume, 20)
-volOk = na(volume) or na(vAvg20) or vAvg20 == 0 or ta.sma(volume, 3) >= vAvg20 * 0.8
+vAvg3  = ta.sma(volume, 3)
+volOk = na(volume) or na(vAvg20) or vAvg20 == 0 or vAvg3 >= vAvg20 * 0.8
 m1B = ((mom > 0 ? 1 : 0) + (engB ? 1 : 0) + (pinB ? 1 : 0) + (volOk ? 1 : 0)) >= 2
 m1S = ((mom < 0 ? 1 : 0) + ((engS and not engB) ? 1 : 0) + (pinS ? 1 : 0) + (volOk ? 1 : 0)) >= 2
 
@@ -370,3 +377,4 @@ if showPanel and barstate.islast
     f_row(9, "Sesión", sessOk)
     table.cell(panel, 0, 10, timeframe.period == "1" ? "Puntuación" : "¡Usa gráfico de 1 min!", text_color=timeframe.period == "1" ? color.white : color.orange, text_size=size.small)
     table.cell(panel, 1, 10, str.tostring(score) + "/6", text_color=color.white, text_size=size.small)
+// ── FIN DEL SCRIPT (si al pegar aparece texto debajo de esta línea, bórralo) ──
