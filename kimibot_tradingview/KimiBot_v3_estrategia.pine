@@ -12,7 +12,7 @@ strategy("KimiBot v3 · SMC/ICT/CRT/MSNR (estrategia)", shorttitle="KimiBot v3 S
 // ════════════════════════════════════════════════════════════════════════════
 
 // ── Entradas ────────────────────────────────────────────────────────────────
-preset      = input.string("Original (KimiBot)", "Preset", options=["Original (KimiBot)", "Ajustado"], group="General",
+preset      = input.string("Ajustado", "Preset", options=["Original (KimiBot)", "Ajustado"], group="General",
      tooltip="Original = mismos valores y comportamiento que el bot en Python (incluida la capa 3 que nunca valida). Ajustado = capa 3 corregida y filtros adaptados al oro.")
 minScore    = input.int(5, "Puntuación mínima (de 6)", minval=1, maxval=6, group="General")
 cooldownMin = input.int(30, "Cooldown entre señales (min)", minval=0, group="General")
@@ -337,8 +337,10 @@ lot = slPips > 0 ? math.max(0.01, math.round(capital * riskPct / 100 / (slPips *
 signal = barstate.isconfirmed and l1 and score >= minScore and gateOk and spreadOk and sessOk and cdOk and slOk
 longSig  = signal and dir == 1
 shortSig = signal and dir == -1
+var int nSig = 0
 if signal
     lastSig := time
+    nSig += 1
 
 // ── Dibujo, alertas y panel ─────────────────────────────────────────────────
 plotshape(longSig,  "Compra", shape.triangleup,   location.belowbar, color.new(color.teal, 0), size=size.small, text="BUY")
@@ -359,7 +361,7 @@ if signal and showLevels
 alertcondition(longSig,  "KimiBot BUY",  "KimiBot BUY {{ticker}} {{close}}")
 alertcondition(shortSig, "KimiBot SELL", "KimiBot SELL {{ticker}} {{close}}")
 
-var table panel = table.new(position.top_right, 2, 11, bgcolor=color.new(color.black, 20), border_width=1)
+var table panel = table.new(position.top_right, 2, 13, bgcolor=color.new(color.black, 20), border_width=1)
 f_row(r, name, ok) =>
     table.cell(panel, 0, r, name, text_color=color.white, text_size=size.small)
     table.cell(panel, 1, r, ok ? "✔" : "✘", text_color=ok ? color.lime : color.red, text_size=size.small)
@@ -377,6 +379,11 @@ if showPanel and barstate.islast
     f_row(9, "Sesión", sessOk)
     table.cell(panel, 0, 10, timeframe.period == "1" ? "Puntuación" : "¡Usa gráfico de 1 min!", text_color=timeframe.period == "1" ? color.white : color.orange, text_size=size.small)
     table.cell(panel, 1, 10, str.tostring(score) + "/6", text_color=color.white, text_size=size.small)
+    table.cell(panel, 0, 11, "Señales en el gráfico", text_color=color.white, text_size=size.small)
+    table.cell(panel, 1, 11, str.tostring(nSig), text_color=nSig > 0 ? color.lime : color.orange, text_size=size.small)
+    hint = nSig > 0 ? "" : isOrig ? "Preset Original: en el oro casi nunca da señal → cambia a Ajustado" : timeframe.period != "1" ? "Pon el gráfico en 1 minuto" : "Sin señales en este historial: amplía el historial o baja la puntuación mínima a 4"
+    table.cell(panel, 0, 12, hint, text_color=color.orange, text_size=size.tiny)
+    table.cell(panel, 1, 12, "", text_size=size.tiny)
 // ── FIN DEL SCRIPT (si al pegar aparece texto debajo de esta línea, bórralo) ──
 
 // ── Órdenes de la estrategia: 50 % en TP1 y 50 % en TP2, ambas con el SL ────
