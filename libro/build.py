@@ -364,6 +364,10 @@ ch("18. Glosario", """
 <tr><td>Lote</td><td>100 onzas de oro: 100 $ por cada 1 $ de movimiento</td></tr></table>
 """)
 
+from extra import EXTRA, APPENDIX
+CH = [(t, b + EXTRA.get(t, "")) for t, b in CH] + APPENDIX
+missing = [k for k in EXTRA if k not in [t for t, _ in CH]]
+assert not missing, missing
 # ------------------------------------------------------------------ HTML
 toc = "".join(f'<li>{html.escape(t)}</li>' for t, _ in CH)
 body = "".join(f'<section><h2>{html.escape(t)}</h2>{b}</section>' for t, b in CH)
